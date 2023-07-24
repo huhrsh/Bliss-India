@@ -5,7 +5,13 @@
     box-sizing: border-box;
 }
 
+
+html::-webkit-scrollbar{
+    display: none; 
+}
+
 body{
+    padding-bottom: 60vh;
     overflow-x: hidden;
 }
 

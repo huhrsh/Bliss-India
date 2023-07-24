@@ -1,3 +1,121 @@
 <style>
-    
+        .nav-bar{
+            width: 100%;
+            padding: 0.5% 7%;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            top: 0;
+            position: sticky;
+        }
+
+        .nav-bar>div{
+            padding: 0.5% 1%;
+            border-radius: 3rem;
+        }
+
+        .nav-bar>div:hover{
+            background-color: #333;
+            background: -webkit-linear-gradient(60deg,#a0c4ff,#9bf6ff);
+            border-radius: 3vh;
+        }
+        .nav-bar>div a{
+            font-size: 2rem;
+            font-weight: 400;
+            font-family: dosis;
+            color: #333;
+        }
+        
+        hr{
+            width: 82%;
+            margin-left: 9%;
+        }
+
+        .pendant-hover{
+            /* visibility: hidden; */
+            border-radius: 0.5rem ;
+            background: white;
+            display: none;
+            flex-direction: column;
+            height: auto;
+            width: 15vw;
+            top: 17vh;
+            left: 18vw;
+            position: absolute;
+            border-top: 2px solid #333;
+            z-index: 2; 
+        }
+        .pendant-hover>div{
+            width: 15vw;
+            font-size: 1.6rem;
+            padding: 2% 3%;
+            border-radius: 0.5rem;
+        }
+        .pendant-hover>div:hover{
+            background: linear-gradient(60deg,#a0c4ff,#9bf6ff);
+        }
+        .pendant-hover>div a{
+            color: #333;
+
+        }
+        .pendant-hover>div:hover{
+            border-bottom: 0.5px ;
+        }
+        #pendant i{
+            /* background-color: beige; */
+            font-size: 1.4rem;
+            margin-bottom: 1%;
+        }
+        #pendant{
+            padding-right:0;
+            /* background-color: red; */
+            width: 9.5vw;
+        }
 </style>
+
+<section class="nav-bar">
+    <div class="category"><a href="">Crystal Collection</a></div>
+    <div class="category" id="pendant"><a href="">Pendants<i class="fa-solid fa-caret-down"></i></a></div>
+    <div class="category"><a href="">Lockets</a></div>
+    <div class="category"><a href="">Earrings</a></div>
+    <div class="category"><a href="">Bracelets</a></div>
+    <div class="category"><a href="">Rings</a></div>
+    <div class="category"><a href="">Complete Sets</a></div>
+    <div class="category"><a href="">Evil Eye Collection</a></div>
+    <div class="category"><a href="">Offers</a></div>
+</section>
+<hr>
+
+
+<div class="pendant-hover">
+    <div ><a href="">Premium Pendants</a></div>
+    <div ><a href="">Minimal Pendants</a></div>
+    <div ><a href="">Silver Pendants</a></div>
+    <div><a href="">Charm Pendants</a></div>
+</div>
+
+<script>
+    const navBar=document.getElementsByClassName('category');
+    const pendantHover=document.getElementsByClassName('pendant-hover')[0];
+    navBar[1].onmouseenter=()=>{
+        pendantHover.style.display='flex';
+        pendantHover.classList.add('animate__faster');
+        pendantHover.classList.remove('animate__fadeOut');
+        pendantHover.classList.add('animate__animated');
+        pendantHover.classList.add('animate__fadeIn');
+        pendantHover.onmouseenter=()=>{
+            console.log("inside");
+            pendantHover.style.display='flex';
+        }
+        pendantHover.onmouseleave=(e)=>{
+            console.log("outside");
+            pendantHover.classList.remove('animate__fadeIn');
+            pendantHover.classList.add('animate__fadeOut');    
+        }
+    }
+    // navBar[1].onmouseleave=()=>{
+    //     pendantHover.classList.remove('animate__fadeIn');
+    //     pendantHover.classList.add('animate__fadeOut');
+    // }
+</script>

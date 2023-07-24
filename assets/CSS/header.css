@@ -5,6 +5,7 @@ header {
     width: 100%;
     background: linear-gradient(-60deg, #bdb2ff, #fffffc);
     background: #fffffc;
+    background: -webkit-linear-gradient(60deg,#a0c4ff30,#9bf6ff30);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,21 +13,34 @@ header {
     text-transform: capitalize;
 }
 
+.company-logo{
+    width: 17vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+img{
+    /* border-radius: 100%; */
+    width: 4vw;
+}
+
 /* contains the search logo and the input tab  */
 .search-bar {
-    margin-left: 17%;
+    margin-left: 12%;
     padding: 0 1%;
     width: 30%;
     height: 6vh;
     border-radius: 3vh;
     overflow: hidden;
     background: linear-gradient(-60deg, #2f4f4f20, #d3d3d320);
-    background: -webkit-linear-gradient(-60deg,#a0c4ff30,#9bf6ff30);
-    
+    background: -webkit-linear-gradient(-60deg,#a0c4ff70,#9bf6ff70);
+    transition: all ease-in-out 0.3s;
 }
 
 .search-bar:hover{
-    background: -webkit-linear-gradient(-60deg,#a0c4ff50,#9bf6ff50);
+    /* opacity: 0.8; */
+    background: -webkit-linear-gradient(-60deg,#a0c4ffc0,#9bf6ffc0);
 } 
 
 /* the search logo  */
@@ -66,7 +80,6 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* transition: all ease-in-out 0.3s; */
     cursor: pointer;
 }
 
