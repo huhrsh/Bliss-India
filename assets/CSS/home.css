@@ -1,0 +1,82 @@
+header {
+    font-size: 1.6rem;
+    padding: 1%;
+    height: 10vh;
+    width: 100%;
+    background: linear-gradient(-60deg, #bdb2ff, #fffffc);
+    background: #fffffc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Dosis;
+    text-transform: capitalize;
+}
+
+/* contains the search logo and the input tab  */
+.search-bar {
+    margin-left: 17%;
+    padding: 0 1%;
+    width: 30%;
+    height: 6vh;
+    border-radius: 3vh;
+    overflow: hidden;
+    background: linear-gradient(-60deg, #2f4f4f20, #d3d3d320);
+    background: -webkit-linear-gradient(-60deg,#a0c4ff30,#9bf6ff30);
+    
+}
+
+.search-bar:hover{
+    background: -webkit-linear-gradient(-60deg,#a0c4ff50,#9bf6ff50);
+} 
+
+/* the search logo  */
+.search-bar>i {
+    font-size: 1.4rem;
+}
+
+/* the input tab  */
+.search-input {
+    width: 95%;
+    height: 100%;
+    color: #222;
+    font-family: dosis;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 0% 1% 0 4%;
+    background: none;
+    border-radius: 3vh;
+    outline: none;
+    border: none;
+}
+
+/* container that contains user info, wishlist and cart  */
+.user-options{
+    padding: 0.5%;
+    width: 25%;
+    color: #222;    
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/* wishlist,cart, user info tabs  */
+.user-options>div{
+    padding: 1.6% 4%;
+    transition: ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* transition: all ease-in-out 0.3s; */
+    cursor: pointer;
+}
+
+/* images  */
+.user-options>div>i{
+    padding:  0 10% 0 0;
+}
+
+.user-options>div:hover{
+    background-color: #333;
+    background: -webkit-linear-gradient(60deg,#a0c4ff,#9bf6ff);
+    border-radius: 3vh;
+}

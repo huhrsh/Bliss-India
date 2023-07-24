@@ -1,0 +1,31 @@
+{
+  "name": "bliss-india",
+  "version": "1.0.0",
+  "description": "Official Webiste for Bliss India ",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huhrsh/Bliss-India.git"
+  },
+  "keywords": [
+    "Bliss",
+    "India",
+    "Jewellery"
+  ],
+  "author": "BroCode",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/huhrsh/Bliss-India/issues"
+  },
+  "homepage": "https://github.com/huhrsh/Bliss-India#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "mongoose": "^7.4.0"
+  }
+}
