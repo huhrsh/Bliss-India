@@ -3,21 +3,50 @@ const port=8000;
 const path=require('path');
 const express=require('express');
 const db=require('./config/mongoose');
-const app=express();
+const session = require('express-session');
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-strategy');
+const MongoStore = require('connect-mongo');
+const dbUrl = 'mongodb://0.0.0.0/BlissIndia';
 const expressLayouts=require('express-ejs-layouts');
-app.use(expressLayouts)
+const cookieParser=require('cookie-parser');
+
+const app=express();
+app.use(express.urlencoded({extended:true}));
+app.use(cookieParser());
+app.use(express.static('./assets'));
+app.use(expressLayouts);
 app.set('layout extractStyles',true);
 app.set('layout extractScripts',true);
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'/views'));
 
+app.use(session({
+    name: 'Bliss India',
+    secret: 'broCode',
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        maxAge: (1000*60*60*24)
+    },
+    store: new MongoStore(
+        {
+            mongoUrl: dbUrl,
+            autoRemove: 'disabled'
+        },
+        function(err){
+            console.log(err || 'connect mongo db setup working');
+        }
+    )
+}));
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+//app.use(passport.setAuthenticatedUser);
+
 app.use('/',require('./routes'));
-app.use(express.urlencoded({extended:true}));
-app.use(express.static('./assets'));
-
-
-
-
 
 app.listen(port,function(err){
     if(err){

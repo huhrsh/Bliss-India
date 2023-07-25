@@ -24,11 +24,14 @@ header {
     color: #333;
 }
 .heading-text a{
+    display: flex;
+    gap: 1vw;
+    align-items: center;
     color: #333;
 }
 
-img{
-    /* border-radius: 100%; */
+.company-logo img{
+    border-radius: 50%;
     width: 4vw;
 }
 

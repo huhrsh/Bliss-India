@@ -1,0 +1,76 @@
+.sign-up-heading{
+    font-size: 4.5rem;
+    margin: 0 0 1% 0;
+    font-family: dosis;
+    font-weight: 400;
+}
+
+.sign-up-container{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+    
+}
+
+.sign-up-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:1.4rem;
+}
+.sign-up-form input{
+    border: none;
+    padding: 2%;
+    border-radius: 1.5vh;
+    /* text-transform: capitalize; */
+    width: 25vw;
+    height: 7vh;
+    outline: none;
+    font-family: dosis;
+    font-weight: 500;
+    color:#333;
+    background: -webkit-linear-gradient(120deg, #a0c4ff50, #9bf6ff50);;
+}
+
+.sign-up-form input:focus{
+    box-shadow: 0 0 2px #023e8a;
+}
+
+.signUp-signIn {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.4rem;
+    color: #023e8a;
+}
+
+.signUp-signIn:hover{
+    color: #03045e;
+}
+
+.password{
+    margin-left: 2.2%;
+}
+
+.password i{
+    margin-left: -7%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #03045e;
+}
+
+#sign-up{
+    box-shadow: none;
+    background: -webkit-linear-gradient(60deg, #a0c4ffc0, #9bf6ffc0);
+    /* background: white; */
+    border-radius: 3.5vh;
+    width: 15vw;
+    color: #333;
+    font-size: 1.8rem;cursor: pointer;
+}
+
+#sign-up:hover{
+    background: -webkit-linear-gradient(60deg, #a0c4ff, #9bf6ff);
+}

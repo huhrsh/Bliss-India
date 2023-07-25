@@ -1,4 +1,5 @@
 footer {
+    margin-top: 1%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -8,7 +9,8 @@ footer {
     color: white;
     font-family: dosis;
     text-transform: capitalize;
-    position: sticky;
+    position: static;
+    left: 0;
     bottom:0;
 }
 

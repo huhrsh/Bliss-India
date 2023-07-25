@@ -4,6 +4,7 @@ const homeController=require('../controller/homeController')
 
 router.get('/',homeController.home);
 
+router.use('/users',require('./users'));
 router.use('/crystalCollection',require('./crystalCollection'));
 router.use('/bracelets',require('./bracelets'));
 router.use('/completeSets',require('./completeSets'));

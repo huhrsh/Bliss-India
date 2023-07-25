@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="/css/signUp.css">
+
+<section class="sign-up-container">
+    <h2 class="sign-up-heading">
+        Sign Up
+    </h2>
+    <form action="/users/create" class="sign-up-form">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <div class="password"><input type="password" name="password" id="input-password" placeholder="Password" required><i class="fa-solid fa-eye"></i></div>
+        <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+        <input type="submit" id="sign-up" value="Sign Up">
+    </form>
+    <a href="/users/sign-in" class="signUp-signIn">Already a User? Sign In</a>
+
+</section>
+
+<script type="text/javascript" src="/js/signUp.js"></script>
