@@ -1,0 +1,13 @@
+.main-image-container{
+    height: 50vh;
+    width: 50vw;
+    display: inline-block;
+    background-color: pink;
+}
+
+.details-container{
+    height: 50vh;
+    width: 49.5vw;
+    display: inline-block;
+    background-color: lightblue;
+}
