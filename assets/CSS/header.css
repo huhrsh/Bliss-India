@@ -9,7 +9,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: Dosis;
+    font-family: dosis;
     text-transform: capitalize;
 }
 
@@ -23,6 +23,7 @@ header {
 .heading-text a:hover{
     color: #333;
 }
+
 .heading-text a{
     display: flex;
     gap: 1vw;
@@ -75,6 +76,7 @@ header {
 
 /* container that contains user info, wishlist and cart  */
 .user-options{
+    margin-right: 2vw;
     padding: 0.5%;
     width: 25%;
     color: #222;    
@@ -102,6 +104,12 @@ header {
     background-color: #333;
     background: -webkit-linear-gradient(60deg,#a0c4ff,#9bf6ff);
     border-radius: 3vh;
+}
+
+.user{
+    max-width: 10vw;
+    border-radius: 3vh;
+    overflow: hidden;
 }
 
 .nav-bar {
@@ -179,4 +187,52 @@ hr {
     margin-left: 50%;
     width: 0%;
     background-color: #03045e;
+}
+
+.user-hover{
+    position: absolute;
+    font-family: dosis;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 5px #555;
+    width: 8vw;
+    height: auto;
+    z-index: 2;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 1vh;
+    display: none;
+}
+
+.user-categories{
+    width: 90%;
+    padding: 5%;
+    margin: 3%;
+    /* background-color: rebeccapurple;  */
+    border-radius: .8rem;   
+}
+
+#user-hover-loader {
+    margin-top: -2px;
+    border-radius: 1rem;
+    height: 0.5vh;
+    /* margin-left: 50%; */
+    width: 0%;
+    background-color: #03045e;
+}
+.user-categories:hover {
+    /* text-decoration: underline; */
+    background: linear-gradient(60deg, #a0c4ff, #9bf6ff);
+}
+
+.user-categories a {
+    text-align: center;
+    font-size: 1.6rem;
+    color: #333;
+}
+
+.user-categories a:hover {
+    color: #333;
 }

@@ -15,9 +15,13 @@
         <div class="cart">
             <i class="fa-solid fa-cart-shopping"></i> Cart
         </div>
-        <div class="user"><i class="fa-solid fa-user"></i> user</div>
-        <a style="color:#333;" href="/users/sign-in">Sign In</a>
-        <a style="color:#333;" href="/users/sign-up">Sign Up</a>
+        <%if(locals.user){%>
+            <div class="user"><i class="fa-solid fa-user"></i>
+                <%=user.name.split(' ')[0]%>
+            </div>
+        <%}else{%>
+            <div class="user"><i class="fa-solid fa-user"></i>User</div>
+        <%}%>
     </div>
 </header>
 
@@ -42,6 +46,24 @@
     <div class="pendant-categories"><a href="">Silver Pendants</a></div>
     <div class="pendant-categories"><a href="">Charm Pendants</a></div>
 </div>
+
+<div class="user-hover">
+    <div id="user-hover-loader"></div>
+    <%if(locals.user){%>
+        <%if(locals.profile_user){%>
+            <div class="user-categories"><a href="/users/profile?id=<%=locals.profile_user._id%>">My Profile</a></div>
+        <%}else{%>
+            <div class="user-categories"><a href="/users/profile?id=<%=locals.user._id%>">My Profile</a></div>
+        <%}%>
+        <!-- <div class="user-categories"><a href="">My Orders</a></div> -->
+        <div class="user-categories"><a href="/users/sign-out">Sign Out</a></div>
+    <%}else{%>
+        <div class="user-categories"><a style="color:#333;" href="/users/sign-in">Sign In</a></div>
+        <div class="user-categories"><a style="color:#333;" href="/users/sign-up">Sign Up</a></div>
+    <%}%>
+</div>
+
+
 
 <script type="text/javascript" src="/js/header.js"></script>
 <!-- <script src="https://kit.fontawesome.com/501910dff8.js" crossorigin="anonymous"></script> -->

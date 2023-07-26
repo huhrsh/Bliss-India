@@ -1,0 +1,35 @@
+.heading{
+    font-size: 3rem;
+    font-weight: 400;
+}
+
+.sign-up-form{
+    margin-top: 15vh;
+    margin-bottom: 25vh;
+}
+
+.form-container{
+    width: 35vw;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.form-container label{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    font-family: dosis;
+    font-size: 1.6rem;
+    width: 8vw;
+    text-align: right;
+}
+
+#sign-up{
+    margin-left: 20%;
+}
+
+.signUp-signIn{
+    margin-top: 0%;
+    width: 35vw;
+    padding-left: 7%;
+}

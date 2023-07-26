@@ -13,8 +13,16 @@ const userSchema=mongoose.Schema({
         type:String,
         require:true
     },
+    adminAccess:{
+        type:Boolean,
+    },
+    address:{
+        type: String,
+    },
     
 },{timestamps:true})
+
+userSchema.path('adminAccess').default(false);
 
 const User = new mongoose.model("User",userSchema);
 module.exports=User;
