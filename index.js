@@ -11,10 +11,13 @@ const dbUrl = 'mongodb://0.0.0.0/BlissIndia';
 const expressLayouts=require('express-ejs-layouts');
 const cookieParser=require('cookie-parser');
 const bodyParser=require('body-parser');
+const fs=require('fs')
 
 const app=express();
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
+app.use('/uploads' , express.static(__dirname+'/uploads'));
 app.use(express.static('./assets'));
 app.use(expressLayouts);
 app.set('layout extractStyles',true);

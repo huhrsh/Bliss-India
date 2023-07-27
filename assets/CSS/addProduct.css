@@ -1,0 +1,60 @@
+.product-container form{
+    /* background-color: red; */
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:1.4rem;
+    margin-left: -10%;
+}
+.product-label input{
+    border: none;
+    padding: 2%;
+    border-radius: 1.5vh;
+    width: 25vw;
+    height: 7vh;
+    outline: none;
+    font-family: dosis;
+    font-weight: 500;
+    color:#333;
+    background: -webkit-linear-gradient(120deg, #a0c4ff50, #9bf6ff50);
+}
+
+.product-label{
+    width: 100%;
+    font-family: dosis;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 1rem;
+    /* text-align: right; */
+}
+
+.product-container{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+}
+
+#add-button{
+    margin-right: 24%;
+    margin-top: 2%;;
+    box-shadow: none;
+    background: -webkit-linear-gradient(60deg, #a0c4ffc0, #9bf6ffc0);
+    /* background: white; */
+    border-radius: 3vh;
+    width: 10vw;
+    height: 6vh;
+    color: #333;
+    font-size: 1.8rem;cursor: pointer;
+    border: none;
+    font-family: dosis;
+}
+
+#add-button:hover{
+    background: -webkit-linear-gradient(60deg, #a0c4ff, #9bf6ff);
+}

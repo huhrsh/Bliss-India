@@ -1,4 +1,8 @@
 const user = require('../models/user');
+const Product = require('../models/product');
+const fs = require('fs');
+const path = require('path');
+
 
 module.exports.home = function (req, res) {
   user.findOne({ _id: req.query.id })
@@ -6,7 +10,7 @@ module.exports.home = function (req, res) {
       // console.log("User Found for profile",userFound);
       res.render('ProfilePage', {
         title: `Bliss India | ${userFound.name.split(' ')[0]}`, 
-        profile_user: userFound,
+        user: userFound,
       })
     })
     .catch((err)=>{
@@ -70,8 +74,6 @@ module.exports.destroySession = function (req, res) {
 }
 
 module.exports.updateUser=function(req,res){
-  console.log(req.body);
-  console.log(req.query);
   user.findByIdAndUpdate(req.query.id,{
     name:req.body.name,
     address: req.body.address1+'\n'+req.body.address2+'\n'+req.body.address3
@@ -81,7 +83,7 @@ module.exports.updateUser=function(req,res){
       .then((userFound) => {
         res.render('ProfilePage', {
           title: `Bliss India | ${userFound.name.split(' ')[0]}`, 
-          profile_user: userFound,
+          user: userFound,
         })
       })
       .catch((err)=>{
@@ -94,3 +96,60 @@ module.exports.updateUser=function(req,res){
     return res.redirect('back');
   })
 }
+
+module.exports.addProductPage=function(req,res){
+    res.render('addProductPage',{
+      title:'Bliss India | Add Product'
+    })
+}
+
+// module.exports.addProduct=function(req,res){
+//   console.log("Req body obtained from function start",req.body);
+
+//   Product.create(req.body)
+//   .then((newProduct)=>{
+//     console.log("New object that is created ",newProduct);
+//     Product.uploadedAvatar.array('photos',5)(req,res,function(err){
+//       if (err) {
+//         console.log("****Multer error: ", err);
+//         return;
+//       }
+//       console.log("The file that is obtained",req.files);
+//         newProduct.photos = req.files.map((file) => Product.avatarPath + '/' + file.filename);
+//         // newProduct.photos = Product.avatarPath + '/' + req.file.filename; 
+//       newProduct.save();
+//     })
+//     return res.redirect('back');
+//   })
+//   .catch((err)=>{
+//     console.log("Error in creating new product ",err);
+//     return res.redirect('back');
+//   })
+// }
+
+
+module.exports.uploadProductPhotos = Product.uploadedAvatar.array('photos', 2);
+
+module.exports.addProduct = function (req, res) {
+  console.log("Req body obtained from function start", req.body);
+  console.log("The files that are obtained", req.files);
+
+  Product.create(req.body)
+    .then((newProduct) => {
+      console.log("New object that is created ", newProduct);
+      
+      if (req.files) {
+        newProduct.photos = req.files.map((file) => Product.avatarPath + '/' + file.filename);
+      }
+      newProduct.save();
+      
+      return res.redirect('back');
+    })
+    .catch((err) => {
+      console.log("Error in creating new product ", err);
+      return res.redirect('back');
+    });
+}
+
+
+

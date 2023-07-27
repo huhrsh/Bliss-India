@@ -12,6 +12,7 @@
     width: 35vw;
     display: flex;
     justify-content: space-evenly;
+    margin-left: -6.8%;
 }
 
 .form-container label{
@@ -31,5 +32,5 @@
 .signUp-signIn{
     margin-top: 0%;
     width: 35vw;
-    padding-left: 7%;
+    padding-left: 0%;
 }
