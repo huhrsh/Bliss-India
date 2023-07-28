@@ -27,7 +27,14 @@
 
 <section class="nav-bar">
     <div class="category"><a href="/products/crystal-collection">Crystal Collection</a></div>
-    <div class="category" id="pendant"><a href="/products/pendants">Pendants</a></div>
+    <div class="category" id="pendant"><div class="pendant-hover">
+        <div id="hover-loader"></div>
+        <div class="pendant-categories"><a href="">Premium Pendants</a></div>
+        <div class="pendant-categories"><a href="">Minimal Pendants</a></div>
+        <div class="pendant-categories"><a href="">Silver Pendants</a></div>
+        <div class="pendant-categories"><a href="">Charm Pendants</a></div>
+    </div>
+    <a href="/products/pendants">Pendants</a></div>
     <div class="category"><a href="/products/lockets">Lockets</a></div>
     <div class="category"><a href="/products/earrings">Earrings</a></div>
     <div class="category"><a href="/products/bracelets">Bracelets</a></div>
@@ -35,17 +42,17 @@
     <div class="category"><a href="/products/complete-sets">Complete Sets</a></div>
     <div class="category"><a href="/products/evil-eye-collection">Evil Eye Collection</a></div>
     <div class="category"><a href="/products/offers">Offers</a></div>
-</section>/
+</section>
 <hr>
 
 
-<div class="pendant-hover">
+<!-- <div class="pendant-hover">
     <div id="hover-loader"></div>
     <div class="pendant-categories"><a href="">Premium Pendants</a></div>
     <div class="pendant-categories"><a href="">Minimal Pendants</a></div>
     <div class="pendant-categories"><a href="">Silver Pendants</a></div>
     <div class="pendant-categories"><a href="">Charm Pendants</a></div>
-</div>
+</div> -->
 
 <div class="user-hover">
     <div id="user-hover-loader"></div>
@@ -54,7 +61,6 @@
             <%if(user.adminAccess){%>
                 <div class="user-categories"><a href="/users/add-product-page" >Add Product</a></div>
             <%}%>
-        <!-- <div class="user-categories"><a href="">My Orders</a></div> -->
         <div class="user-categories"><a href="/users/sign-out">Sign Out</a></div>
     <%}else{%>
         <div class="user-categories"><a style="color:#333;" href="/users/sign-in">Sign In</a></div>

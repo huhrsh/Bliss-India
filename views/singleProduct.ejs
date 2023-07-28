@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="/css/singleProduct.css">
+<main class="big-container">
+    <div class="image-container">
+        <img src="" alt="">
+    </div>
+<!-- <%=product%> -->
+    <div class="content-container">
+        <p><%=product.name%></p>
+        <div class="price">
+            <p><%=product.selling_price%></p>
+            <p id="mrp"><%=product.mrp%></p>
+        </div>
+        <div class="percentage">
+            <p></p>
+        </div>
+        <div class="quantity-container">
+            <p>Quantity:</p>
+            <div class="icons-div">
+                <p class="icons"><i class="fa-solid fa-plus"></i>1<i class="fa-solid fa-minus"></i></p>
+            </div>
+        </div>
+        
+        <div class="tags">
+            <a href="" id="add-button">Add To Cart</a>
+            <a href="" id="add-button">Add To Wishlist</a>
+        </div>
+
+        <p><%=product.description%></p>
+    </div>
+</main>
+
+    
+
+
+
+

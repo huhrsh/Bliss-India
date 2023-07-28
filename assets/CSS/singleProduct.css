@@ -1,0 +1,95 @@
+.big-container{
+    margin-left: 15%;
+    width: 70%;
+    height: auto;
+    display: flex;
+    background-color: #777;
+    justify-content: center;
+        
+}
+.image-container{
+    width: 40%;
+    background-color: pink;
+}
+
+.content-container{
+    padding: 1%;
+    width: 60%;
+    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-container p,
+.image-container p{
+    font-size: 2rem;
+    font-family: dosis;
+    text-transform: capitalize;
+}
+
+#mrp{
+    text-decoration: line-through;
+}
+
+.price{
+    display: flex;
+    justify-content: space-between;
+    width: 10%;
+}
+
+.tags{
+    /* align-self: center; */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    height: 6vh;
+    margin-left: 10%;
+    width: 80%;
+    color: #333;
+    background: red;
+    border-radius: 0.5rem; 
+    /* background: -webkit-linear-gradient(-60deg,#a0c4ff,#9bf6ff); */
+    border: 1px solid #33333320;
+    filter: saturate(0.9);
+    transition: all ease-in-out 0.2s;
+}
+
+.tags:hover{
+    filter: saturate(1.5);
+}
+
+.tags a{
+    font-family: dosis;
+    font-size: 2rem;
+    font-weight: 500;
+    width: 60%;
+    background: blue;
+    color: #333;
+}
+
+.tags a:hover{
+    color: #333;
+}
+
+.quantity-container{
+    display: flex;
+    padding: 1%;
+    width: 30%;
+    margin-left: 60%;
+    /* justify-content: ; */
+}
+
+.icons{
+    margin-left: 3%;
+}
+
+.icons i{
+    font-size: 2rem;
+}
+
+.icons-div{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}

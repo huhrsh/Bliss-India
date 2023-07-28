@@ -33,4 +33,10 @@ router.get('/add-product-page', usersController.addProductPage)
 
 router.post('/add-product', Product.uploadedAvatar.array('photos', 5), usersController.addProduct);
 
+router.get('/forgot-password-page' , usersController.forgotPasswordPage);
+
+router.get('/forgot-password' ,usersController.enterOTPPage )
+
+router.post('/enter-OTP',usersController.checkOTP)
+
 module.exports = router;

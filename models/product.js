@@ -41,7 +41,6 @@ const productSchema=new mongoose.Schema({
     }]
 });
 
-console.log("The file is being saved at", path.join(__dirname,'..', PRODUCT_PATH ));
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, path.join(__dirname,'..', PRODUCT_PATH ));

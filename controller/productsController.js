@@ -1,15 +1,12 @@
 const Product=require('../models/product')
 
-module.exports.mainProduct=function(req,res){
-    Product.find()
-}
 
 module.exports.singleProduct=function(req,res){
     Product.findOne({_id:req.query.id})
     .then((productFound)=>{
         if(productFound){
             res.render("singleProduct", {
-                title: `Bliss India | ${productFound.name}`,
+                title: `${productFound.name}`,
                 product: productFound
             });
         }
@@ -28,7 +25,7 @@ module.exports.crystalCollection = function (req, res) {
     Product.find({ category: 'crystal' })
         .then((collection) => {
             res.render("productsCollection", {
-                title: 'Bliss India | Pendants Collection',
+                title: 'Crystal Collection',
                 collection: collection
             });
         })
@@ -42,7 +39,7 @@ module.exports.pendants = function (req, res) {
     Product.find({ category: 'pendant' })
         .then((collection) => {
             res.render("productsCollection", {
-                title: 'Bliss India | Pendants',
+                title: 'Pendants',
                 collection: collection
             });
         })
@@ -56,7 +53,7 @@ module.exports.lockets = function (req, res) {
     Product.find({ category: 'locket' })
         .then((collection) => {
             res.render("productsCollection", {
-                title: 'Bliss India | Lockets',
+                title: 'Lockets',
                 collection: collection
             });
         })
@@ -70,7 +67,7 @@ module.exports.earrings = function (req, res) {
     Product.find({ category: 'earring' })
         .then((collection) => {
             res.render("productsCollection", {
-                title: 'Bliss India | Earrings',
+                title: 'Earrings',
                 collection: collection
             });
         })
@@ -84,7 +81,7 @@ module.exports.bracelets = function (req, res) {
     Product.find({ category: 'bracelet' })
         .then((collection) => {
             res.render("productsCollection", {
-                title: 'Bliss India | Bracelets',
+                title: 'Bracelets',
                 collection: collection
             });
         })
@@ -98,7 +95,7 @@ module.exports.rings = function (req, res) {
     Product.find({ category: 'ring' })
         .then((collection) => {
             res.render("productsCollection", {
-                title: 'Bliss India | Rings',
+                title: 'Rings',
                 collection: collection
             });
         })
@@ -112,7 +109,7 @@ module.exports.completeSets = function (req, res) {
     Product.find({ category: 'complete' })
         .then((collection) => {
             res.render("productsCollection", {
-                title: 'Bliss India | Complete Sets',
+                title: 'Complete Sets',
                 collection: collection
             });
         })
@@ -126,7 +123,7 @@ module.exports.evilEyeCollection = function (req, res) {
     Product.find({ category: 'evil_eye' })
         .then((collection) => {
             res.render("productsCollection", {
-                title: 'Bliss India | Evil Eye Collection',
+                title: 'Evil Eye Collection',
                 collection: collection
             });
         })
@@ -140,7 +137,7 @@ module.exports.offers = function (req, res) {
     Product.find({ category: 'offer' })
         .then((collection) => {
             res.render("productsCollection", {
-                title: 'Bliss India | Offers',
+                title: 'Offers',
                 collection: collection
             });
         })
