@@ -9,14 +9,14 @@ module.exports.home = function (req, res) {
     .then((userFound) => {
       // console.log("User Found for profile",userFound);
       res.render('ProfilePage', {
-        title: `Bliss India | ${userFound.name.split(' ')[0]}`, 
+        title: `Bliss India | ${userFound.name.split(' ')[0]}`,
         user: userFound,
       })
     })
-    .catch((err)=>{
-    console.log("Error in finding a user for profile");
-    return res.redirect('back');
-  })
+    .catch((err) => {
+      console.log("Error in finding a user for profile");
+      return res.redirect('back');
+    })
 }
 
 
@@ -73,34 +73,62 @@ module.exports.destroySession = function (req, res) {
   });
 }
 
-module.exports.updateUser=function(req,res){
-  user.findByIdAndUpdate(req.query.id,{
-    name:req.body.name,
-    address: req.body.address1+'\n'+req.body.address2+'\n'+req.body.address3
+module.exports.updateUser = function (req, res) {
+  user.findByIdAndUpdate(req.query.id, {
+    name: req.body.name,
+    address: req.body.address1 + '\n' + req.body.address2 + '\n' + req.body.address3
   })
-  .then(()=>{
-    user.findOne({ _id: req.query.id })
-      .then((userFound) => {
-        res.render('ProfilePage', {
-          title: `Bliss India | ${userFound.name.split(' ')[0]}`, 
-          user: userFound,
+    .then(() => {
+      user.findOne({ _id: req.query.id })
+        .then((userFound) => {
+          res.render('ProfilePage', {
+            title: `Bliss India | ${userFound.name.split(' ')[0]}`,
+            user: userFound,
+          })
         })
-      })
-      .catch((err)=>{
-        console.log("Cannot find user after updating");
-        return res.redirect('back');
-      })
-  })
-  .catch((err)=>{
-    console.log("Error in updating user ",err);
-    return res.redirect('back');
+        .catch((err) => {
+          console.log("Cannot find user after updating");
+          return res.redirect('back');
+        })
+    })
+    .catch((err) => {
+      console.log("Error in updating user ", err);
+      return res.redirect('back');
+    })
+}
+
+module.exports.changePasswordPage = function (req, res) {
+  res.render('changePasswordPage', {
+    title: 'Bliss India | Change Password',
   })
 }
 
-module.exports.addProductPage=function(req,res){
-    res.render('addProductPage',{
-      title:'Bliss India | Add Product'
+module.exports.changePassword = function (req, res) {
+  user.findOne({ _id: req.query.id, password: req.body.old_password })
+    .then((newUser) => {
+      if(newUser){
+        newUser.password = req.body.new_password;
+        newUser.save();
+        console.log(newUser);
+        return res.redirect('/users/sign-in');
+      }
+      else{
+        console.log("Password does not match");
+        // add Notification
+        return res.redirect('back');
+      }
     })
+    .catch((err) => {
+      console.log("Error in changing password", err);
+      return res.redirect('back');
+    })
+
+}
+
+module.exports.addProductPage = function (req, res) {
+  res.render('addProductPage', {
+    title: 'Bliss India | Add Product'
+  })
 }
 
 // module.exports.addProduct=function(req,res){
@@ -137,12 +165,12 @@ module.exports.addProduct = function (req, res) {
   Product.create(req.body)
     .then((newProduct) => {
       console.log("New object that is created ", newProduct);
-      
+
       if (req.files) {
         newProduct.photos = req.files.map((file) => Product.avatarPath + '/' + file.filename);
       }
       newProduct.save();
-      
+
       return res.redirect('back');
     })
     .catch((err) => {

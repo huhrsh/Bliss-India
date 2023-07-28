@@ -8,7 +8,8 @@ const userHoverLoader = document.getElementById('user-hover-loader');
 // const pendantCategories=document.getElementsByClassName('pendant-categories');
 let buttonPosition = navBar[1].getBoundingClientRect();
 pendantHover.style.top = `${buttonPosition.bottom}px`;
-pendantHover.style.left = `${(buttonPosition.left + buttonPosition.right) / 2 - 97}px`;
+// pendantHover.style.left = `${((buttonPosition.left + buttonPosition.right) / 2) - (pendantHover.getBoundingClientRect().width)}px`;
+pendantHover.style.left = `${(buttonPosition.x-buttonPosition.width/2)}px`;
 
 navBar[1].onmouseenter = () => {
     pendantHover.style.display = 'flex';
@@ -46,7 +47,8 @@ pendantHover.onmouseleave = () => {
 
 let userHoverPosition = userButton.getBoundingClientRect();
 userHover.style.top = `${userHoverPosition.bottom}px`;
-userHover.style.left = `${(userHoverPosition.left + userHoverPosition.right) / 2 - 46}px`;
+userHover.style.left = `${(userHoverPosition.x)}px`;
+// userHover.style.left = `${(userHoverPosition.left + userHoverPosition.right) / 2 - (userHover.getBoundingClientRect().width)}px`;
 console.log(userHover.getBoundingClientRect())
 userButton.onmouseenter = () => {
     userHover.style.display = 'flex';

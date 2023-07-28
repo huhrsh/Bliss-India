@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="/css/productCollection.css">
+
+
+<main class="product-area">
+    <%for(let i of collection){%>
+        <section class="individual-product">
+            <a id="image-link" href="/products?id=<%=i._id%>">
+                <img src="<%=i.photos[0]%>">
+            </a>
+            <div class="product-details">
+                <p class="product-name"><a href="/products?id=<%=i.id%>">
+                        <%=i.name%>
+                    </a></p>
+                <div class="product-pricing">
+                    <p class="selling-price"><i class="fa-solid fa-indian-rupee-sign"></i>
+                        <%=i.selling_price%>
+                    </p>
+                    <p class="mrp"><i class="fa-solid fa-indian-rupee-sign"></i>
+                        <%=i.mrp%>
+                    </p>
+                </div>
+                <div class="explore-div">
+                    <a href="" id="explore-tag">Explore Now</a>
+                </div>
+            </div>
+        </section>
+        <%}%>
+</main>

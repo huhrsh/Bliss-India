@@ -1,10 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600&display=swap');
+
+@font-face {
+    font-family: 'Darling';
+    src: url('../Fonts/Darling.ttf');
+}
+@font-face {
+    font-family: 'Sweetgentle';
+    src: url('../Fonts/Sweetgentle\ Free.otf');
+}
+@font-face {
+    font-family: 'Bestmoment';
+    src: url('../Fonts/Best\ Moment.otf');
+}
+@font-face {
+    font-family: 'Creamcake';
+    src: url('../Fonts/Cream\ Cake.otf');
+}
+@font-face {
+    font-family: 'Lagraza';
+    src: url('../Fonts/La\ Graziela\ Script\ Demo.otf');
+}
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 
 html::-webkit-scrollbar{
     display: none; 

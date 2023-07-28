@@ -19,8 +19,21 @@ const userSchema=mongoose.Schema({
     address:{
         type: String,
     },
-    
-},{timestamps:true})
+    wishlist:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Product'
+    }],
+    cart:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Product'
+    }],
+    review:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Review'
+    }]
+},{
+    timestamps:true
+})
 
 userSchema.path('adminAccess').default(false);
 

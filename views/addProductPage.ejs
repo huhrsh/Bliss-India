@@ -5,10 +5,22 @@
     <form action="/users/add-product" method="post" enctype="multipart/form-data">
 
         <div class="product-label">
-            <label>Category:</label><input type="text" name="category" placeholder="Product Category" required>
+            <label>Category:</label>
+            <select name="category" class="select-category">
+                <option value="crystal">Crystal Collection</option>
+                <option value="pendant">Pendants</option>
+                <option value="locket">Lockets</option>
+                <option value="earring">Earrings</option>
+                <option value="bracelet">Bracelets</option>
+                <option value="ring">Rings</option>
+                <option value="complete">Complete Sets</option>
+                <option value="evil_eye">Evil Eye Collection </option>
+                <option value="offer">Offers </option>
+            </select>
         </div>
         <div class="product-label">
-            <label>Sub Category:</label><input type="text" name="sub_category" placeholder="Product Sub Category" >
+            <label>Sub Category:</label>
+            <input type="text" name="sub_category" placeholder="Product Sub Category" >
         </div>
         <div class="product-label">
             <label>Name:</label><input type="text" name="name" placeholder="Product Name" required>
@@ -26,7 +38,7 @@
             <label>Inventory:</label><input type="number" placeholder="Stock of the product" required name="inventory">
         </div>
         <div class="product-label">
-            <label>Add Image:  </label><input type="file" name="photos" multiple='multiple' >
+            <label>Add Image:  </label><input type="file" name="photos" multiple='multiple'>
         </div>
         <div class="product-label">
             <button type="submit" id="add-button">Add Product</button>

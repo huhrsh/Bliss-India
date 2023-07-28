@@ -14,20 +14,26 @@ header {
 }
 
 .company-logo{
-    width: 17vw;
+    height: 10vh;
+    width: 15.5vw;
+    margin-left: 3%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
 }
 
-.heading-text a:hover{
+.company-logo a:hover{
     color: #333;
 }
 
-.heading-text a{
+.company-logo a{
+    height: 10vh;
+    font-family: bestmoment;
+    font-size: 4.3rem;
+    font-weight: 600;
     display: flex;
-    gap: 1vw;
     align-items: center;
+    justify-content: space-between;
     color: #333;
 }
 
@@ -38,7 +44,7 @@ header {
 
 /* contains the search logo and the input tab  */
 .search-bar {
-    margin-left: 12%;
+    margin-left: 9%;
     padding: 0 1%;
     width: 30%;
     height: 6vh;
@@ -119,6 +125,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    /* background-color: red; */
 }
 
 .nav-bar>div {
@@ -140,6 +147,7 @@ header {
 }
 
 hr {
+    margin-top: -1.2%;
     width: 82%;
     margin-left: 9%;
     margin-bottom: 1%;

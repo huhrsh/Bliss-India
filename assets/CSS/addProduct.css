@@ -7,6 +7,20 @@
     gap:1.4rem;
     margin-left: -10%;
 }
+
+.select-category{
+    border: none;
+    padding: 2%;
+    border-radius: 1.5vh;
+    width: 25vw;
+    height: 7vh;
+    outline: none;
+    font-family: dosis;
+    font-weight: 500;
+    color:#333;
+    background: -webkit-linear-gradient(120deg, #a0c4ff50, #9bf6ff50);
+}
+
 .product-label input{
     border: none;
     padding: 2%;

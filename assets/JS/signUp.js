@@ -4,7 +4,7 @@ const eyeButton=document.querySelector('.password>i');
 
 eyeButton.onclick=()=>{
     if (password.type === "password") {
-      password.type = "tepasswordt";
+      password.type = "text";
     } else {
       password.type = "password";
     }

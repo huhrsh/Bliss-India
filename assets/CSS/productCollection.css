@@ -1,0 +1,123 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Montez&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=MonteCarlo&family=Montez&display=swap');
+main{
+    margin-left: 7.5%;
+    width: 85%;
+    /* background-color: red; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    justify-content: left;
+    gap:2.83vw;
+}
+
+.individual-product{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow:  0 0 3px #333;
+    border-radius: 7px;
+    width: 22.5%;
+    height: 63vh;
+    /* background: ; */
+}
+
+.individual-product img{
+    border-bottom: 1px solid #333;
+    /* width: 40%; */
+    aspect-ratio: 1;
+    width:100%;
+    border-radius: 7px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.product-details{
+    height: 100%;
+    /* background-color: rebeccapurple; */
+    padding: 2%;
+    font-size: 2rem;
+    font-family: dosis;
+    color: #333;
+    text-transform: capitalize;
+}
+
+#image-link{
+    aspect-ratio: 1;
+    width:100%;
+}
+
+.product-name{
+    /* background-color: royalblue; */
+    display: flex;
+    align-items: center;
+    height:9vh ;
+    margin: -2% 0 0 0;
+    font-weight: 800;
+    border-bottom: 1px solid #55555530;
+}
+
+.product-name a{
+    font-family: poppins ;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #333;
+}
+.product-name a:hover{    
+    color: #023e8a;
+}
+
+.product-pricing{
+    padding: 3% 2%;
+    display: flex;
+    flex-direction: row;
+    /* background-color: red; */
+    justify-content: left;
+}
+.product-pricing>p{
+    margin:  0 3% 0 0;
+    font-weight: 400;
+    /* background-color: rebeccapurple; */
+    font-size: 1.6rem;
+}
+.product-pricing>p i{
+    font-size: 1.5rem;
+}
+
+.mrp{
+    font-weight: 300;
+    color: #777;
+    text-decoration: line-through;
+}
+
+.explore-div{
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 6vh;
+    margin-left: 10%;
+    width: 80%;
+    color: #333;
+    border-radius: 0.5rem; 
+    background: -webkit-linear-gradient(-60deg,#a0c4ff,#9bf6ff);
+    border: 1px solid #33333320;
+    filter: saturate(0.9);
+    transition: all ease-in-out 0.2s;
+}
+
+.explore-div:hover{
+    filter: saturate(1.5);
+}
+
+.explore-div a{
+    font-family: dosis;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.explore-div a:hover{
+    color: #333;
+}

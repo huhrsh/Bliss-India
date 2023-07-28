@@ -34,9 +34,11 @@ const productSchema=new mongoose.Schema({
     },
     photos:[{
         type: String
+    }],
+    review:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'Review'
     }]
-
-
 });
 
 console.log("The file is being saved at", path.join(__dirname,'..', PRODUCT_PATH ));
