@@ -11,7 +11,7 @@ let transporter=nodemailer.createTransport({
     auth:{
         // change user and pass 
         user:'mailtoharshjain',
-        pass:''
+        pass:'zhvsuuxxjpgnpkjm'
     }
 });
 
