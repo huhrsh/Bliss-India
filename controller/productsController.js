@@ -4,7 +4,7 @@ const Product=require('../models/product')
 module.exports.singleProduct=function(req,res){
     Product.findOne({_id:req.query.id})
     .then((productFound)=>{
-        return Product.populate(productFound, { path: 'review' });
+        return Product.populate(productFound, { path: 'review' ,  options: { sort: { createdAt: -1 } }});
     })
     .then((productFound)=>{
         return Product.populate(productFound, { path: 'user' });
@@ -172,3 +172,15 @@ module.exports.offers = function (req, res) {
         })
 }
 
+module.exports.editProductPage = function(req,res){
+    Product.findOne({_id:req.query.id})
+    .then((product)=>{
+        return  res.render('editProductPage',{
+            title:'Edit Products',
+            product:product,
+        })
+    })
+    .catch((err)=>{
+        return res.redirect("Error in opening edit product page");
+    })
+}

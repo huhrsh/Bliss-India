@@ -1,7 +1,7 @@
 const nodemailer=require('nodemailer');
 const ejs=require('ejs');
 const path=require('path');
-
+const mjml = require('mjml');
 
 let transporter=nodemailer.createTransport({
     service:'gmail',
@@ -11,7 +11,7 @@ let transporter=nodemailer.createTransport({
     auth:{
         // change user and pass 
         user:'mailtoharshjain',
-        pass:''
+        pass:'zhvsuuxxjpgnpkjm'
     }
 });
 

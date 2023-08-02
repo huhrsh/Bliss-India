@@ -28,7 +28,8 @@
     height: 7vh;
     outline: none;
     font-family: poppins;
-    font-weight: 500;
+    font-weight: 400;
+    font-size: 1.2vw;
     color:#333;
     background: -webkit-linear-gradient(120deg, #a0c4ff50, #9bf6ff50);
 }
@@ -36,12 +37,14 @@
 .product-label{
     width: 100%;
     font-family: dosis;
-    font-size: 1.1vw;
+    font-size: 1.2vw;
     display: flex;
     align-items: center;
     justify-content: end;
     gap: 1vw;
 }
+
+
 
 .product-container{
     flex-direction: column;
@@ -58,16 +61,23 @@
     box-shadow: none;
     background: -webkit-linear-gradient(60deg, #a0c4ffc0, #9bf6ffc0);
     /* background: white; */
-    border-radius: 3vh;
+    border-radius: 3.5vh;
     width: 15vw;
-    height: 6vh;
+    height: 7vh;
     color: #333;
-    font-size: 1.5vw;
+    font-size: 1.4vw;
     cursor: pointer;
+    font-weight: 400;
     border: none;
     font-family: dosis;
 }
 
 #add-button:hover{
     background: -webkit-linear-gradient(60deg, #a0c4ff, #9bf6ff);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

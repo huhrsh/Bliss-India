@@ -119,11 +119,13 @@
             return $(searchResultItems);
         }
         searchBar.addEventListener('keyup', () => {
+            document.getElementById('search-result-container').style.display='block';
             if($('#search-form input')[0].value!=''){
                 searchProduct();
             }
             else{
                 $('#search-result-container').empty();
+                document.getElementById('search-result-container').style.display='none';
             }
         })
     }

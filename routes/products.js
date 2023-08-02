@@ -24,5 +24,7 @@ router.get('/evil-eye-collection',productsController.evilEyeCollection);
 
 router.get('/offers',productsController.offers);
 
+router.get('/edit-product-page' , productsController.editProductPage);
+
 
 module.exports=router;

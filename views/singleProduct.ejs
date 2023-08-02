@@ -22,20 +22,22 @@
             <%=product.name%>
         </div>
         <div class="reviews">
-            <span class="review-stars">
-                <%if(product.review){%>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                <%}%>
-            </span>
+            <%let sum=0;%>
+            <%for(let i of product.review){%>
+                <%sum+=parseInt(i.stars);%>
+            <%}%>
+            <%if(sum!=0){%>
+                <span class="review-stars" style="width: <%=((sum*1.71/product.review.length))%>vw;">
+                    <%if(product.review){%>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    <%}%>
+                </span>
+            <%}%>
             <span class="review-data">
-                <%let sum=0;%>
-                <%for(let i of product.review){%>
-                    <%sum+=parseInt(i.stars);%>
-                <%}%>
                 <%if(isNaN(sum/product.review.length)){%>
                     (0 stars | <%=product.review.length%> reviews)
                 <%}else{%>
@@ -74,27 +76,35 @@
                     </span>
                     <%}%>
         </div>
+        <%if(locals.user && user.adminAccess){%>
+        <div class="edit-product">
+            <button class="edit-button"><a href="/products/edit-product-page?id=<%=product.id%>">Edit Product</a></button>
+        </div>
+        <%}%>
     </div>
     
 </main>
 <br><br><br><br><br><br>
 
 <section class="review-section">
+    <%function reformatDate(dateStr){%>
+        <%var dArr = dateStr.split("-");%>
+        <%return dArr[2]+ "-" +dArr[1]+ "-" +dArr[0].substring(2)%>
+    <%}%>
     <%if(locals.user){%>
         <div class="review-left">
     <%}else{%>
         <div class="review-left" style="min-height: 78vh;">
     <%}%>
-    
+        
         <h2 id="review-left-heading">Ratings & Reviews</h2>
         <%if(product.review.length==0){%>
             No reviews yet! <br>Be the first one to review this product.
         <%}%>
-        <!-- <%=product%> -->
-        <!-- <%=product.review%> -->
+        <ul id="review-list">
         <%for(let i of product.review){%>
-            <div class="customer-review" >
-                <div class="customer-rating" style="width:<%=(parseInt(i.stars)/5)*9.3%>vw">
+            <li class="customer-review" >
+                <div class="customer-rating" style="width: <%=(parseInt(i.stars)/5)*9.2%>vw">
                     <i class="fa-solid fa-star" data-value="1"></i>
                     <i class="fa-solid fa-star" data-value="2"></i>
                     <i class="fa-solid fa-star" data-value="3"></i>
@@ -102,19 +112,14 @@
                     <i class="fa-solid fa-star" data-value="5"></i>
                 </div>
 
-                
-                <%let dateObject=new Date(i.createdAt)%>
-                <%function reformatDate(dateStr){%>
-                    <%var dArr = dateStr.split("-");%>
-                    <%return dArr[2]+ "-" +dArr[1]+ "-" +dArr[0].substring(2)%>
-                <%}%>
-                    <div class="customer-name"><%= i.username %> | <span><%=reformatDate(JSON.stringify(dateObject).slice(1,11))%></span></div>
+                    <div class="customer-name"><%= i.username %> | <span><%=reformatDate(JSON.stringify(new Date(i.createdAt)).slice(1,11))%></span></div>
                 <div class="real-review"><%= i.content %></div>
-            </div>
+                </li>
         <%}%>
-    </div>
+    </ul>
+</div>
     <div class="review-right">
-        <form class="war" action="/reviews/add-review" method="post">
+        <form class="war" id="review-form" action="/reviews/add-review" method="post">
             <h2 id="post-review-heading">Post a review</h2>
             <div class="star-rating">
                 <i class="fa-solid fa-star" data-value="1"></i>
@@ -132,7 +137,8 @@
                 <%}%>
                 <input type="text" class="product-input-id" name="product" value="<%=product._id%>" required>
                 <input type="number" class="stars-input" name="stars" required>
-            <div class="textarea"><textarea name="content" rows="5" placeholder="Type your review here...."></textarea>
+            <div class="textarea">
+                <textarea name="content" rows="5" placeholder="Type your review here...."></textarea>
             </div>
             <button class="review-submit" type="submit">Post review</button>
         </form>
@@ -142,6 +148,67 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <script>
+{
+    let createReview=function(){
+        let reviewForm=$('#review-form');
+
+        reviewForm.submit(function(e){
+            e.preventDefault();
+            $.ajax({
+                type:'post',
+                url:'/reviews/add-review',
+                data:reviewForm.serialize(),
+                success:function(data){
+                    console.log("The data of review form is ",data.data.review);
+                    let newReview=newReviewDom(data.data.review);
+                    $('#review-list').prepend(newReview);
+                    location.reload();
+                },
+                error: function(err){
+                    console.log("The error is", err.responseText);
+                    location.reload();
+                }
+            });
+        });
+    }
+
+    function reformatDate(dateStr){
+      var dArr = dateStr.split("-");
+      return dArr[2]+ "-" +dArr[1]+ "-" +dArr[0].substring(2);
+    }
+
+    let newReviewDom=function(i){
+        console.log(`<li class="customer-review" >
+                <div class="customer-rating" style="width:${(parseInt(i.stars)/5)*9.3}vw">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+
+                <div class="customer-name">${ i.username } | <span>${reformatDate(JSON.stringify(new Date(i.createdAt)).slice(1,11))}</span></div>
+                <div class="real-review">${i.content }</div>
+            </li>`)
+        return $(`<li class="customer-review" >
+                <div class="customer-rating" style="width:${(parseInt(i.stars)/5)*9.3}vw">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+
+                <div class="customer-name">${ i.username } | <span>${reformatDate(JSON.stringify(new Date(i.createdAt)).slice(1,11))}</span></div>
+                <div class="real-review">${i.content }</div>
+            </li>`)
+    }
+
+    createReview();
+}
+
+
+
     function increaseCount(e, el) {
         var input = el.previousElementSibling;
         var value = parseInt(input.value, 10);
@@ -169,12 +236,12 @@
         spaceBetween: 10,
         centeredSlides: true,
         grapCursor: true,
-        loop: true,
+        // loop: true,
         slidesPerView: 1,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
+        // autoplay: {
+        //     delay: 5000,
+        //     disableOnInteraction: false,
+        // },
         pagination: {
             el: ".swiper-pagination",
             clickable: true,

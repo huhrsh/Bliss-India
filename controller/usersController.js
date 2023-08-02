@@ -5,7 +5,6 @@ const fs = require('fs');
 const path = require('path');
 const { title } = require('process');
 
-
 module.exports.home = function (req, res) {
   User.findOne({ _id: req.query.id })
     .then((userFound) => {
@@ -60,7 +59,7 @@ module.exports.checkOTP=function(req,res){
       userEmail:req.query.email})
   }
   else{
-    // enter noty 
+    req.flash('error' , 'OTP does not match');
     console.log("The otp does not match");
     return res.redirect('/users/forgot-password-page');
   }
@@ -70,6 +69,7 @@ module.exports.createNewPassword=function(req,res){
   if(req.body.password==req.body.confirm_password){
     User.findOneAndUpdate({email:req.query.email},{password:req.body.password})
     .then((user)=>{
+      req.flash('information' , 'Password changed.');
       return res.redirect('/users/sign-in');
     })
     .catch((err)=>{
@@ -78,7 +78,7 @@ module.exports.createNewPassword=function(req,res){
     })
   }
   else{
-    // Notification
+    req.flash('error' , 'Passwords do not match');
     console.log("Passwords do not match");
     return res.redirect('/users/forgot-password-page');
 
@@ -111,15 +111,18 @@ module.exports.signIn = function (req, res) {
 module.exports.createUser = function (req, res) {
   console.log(req.body);
   if (req.body.password != req.body.confirm_password) {
+    req.flash('error' , 'Passwords do not match');
     return res.redirect('back');
   }
   User.findOne({ email: req.body.email })
     .then((existingUser) => {
       if (existingUser) {
+        req.flash('error' , 'Email already in use');
         return res.redirect('back');
       }
       User.create(req.body)
         .then((newUser) => {
+          req.flash('information' , 'Account created.');
           return res.redirect('/users/sign-in');
         });
     })
@@ -130,6 +133,7 @@ module.exports.createUser = function (req, res) {
 }
 
 module.exports.createSession = function (req, res) {
+  req.flash('information' , 'Logged in.');
   return res.redirect('/');
 }
 
@@ -140,6 +144,7 @@ module.exports.destroySession = function (req, res) {
       console.log('Error in destroying the session', err);
       return;
     }
+    req.flash('information' , 'Logged out.');
     return res.redirect('/');
   });
 }
@@ -151,18 +156,21 @@ module.exports.updateUser = function (req, res) {
   })
     .then(() => {
       User.findOne({ _id: req.query.id })
-        .then((userFound) => {
+      .then((userFound) => {
+          req.flash('information' , 'Profile updated.');
           res.render('ProfilePage', {
             title: `${userFound.name.split(' ')[0]}`,
             user: userFound,
           })
         })
         .catch((err) => {
+          req.flash('error' , 'Error in updating profile.');
           console.log("Cannot find user after updating");
           return res.redirect('back');
         })
-    })
-    .catch((err) => {
+      })
+      .catch((err) => {
+      req.flash('error' , 'Error in updating profile.');
       console.log("Error in updating user ", err);
       return res.redirect('back');
     })
@@ -178,17 +186,30 @@ module.exports.changePassword = function (req, res) {
   User.findOne({ _id: req.query.id, password: req.body.old_password })
     .then((newUser) => {
       if(newUser){
+        if (req.body.new_password.length < 8 || req.body.confirm_password.length) {
+          console.log("Password length less than 8");
+          req.flash('error' , 'Password should be of atleast 8 characters.');
+          return res.redirect('back');
+      }
+      else if (req.body.confirm_password_password != req.body.new_password) {
+          console.log("Passwords do not match");
+          req.flash('error' , 'Passwords do not match');
+          return res.redirect('back');
+      }
         newUser.password = req.body.new_password;
         newUser.save();
         console.log(newUser);
+        req.flash('information' , 'Password changed.');
         return res.redirect('/users/sign-in');
       }
       else{
+        req.flash('error' , 'Password incorrect.');
         console.log("Password does not match");
         return res.redirect('back');
       }
     })
     .catch((err) => {
+      req.flash('error' , 'Error in changing password');
       console.log("Error in changing password", err);
       return res.redirect('back');
     })
@@ -205,11 +226,11 @@ module.exports.addProductPage = function (req, res) {
 module.exports.uploadProductPhotos = Product.uploadedAvatar.array('photos', 2);
 
 module.exports.addProduct = function (req, res) {
-  console.log("Req body obtained from function start", req.body);
-  console.log("The files that are obtained", req.files);
 
   Product.create(req.body)
     .then((newProduct) => {
+      req.flash('information' , 'Product added.');
+
       console.log("New object that is created ", newProduct);
 
       if (req.files) {
@@ -220,6 +241,7 @@ module.exports.addProduct = function (req, res) {
       return res.redirect('back');
     })
     .catch((err) => {
+      req.flash('error' , 'Error in adding products');
       console.log("Error in creating new product ", err);
       return res.redirect('back');
     });

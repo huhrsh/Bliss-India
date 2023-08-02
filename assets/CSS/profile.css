@@ -19,9 +19,11 @@
     display: flex;
     align-items: center;
     justify-content: end;
-    font-family: dosis;
-    font-size: 1.1vw;
-    width: 8vw;
+    font-family: poppins;
+    font-weight: 400;
+    font-size: 1.2vw;
+    width: 9vw;
+    gap: 1vw;
     text-align: right;
 }
 

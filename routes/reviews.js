@@ -4,5 +4,4 @@ const reviewsController=require('../controller/reviewsController')
 
 router.post('/add-review',reviewsController.addReview);
 
-
 module.exports=router;

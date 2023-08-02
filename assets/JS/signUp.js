@@ -2,7 +2,6 @@ const password=document.getElementById('input-password');
 const confirmPassword=document.getElementById('confirm-password');
 const eyeButton=document.querySelectorAll('.password>i');
 
-
 eyeButton[0].onclick=()=>{
     if (password.type === "password") {
       password.type = "text";
@@ -18,3 +17,6 @@ eyeButton[1].onclick=()=>{
       confirmPassword.type = "password";
     }
 }
+
+
+

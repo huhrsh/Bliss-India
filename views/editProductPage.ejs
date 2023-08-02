@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="/css/addProduct.css">
 
-
 <section class="product-container">
     <form action="/users/add-product" method="post" enctype="multipart/form-data">
 
@@ -20,28 +19,28 @@
         </div>
         <div class="product-label">
             <label>Sub Category:</label>
-            <input type="text" name="sub_category" placeholder="Product Sub Category" >
+            <input type="text" name="sub_category" placeholder="Product Sub Category" value="<%=product.sub_category%>"> 
         </div>
         <div class="product-label">
-            <label>Name:</label><input type="text" name="name" placeholder="Product Name" required>
+            <label>Name:</label><input type="text" name="name" placeholder="Product Name" required value="<%=product.name%>">
         </div>
         <div class="product-label">
-            <label>MRP:</label><input type="number" placeholder="MRP" name="mrp" required>
+            <label>MRP:</label><input type="number" placeholder="MRP" name="mrp" required value="<%=product.mrp%>">
         </div>
         <div class="product-label">
-            <label>Selling Price:</label><input type="number" name="selling_price" placeholder="Selling Price" required>
+            <label>Selling Price:</label><input type="number" name="selling_price" placeholder="Selling Price" required value="<%=product.selling_price%>">
         </div>
         <div class="product-label">
-            <label>Description:</label><input type="text" placeholder="Description of the product" name="description">
+            <label>Description:</label><input type="text" placeholder="Description of the product" name="description" value="<%=product.description%>">
         </div>
         <div class="product-label">
-            <label>Inventory:</label><input type="number" placeholder="Stock of the product" required name="inventory">
+            <label>Inventory:</label><input type="number" placeholder="Stock of the product" required name="inventory" value="<%=product.inventory%>">
         </div>
         <div class="product-label">
-            <label>Add Image:  </label><input type="file" name="photos" multiple='multiple'>
+            <label>Add Image:  </label><input type="file" name="photos" multiple='multiple' value="<%=product.photos%>">
         </div>
         <div class="product-label">
-            <button type="submit" id="add-button">Add Product</button>
+            <button type="submit" id="add-button">Edit Product</button>
         </div>
     </form> 
 
