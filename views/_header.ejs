@@ -6,7 +6,9 @@
     </div>
     <div class="search-bar">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" required class="search-input">
+        <form action="/products/search-product" method="post" id="search-form">
+            <input type="text" required class="search-input" name="name" autocomplete="off">
+        </form>
     </div>
     <div class="user-options">
         <div class="wishlist">
@@ -68,7 +70,63 @@
     <%}%>
 </div>
 
-
+<ul id="search-result-container">
+    
+</ul>
 
 <script type="text/javascript" src="/js/header.js"></script>
 <!-- <script src="https://kit.fontawesome.com/501910dff8.js" crossorigin="anonymous"></script> -->
+
+
+
+<script>
+    {
+        const searchBar = document.getElementsByClassName('search-input')[0]; 
+        let searchProduct = function () {
+            let searchForm = $('#search-form');
+            let resultList = $('#search-result-container');
+            console.log(resultList);
+            $.ajax({
+                type: 'post',
+                url: '/products/search-product',
+                data: searchForm.serialize(),
+                success: function (data) {
+                    console.log(data.data.products.length);
+                    let sr=searchResultDom(data.data.products,resultList);
+                    // resultList.append(sr)
+                },
+                error: function (err) { 
+                    console.log(err.responseText);
+                }
+            });
+        }
+
+        let searchResultDom=function(searchResults,resultList){   
+            resultList.empty();
+            const searchResultItems = searchResults.map((searchResult) => {
+                resultList.append($(`<li>
+                    <a class="search-result-section" href="/products?id=${searchResult._id}"> 
+                    <img class="search-result-image" src="${searchResult.photos[0]}" alt="product-image">
+                    <div class="search-result-details">
+                        <p class="search-result-name">${searchResult.name}</p>
+                        <p class="search-result-category">${searchResult.category}</p>
+                        <p class="search-result-price"><i class="fa-solid fa-indian-rupee-sign"></i> ${searchResult.selling_price}</p>
+                    </div>
+                    </a>
+                </li>`)
+                )
+            });
+            return $(searchResultItems);
+        }
+        searchBar.addEventListener('keyup', () => {
+            if($('#search-form input')[0].value!=''){
+                searchProduct();
+            }
+            else{
+                $('#search-result-container').empty();
+            }
+        })
+    }
+
+
+</script>

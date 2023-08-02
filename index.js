@@ -6,6 +6,7 @@ const db=require('./config/mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+//const passportGoogle = require('./config/passport-google-ouath2-strategy');
 const MongoStore = require('connect-mongo');
 const dbUrl = 'mongodb://0.0.0.0/BlissIndia';
 const expressLayouts=require('express-ejs-layouts');

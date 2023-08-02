@@ -1,5 +1,5 @@
 header {
-    font-size: 1.6rem;
+    font-size: 1.2vw;
     padding: 1%;
     height: 10vh;
     width: 100%;
@@ -9,17 +9,21 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: dosis;
+    font-family: poppins;
     text-transform: capitalize;
+    /* top: 0;
+    left: 0;
+    position: sticky; */
 }
 
 .company-logo{
     height: 10vh;
-    width: 15.5vw;
-    margin-left: 3%;
+    width: 25vw;
+    /* margin-left: 3%; */
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    /* background-color: red; */
 }
 
 .company-logo a:hover{
@@ -27,9 +31,10 @@ header {
 }
 
 .company-logo a{
+    width: 20vw;
     height: 10vh;
-    font-family: bestmoment;
-    font-size: 4.3rem;
+    font-family: poppins;
+    font-size:3vw;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -44,9 +49,11 @@ header {
 
 /* contains the search logo and the input tab  */
 .search-bar {
-    margin-left: 9%;
+    display: flex;
+    align-items: center;
+    margin-left: 1%;
     padding: 0 1%;
-    width: 30%;
+    width: 35%;
     height: 6vh;
     border-radius: 3vh;
     overflow: hidden;
@@ -62,20 +69,33 @@ header {
 
 /* the search logo  */
 .search-bar>i {
-    font-size: 1.4rem;
+    /* background-color: red; */
+    font-size: 1.3vw;
+}
+
+.search-bar>form{
+    display: inline-block;
+    /* background-color: red; */
+    margin-left:1% ;
+    width: 98%;
+    border-radius: 3vh;
 }
 
 /* the input tab  */
 .search-input {
-    width: 95%;
+    width: 100%;
     height: 100%;
     color: #222;
-    font-family: dosis;
-    font-size: 1.5rem;
-    font-weight: 600;
-    padding: 0% 1% 0 4%;
+    font-family: poppins;
+    font-size: 1.2vw;
+    font-weight: 500;
+    padding: 0% 1%;
     background: none;
+    /* background-color: pink; */
+    /* background-color: blueviolet; */
     border-radius: 3vh;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
     outline: none;
     border: none;
 }
@@ -121,7 +141,6 @@ header {
 .nav-bar {
     width: 100%;
     padding: 0.5% 7%;
-    font-size: 1.6rem;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -130,7 +149,7 @@ header {
 
 .nav-bar>div {
     padding: 0.5% 1%;
-    border-radius: 3rem;
+    border-radius: 4vw;
 }
 
 .nav-bar>div:hover {
@@ -140,39 +159,37 @@ header {
 }
 
 .nav-bar>div a {
-    font-size: 2rem;
+    font-size: 1.2vw;
     font-weight: 400;
-    font-family: dosis;
+    font-family: poppins;
     color: #333;
 }
 
 hr {
-    margin-top: -.2%;
     width: 82%;
     margin-left: 9%;
     margin-bottom: 1%;
 }
 
 .pendant-hover {
-    border-radius: 0.5rem;
+    border-radius: 0.7vw;
     background: white;
-    /* top: 17vh;
-    left: 18vw; */
     flex-direction: column;
     height: auto;
-    width: 15vw;
+    width: 14vw;
     box-shadow: 0px 0px 5px #555;
     position: absolute;
     z-index: 2;
     display: none;
+    padding-bottom: 1px;
 }
 
 .pendant-categories {
     text-align: center;
-    width: 15vw;
-    font-size: 1.6rem;
+    width: 100%;
+    font-size: 1.6vw;
     padding: 2% 3%;
-    border-radius: 0.5rem;
+    border-radius: 0.7vw;
 }
 
 .pendant-categories:hover {
@@ -189,7 +206,7 @@ hr {
 
 #hover-loader {
     margin-top: -2px;
-    border-radius: 1rem;
+    border-radius: 0.7vw;
     height: 0.5vh;
     margin-left: 50%;
     width: 0%;
@@ -198,11 +215,11 @@ hr {
 
 .user-hover{
     position: absolute;
-    font-family: dosis;
+    font-family: poppins;
     background: white;
-    border-radius: 0.5rem;
+    border-radius: 0.7vw;
     box-shadow: 0 0 5px #555;
-    width: 8vw;
+    width: 10vw;
     height: auto;
     z-index: 2;
     display: flex;
@@ -216,30 +233,90 @@ hr {
 .user-categories{
     width: 90%;
     padding: 5%;
-    margin: 3%;
-    /* background-color: rebeccapurple;  */
-    border-radius: .8rem;   
+    /* margin: 3%; */
+    border-radius: 0.7vw;   
 }
 
 #user-hover-loader {
     margin-top: -2px;
-    border-radius: 1rem;
+    margin-bottom: 5%;
+    border-radius: 1vw;
     height: 0.5vh;
     /* margin-left: 50%; */
     width: 0%;
     background-color: #03045e;
 }
 .user-categories:hover {
-    /* text-decoration: underline; */
     background: linear-gradient(60deg, #a0c4ff, #9bf6ff);
 }
 
 .user-categories a {
     text-align: center;
-    font-size: 1.6rem;
+    font-size: 1.2vw;
     color: #333;
 }
 
 .user-categories a:hover {
     color: #333;
 }
+
+#search-result-container{
+    list-style: none;
+    margin: 0;
+    z-index: 2;
+    position: absolute;
+    background: #f5f5f580;
+    background: #f5f5f5;
+    width: 32%;
+    left: 34%;
+    top: 8%;
+    padding:0.5%;
+    border-bottom-left-radius: 0.5vw;
+    border-bottom-right-radius: 0.5vw;
+    display: flex;
+    max-height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    flex-direction: column;
+    gap: 1vh;
+    background: none;
+    &::-webkit-scrollbar{
+        /* width: 5px; */
+        display: none;
+    }
+}
+
+.search-result-section{
+    /* box-shadow: 0 0 2px #333; */
+    z-index: 5;
+    border: 1px solid #33333350;
+    width: 100%;
+    height: 15vh;
+    border-radius: 0.5vw;
+    overflow: hidden;
+    /* background-color: red; */
+    display: flex;
+
+}
+.search-result-image{
+    height: 100%;
+    aspect-ratio: 1;
+ }
+
+.search-result-details{
+    text-transform: capitalize;
+    padding: 1% 2%;
+    width: 100%;
+    height: 25vh;
+    background: white;
+    /* background-color: rebeccapurple; */
+    font-size: 1.2vw;
+    font-family: poppins;
+    color: #333;
+}
+
+.search-result-name{
+    font-size: 1.6vw;
+    font-weight: 600;
+}
+

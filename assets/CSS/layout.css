@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=MonteCarlo&family=Montez&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @font-face {
     font-family: 'Darling';
     src: url('../Fonts/Darling.ttf');
@@ -27,28 +26,29 @@
     box-sizing: border-box;
 }
 
-html::-webkit-scrollbar{
-    display: none; 
-}
-
-body{
-    overflow-x: hidden;
-}
-
 html{
-    font-size: 62.5%;
     overflow-x: hidden;
     scroll-behavior: smooth;
-    scroll-padding-top: 6rem;
 }
 
-html::-webkit-scrollbar{
-    width: 1rem;
-}
-
-html::-webkit-scrollbar-track{
-    background-color: var(--white);
-}
-html::-webkit-scrollbar-thumb{
-    background-color: var(--peru);
+/* body::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  body::-webkit-scrollbar-track {
+      background: #ccc; 
+      border-radius: 2.5px;
+  }
+  
+  body::-webkit-scrollbar-thumb {
+      border-radius: 2.5px;
+    background: #888;
+    cursor: pointer;
+  }
+   */
+body{
+    overflow-x: hidden;
+    &::-webkit-scrollbar{
+        display: none;
+    }
 }

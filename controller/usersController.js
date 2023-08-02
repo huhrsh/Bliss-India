@@ -3,6 +3,7 @@ const Product = require('../models/product');
 const forgotPasswordMailer=require('../mailers/forget_password_mailers')
 const fs = require('fs');
 const path = require('path');
+const { title } = require('process');
 
 
 module.exports.home = function (req, res) {
@@ -35,7 +36,8 @@ module.exports.enterOTPPage=function(req,res){
       forgotPasswordMailer.forgotPassword(user,OTP);
       res.render('enterOTPPage',{
         title:'Enter OTP',
-        OTP:OTP
+        OTP:OTP,
+        userEmail:user.email
       })
     }
     else{
@@ -53,12 +55,33 @@ module.exports.enterOTPPage=function(req,res){
 module.exports.checkOTP=function(req,res){
   if(req.query.otp==req.body.otp){
     console.log("OTP matched");
-    return res.redirect('/users/create-new-password')
+    return res.render('createNewPassword',{
+      title:'Create New Password',
+      userEmail:req.query.email})
   }
   else{
     // enter noty 
     console.log("The otp does not match");
-    return res.redirect('back');
+    return res.redirect('/users/forgot-password-page');
+  }
+}
+
+module.exports.createNewPassword=function(req,res){
+  if(req.body.password==req.body.confirm_password){
+    User.findOneAndUpdate({email:req.query.email},{password:req.body.password})
+    .then((user)=>{
+      return res.redirect('/users/sign-in');
+    })
+    .catch((err)=>{
+      console.log("Error in finding user for updating password");
+      return res.redirect('/users/forgot-password-page');
+    })
+  }
+  else{
+    // Notification
+    console.log("Passwords do not match");
+    return res.redirect('/users/forgot-password-page');
+
   }
 }
 
@@ -86,6 +109,7 @@ module.exports.signIn = function (req, res) {
 }
 
 module.exports.createUser = function (req, res) {
+  console.log(req.body);
   if (req.body.password != req.body.confirm_password) {
     return res.redirect('back');
   }

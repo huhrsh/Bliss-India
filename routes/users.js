@@ -35,8 +35,14 @@ router.post('/add-product', Product.uploadedAvatar.array('photos', 5), usersCont
 
 router.get('/forgot-password-page' , usersController.forgotPasswordPage);
 
-router.get('/forgot-password' ,usersController.enterOTPPage )
+router.post('/forgot-password' ,usersController.enterOTPPage )
 
 router.post('/enter-OTP',usersController.checkOTP)
+
+router.post('/create-new-password',usersController.createNewPassword);
+
+router.get('/auth/google' , passport.authenticate('google' , {scope: ['profile' , 'email']}));
+
+router.get('/auth/google/callback' , passport.authenticate('google' , {failureRedirect: '/users/sign-in'}) , usersController.createSession);
 
 module.exports = router;

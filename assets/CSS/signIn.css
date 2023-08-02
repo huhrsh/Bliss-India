@@ -1,8 +1,8 @@
 .sign-in-heading{
-    font-size: 4.5rem;
+    font-size: 4vw;
     margin: 0 0 1% 0;
-    font-family: dosis;
-    font-weight: 400;
+    font-family: poppins;
+    font-weight: 300;
 }
 
 .sign-in-container{
@@ -10,8 +10,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 10rem;
-    margin-bottom: 20rem;
+    margin-top: 6vw;
+    margin-bottom: 8vw;
     
 }
 
@@ -19,7 +19,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:1.4rem;
+    gap:1.4vw;
 }
 .sign-in-form input{
     border: none;
@@ -28,21 +28,22 @@
     width: 25vw;
     height: 7vh;
     outline: none;
-    font-family: dosis;
-    font-weight: 500;
+    font-family: poppins;
     color:#333;
+    font-weight: 400;
+    font-size: 1.2vw;
     background: -webkit-linear-gradient(120deg, #a0c4ff50, #9bf6ff50);;
 }
 
 .sign-in-form input:focus{
-    box-shadow: 0 0 2px #023e8a;
+    box-shadow: 0 0 2px #023e8a70;
 }
 
 .signUp-signIn {
     width: 25vw;
     text-align: center;
-    margin-top: 2rem;
-    font-size: 1.4rem;
+    margin-top: 1vw;
+    font-size: 1vw;
     color: #023e8a;
 }
 
@@ -55,8 +56,8 @@
 }
 
 .password i{
-    margin-left: -7%;
-    font-size: 1.4rem;
+    margin-left: -7.5%;
+    font-size: 1.1vw;
     cursor: pointer;
     color: #03045e;
 }
@@ -66,9 +67,12 @@
     background: -webkit-linear-gradient(60deg, #a0c4ffc0, #9bf6ffc0);
     /* background: white; */
     border-radius: 3.5vh;
-    width: 15vw;
+    width: 12vw;
     color: #333;
-    font-size: 1.8rem;cursor: pointer;
+    font-size: 1.5vw;
+    cursor: pointer;
+    font-weight: 400;
+    margin-bottom: 1vw ;
 }
 
 #sign-in:hover{

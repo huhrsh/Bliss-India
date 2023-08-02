@@ -4,6 +4,8 @@ const productsController=require('../controller/productsController')
 
 router.get('/',productsController.singleProduct);
 
+router.post('/search-product',productsController.searchProduct);
+
 router.get('/pendants',productsController.pendants);
 
 router.get('/crystal-collection',productsController.crystalCollection);

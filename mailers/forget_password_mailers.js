@@ -1,8 +1,8 @@
 const nodeMailer=require('../config/nodemailer')
 
-exports.forgotPassword=(user)=>{
-    let htmlString=nodeMailer.renderTemplate({user:user},'/password/forgetPassword.ejs')
-    console.log("Inside new user mailer",user);
+exports.forgotPassword=(user,OTP)=>{
+    let htmlString=nodeMailer.renderTemplate({user:user,OTP:OTP},'/password/forgetPassword.ejs')
+    // console.log("Inside new user mailer",user);
     nodeMailer.transporter.sendMail({
         from: 'mailtoharshjain@gmail.com',
         to: user.email,
@@ -13,7 +13,7 @@ exports.forgotPassword=(user)=>{
             console.log('Error in sending the email',err);
             return;
         }
-        console.log("Mail sent: ", info);
+        console.log("Mail sent: ");
         return;
     })
 }

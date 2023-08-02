@@ -1,0 +1,19 @@
+.banners{
+    margin: 2%;
+}
+.banners img {
+    width: 100%;
+    height: 80vh;
+    object-fit: cover;
+}
+
+.swiper-button-next,
+.swiper-button-prev{
+    background: #333323;
+    height: 6vh !important;
+    width: 6vh !important;
+    border-radius: 3.5vh !important;
+    color: white !important;
+
+}
+

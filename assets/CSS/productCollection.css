@@ -18,7 +18,7 @@ main{
     box-shadow:  0 0 3px #333;
     border-radius: 7px;
     width: 22.5%;
-    height: 63vh;
+    height: 64vh;
     /* background: ; */
 }
 
@@ -26,6 +26,7 @@ main{
     border-bottom: 1px solid #333;
     /* width: 40%; */
     aspect-ratio: 1;
+    object-fit: cover;
     width:100%;
     border-radius: 7px;
     border-bottom-left-radius: 0;
@@ -36,8 +37,7 @@ main{
     height: 100%;
     /* background-color: rebeccapurple; */
     padding: 2%;
-    font-size: 2rem;
-    font-family: dosis;
+    font-family: poppins;
     color: #333;
     text-transform: capitalize;
 }
@@ -48,18 +48,16 @@ main{
 }
 
 .product-name{
-    /* background-color: royalblue; */
     display: flex;
     align-items: center;
     height:9vh ;
     margin: -2% 0 0 0;
-    font-weight: 800;
     border-bottom: 1px solid #55555530;
 }
 
 .product-name a{
+    font-size: 1.2vw;
     font-family: poppins ;
-    font-size: 1.6rem;
     font-weight: 400;
     color: #333;
 }
@@ -71,20 +69,19 @@ main{
     padding: 3% 2%;
     display: flex;
     flex-direction: row;
-    /* background-color: red; */
     justify-content: left;
 }
 .product-pricing>p{
     margin:  0 3% 0 0;
-    font-weight: 400;
+    font-weight: 500;
     /* background-color: rebeccapurple; */
-    font-size: 1.6rem;
+    font-size: 1.2vw;
 }
 .product-pricing>p i{
-    font-size: 1.5rem;
+    font-size: 1vw;
 }
 
-.mrp{
+#mrp{
     font-weight: 300;
     color: #777;
     text-decoration: line-through;
@@ -100,21 +97,18 @@ main{
     margin-left: 10%;
     width: 80%;
     color: #333;
-    border-radius: 0.5rem; 
+    font-size: 1vw;
+    border-radius: 0.5vw; 
     background: -webkit-linear-gradient(-60deg,#a0c4ff,#9bf6ff);
     border: 1px solid #33333320;
-    filter: saturate(0.9);
+    /* box-shadow: 0 0 2px #33333380; */
     transition: all ease-in-out 0.2s;
 }
 
-.explore-div:hover{
-    filter: saturate(1.5);
-}
-
 .explore-div a{
-    font-family: dosis;
-    font-size: 1.8rem;
-    font-weight: 500;
+    font-family: poppins;
+    font-size: 1.4vw;
+    font-weight: 400;
     color: #333;
 }
 

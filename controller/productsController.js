@@ -4,6 +4,12 @@ const Product=require('../models/product')
 module.exports.singleProduct=function(req,res){
     Product.findOne({_id:req.query.id})
     .then((productFound)=>{
+        return Product.populate(productFound, { path: 'review' });
+    })
+    .then((productFound)=>{
+        return Product.populate(productFound, { path: 'user' });
+    })
+    .then((productFound)=>{
         if(productFound){
             res.render("singleProduct", {
                 title: `${productFound.name}`,
@@ -19,6 +25,25 @@ module.exports.singleProduct=function(req,res){
         console.log("Error in finding the product to be displayed");
         return res.redirect('back');
     })
+}
+
+module.exports.searchProduct=function(req,res){
+    Product.find({"name" : {$regex : `${req.body.name}`}})
+        .then((products)=>{
+            if(req.xhr){
+                return res.status(200).json({
+                    data:{
+                        products
+                    },
+                    message: "Search Complete"
+                })
+            }
+            return res.redirect('back');
+        })
+        .catch((err)=>{
+            console.log("Error in finding products",err);
+            return res.redirect('back');
+        })
 }
 
 module.exports.crystalCollection = function (req, res) {

@@ -1,36 +1,217 @@
 <link rel="stylesheet" href="/css/singleProduct.css">
-<main class="big-container">
-    <div class="image-container">
-        <img src="" alt="">
+<main class="main-container">
+    <div class="image-preview-container">
+        <%for(let i=0; i< product.photos.length;i++){%>
+            <div class="image-preview"><img src="<%=product.photos[i]%>" index="<%=i%>" alt="product Image"></div>
+            <%}%>
     </div>
-<!-- <%=product%> -->
+
+    <div class="swiper image-container" id="swiperContainer">
+        <div class="swiper-wrapper">
+            <%for(let i of product.photos){%>
+                <div class="swiper-slide"><img src="<%=i%>" alt="product Image"></div>
+                <%}%>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
     <div class="content-container">
-        <p><%=product.name%></p>
-        <div class="price">
-            <p><%=product.selling_price%></p>
-            <p id="mrp"><%=product.mrp%></p>
+        <div class="product-name">
+            <%=product.name%>
         </div>
-        <div class="percentage">
-            <p></p>
+        <div class="reviews">
+            <span class="review-stars">
+                <%if(product.review){%>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                <%}%>
+            </span>
+            <span class="review-data">
+                <%let sum=0;%>
+                <%for(let i of product.review){%>
+                    <%sum+=parseInt(i.stars);%>
+                <%}%>
+                <%if(isNaN(sum/product.review.length)){%>
+                    (0 stars | <%=product.review.length%> reviews)
+                <%}else{%>
+                    (<%=(sum/product.review.length).toFixed(2)%> stars | <%=product.review.length%> reviews)
+                <%}%>
+            </span>
         </div>
-        <div class="quantity-container">
-            <p>Quantity:</p>
-            <div class="icons-div">
-                <p class="icons"><i class="fa-solid fa-plus"></i>1<i class="fa-solid fa-minus"></i></p>
+        <div class="price-div">
+            <div class="selling-price">₹<%=product.selling_price%>
             </div>
+            <div class="MRP">₹<%=product.mrp%>
+            </div>
+            <!-- <div class="discount">Save &nbsp;<i class="fa-solid fa-indian-rupee-sign"></i><%=(product.mrp-product.selling_price)%></div> -->
         </div>
-        
-        <div class="tags">
-            <a href="" id="add-button">Add To Cart</a>
-            <a href="" id="add-button">Add To Wishlist</a>
+        <div class="discount">Flat <%=Math.ceil(((product.mrp-product.selling_price)*100) /product.mrp)%>% Off</div>
+        <div class='counter'>
+            <div class='minus' onclick='decreaseCount(event, this)'><i class="fa-solid fa-minus"></i></div>
+            <input type="text" value="1" disabled>
+            <div class='plus' onclick='increaseCount(event, this)'><i class="fa-solid fa-plus"></i></div>
+        </div>
+        <div class="wish-cart">
+            <div class="cart"><button id="b1">Add To Cart <i class="fa-solid fa-cart-shopping"></i></button></div>
+            <div class="wish"><button id="b2">Add To Wishlist <i class="fa-solid fa-heart"></i></button></div>
         </div>
 
-        <p><%=product.description%></p>
+        <div class="description">
+            <h2>Product Description</h2>
+            <%if(product.description.length>250){%>
+                <span class="description-content">
+                    <%=product.description.slice(0,250)%>
+                </span>
+                <span class="readmore">...show more</span>
+                <%}else{%>
+                    <span class="description-content">
+                        <%=product.description%>
+                    </span>
+                    <%}%>
+        </div>
     </div>
-</main>
-
     
+</main>
+<br><br><br><br><br><br>
+
+<section class="review-section">
+    <%if(locals.user){%>
+        <div class="review-left">
+    <%}else{%>
+        <div class="review-left" style="min-height: 78vh;">
+    <%}%>
+    
+        <h2 id="review-left-heading">Ratings & Reviews</h2>
+        <%if(product.review.length==0){%>
+            No reviews yet! <br>Be the first one to review this product.
+        <%}%>
+        <!-- <%=product%> -->
+        <!-- <%=product.review%> -->
+        <%for(let i of product.review){%>
+            <div class="customer-review" >
+                <div class="customer-rating" style="width:<%=(parseInt(i.stars)/5)*9.3%>vw">
+                    <i class="fa-solid fa-star" data-value="1"></i>
+                    <i class="fa-solid fa-star" data-value="2"></i>
+                    <i class="fa-solid fa-star" data-value="3"></i>
+                    <i class="fa-solid fa-star" data-value="4"></i>
+                    <i class="fa-solid fa-star" data-value="5"></i>
+                </div>
+
+                
+                <%let dateObject=new Date(i.createdAt)%>
+                <%function reformatDate(dateStr){%>
+                    <%var dArr = dateStr.split("-");%>
+                    <%return dArr[2]+ "-" +dArr[1]+ "-" +dArr[0].substring(2)%>
+                <%}%>
+                    <div class="customer-name"><%= i.username %> | <span><%=reformatDate(JSON.stringify(dateObject).slice(1,11))%></span></div>
+                <div class="real-review"><%= i.content %></div>
+            </div>
+        <%}%>
+    </div>
+    <div class="review-right">
+        <form class="war" action="/reviews/add-review" method="post">
+            <h2 id="post-review-heading">Post a review</h2>
+            <div class="star-rating">
+                <i class="fa-solid fa-star" data-value="1"></i>
+                <i class="fa-solid fa-star" data-value="2"></i>
+                <i class="fa-solid fa-star" data-value="3"></i>
+                <i class="fa-solid fa-star" data-value="4"></i>
+                <i class="fa-solid fa-star" data-value="5"></i>
+            </div>
+            <%if(locals.user){%>
+                <input type="text" class="product-input-id" name="username" value="<%=user.name%>" required>
+                <input type="email" class="product-input-id" name="email" value="<%=user.email%>" required>
+                <%}else{%>
+                    <input type="text" class="user-details" name="username" placeholder="Name" required>
+                    <input type="email" class="user-details" name="email" placeholder="Email" required>
+                <%}%>
+                <input type="text" class="product-input-id" name="product" value="<%=product._id%>" required>
+                <input type="number" class="stars-input" name="stars" required>
+            <div class="textarea"><textarea name="content" rows="5" placeholder="Type your review here...."></textarea>
+            </div>
+            <button class="review-submit" type="submit">Post review</button>
+        </form>
+    </div>
+</section>
+<script type="text/javascript" src="/js/singleProduct.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<script>
+    function increaseCount(e, el) {
+        var input = el.previousElementSibling;
+        var value = parseInt(input.value, 10);
+        value = isNaN(value) ? 0 : value;
+        maxValue = parseInt(<%=product.inventory %>) < 5 ? parseInt(<%=product.inventory %>) : 5;
+        if (value < maxValue) {
+            value++;
+        }
+        // Notification
+        input.value = value;
+    }
+    function decreaseCount(e, el) {
+        var input = el.nextElementSibling;
+        var value = parseInt(input.value, 10);
+        if (value > 1) {
+            value = isNaN(value) ? 0 : value;
+            value--;
+            input.value = value;
+        }
+    }
 
 
 
+    var swiper = new Swiper(".image-container", {
+        spaceBetween: 10,
+        centeredSlides: true,
+        grapCursor: true,
+        loop: true,
+        slidesPerView: 1,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
 
+    let toggledText=false;
+    if (<%= product.description.length > 250 %>) {
+        const readmoreButton = document.getElementsByClassName('readmore')[0];
+        const description = document.getElementsByClassName('description-content')[0];
+        readmoreButton.onclick=()=>{
+            if (toggledText) {
+                toggledText = false;
+                description.innerHTML = `<%=product.description.slice(0,250)%>`;
+                readmoreButton.innerText = "...show more";
+            }
+            else {
+                toggledText = true;
+                description.innerHTML = `<%=product.description%>`;
+                readmoreButton.innerText = "...show less";
+            }
+        }
+    }
+
+    const previewImages = document.querySelectorAll('.image-preview img');
+    previewImages.forEach((img) => {
+        img.addEventListener('click', () => {
+            console.log("Inside Function");
+            const clickedImageSrc = img.getAttribute('src');
+            const clickedImageIndex =parseInt( img.getAttribute('index'));
+            // console.log(clickedImageIndex,clickedImageSrc);
+            swiper.slideTo(clickedImageIndex, 300, false);
+
+        });
+    });
+</script>
