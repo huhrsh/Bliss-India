@@ -22,12 +22,7 @@
             <%=product.name%>
         </div>
         <div class="reviews">
-            <%let sum=0;%>
-            <%for(let i of product.review){%>
-                <%sum+=parseInt(i.stars);%>
-            <%}%>
-            <%if(sum!=0){%>
-                <span class="review-stars" style="width: <%=((sum*1.71/product.review.length))%>vw;">
+                <span class="review-stars" style="width: <%=(product.review_rating.toFixed(2)*1.71)%>vw;">
                     <%if(product.review){%>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
@@ -36,13 +31,8 @@
                         <i class="fa-solid fa-star"></i>
                     <%}%>
                 </span>
-            <%}%>
             <span class="review-data">
-                <%if(isNaN(sum/product.review.length)){%>
-                    (0 stars | <%=product.review.length%> reviews)
-                <%}else{%>
-                    (<%=(sum/product.review.length).toFixed(2)%> stars | <%=product.review.length%> reviews)
-                <%}%>
+                    (<%=product.review_rating.toFixed(2)%> stars | <%=product.review.length%> reviews)
             </span>
         </div>
         <div class="price-div">
@@ -53,16 +43,55 @@
             <!-- <div class="discount">Save &nbsp;<i class="fa-solid fa-indian-rupee-sign"></i><%=(product.mrp-product.selling_price)%></div> -->
         </div>
         <div class="discount">Flat <%=Math.ceil(((product.mrp-product.selling_price)*100) /product.mrp)%>% Off</div>
-        <div class='counter'>
-            <div class='minus' onclick='decreaseCount(event, this)'><i class="fa-solid fa-minus"></i></div>
-            <input type="text" value="1" disabled>
-            <div class='plus' onclick='increaseCount(event, this)'><i class="fa-solid fa-plus"></i></div>
-        </div>
-        <div class="wish-cart">
-            <div class="cart"><button id="b1">Add To Cart <i class="fa-solid fa-cart-shopping"></i></button></div>
-            <div class="wish"><button id="b2">Add To Wishlist <i class="fa-solid fa-heart"></i></button></div>
+        <div class="inventory-status">
+            <div class='counter'>
+                <div class='minus' onclick='decreaseCount(event, this)'><i class="fa-solid fa-minus"></i></div>
+                <input type="text" value="1" disabled>
+                <div class='plus' onclick='increaseCount(event, this)'><i class="fa-solid fa-plus"></i></div>
+            </div>
+            <%if(product.inventory==0){%>
+                <span>Sorry, we are out of stock!</span>
+            <%}%>
+            <%if(product.inventory< 10){%>
+                <span>Only <%=product.inventory%> left in stock!</span>
+            <%}%>
         </div>
 
+        <div class="wish-cart">
+            <form action="/users/add-to-wishlist" method="post" class="wish-form">
+                <%if(locals.user){%>
+                    <input  style="display: none;" type="text" name="user_id" value="<%=locals.user._id%>" >
+                <%}%>
+                <input style="display: none;"  type="text" name="product_id" value="<%=product._id%>" >
+                <%if(locals.toggledWish){%>
+                    <div class="wish" id="wish">
+                        <button id="b2"><i class="fa-solid fa-heart"></i></button>
+                    </div>   
+                <%}else{%>
+                    <div class="wish" id="wish">
+                        <button id="b2"><i class="fa-regular fa-heart" id="heart"></i></i></button>
+                    </div>  
+                <%}%>
+            </form>
+
+            <form action="/users/add-to-cart" method="post" class="cart-form">
+            <%if(toggledCart==false){%>
+                <%if(locals.user){%>
+                    <div class="cart" id="cart"><button id="b1"><a href="/users/add-to-cart?user_id=<%=locals.user._id%>&product_id=<%=product._id%>">Add To Cart <i class="fa-solid fa-cart-shopping"></i></a></button></div>
+                <%}else{%>
+                    <div class="cart" id="cart"><button id="b1"><a href="/users/add-to-cart?product_id=<%=product._id%>">Add To Cart <i class="fa-solid fa-cart-shopping"></i></a></button></div>
+                <%}%>
+            <%}%>
+            <%if(toggledCart==true){%>
+                <%if(locals.user){%>
+                    <div class="cart" id="cart"><button id="b1"><a href="/users/remove-from-cart?user_id=<%=locals.user._id%>&product_id=<%=product._id%>">Remove From Cart <i class="fa-solid fa-cart-shopping"></i></a></button></div>
+                    <%}else{%>
+                        <div class="cart" id="cart"><button id="b1"><a href="/users/remove-from-cart?product_id=<%=product._id%>">Remove From Cart <i class="fa-solid fa-cart-shopping"></i></a></button></div>
+                <%}%>
+            <%}%>
+        </form>
+
+        </div>
         <div class="description">
             <h2>Product Description</h2>
             <%if(product.description.length>250){%>
@@ -70,12 +99,30 @@
                     <%=product.description.slice(0,250)%>
                 </span>
                 <span class="readmore">...show more</span>
-                <%}else{%>
-                    <span class="description-content">
-                        <%=product.description%>
-                    </span>
-                    <%}%>
+            <%}else{%>
+                <span class="description-content">
+                    <%=product.description%>
+                </span>
+            <%}%>
         </div>
+        <%let stars=[0,0,0,0,0]%>
+        <%if(product.review){%>
+            <%for(let i of product.review){%>
+                <%stars[i.stars-1]++%>
+            <%}%>
+        <%}%>
+        <div class="review-details">
+            <h2 class="review-details-heading">Customer Reviews</h2>
+            <div class="review-details-container">
+                <div class="review-details-row"><span class="review-details-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span><div class="outer-review-div"><div class="inner-review-div" style="width:<%=(isNaN(stars[4]/product.review.length)?0:(stars[4]/product.review.length)*100)%>%"></div></div><span class="review-details-percent"><%=(isNaN(stars[4]/product.review.length)?0:(stars[4]/product.review.length)*100).toFixed(0)%>%<span class="review-details-count">(<%=stars[4]%>)</span></span></div>
+                <div class="review-details-row"><span class="review-details-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></span><div class="outer-review-div"><div class="inner-review-div" style="width:<%=(isNaN(stars[3]/product.review.length)?0:(stars[3]/product.review.length)*100)%>%"></div></div><span class="review-details-percent"><%=(isNaN(stars[3]/product.review.length)?0:(stars[3]/product.review.length)*100).toFixed(0)%>%<span class="review-details-count">(<%=stars[3]%>)</span></span></div>
+                <div class="review-details-row"><span class="review-details-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></span><div class="outer-review-div"><div class="inner-review-div" style="width:<%=(isNaN(stars[2]/product.review.length)?0:(stars[2]/product.review.length)*100)%>%"></div></div><span class="review-details-percent"><%=(isNaN(stars[2]/product.review.length)?0:(stars[2]/product.review.length)*100).toFixed(0)%>%<span class="review-details-count">(<%=stars[2]%>)</span></span></div>
+                <div class="review-details-row"><span class="review-details-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></span><div class="outer-review-div"><div class="inner-review-div" style="width:<%=(isNaN(stars[1]/product.review.length)?0:(stars[1]/product.review.length)*100)%>%"></div></div><span class="review-details-percent"><%=(isNaN(stars[1]/product.review.length)?0:(stars[1]/product.review.length)*100).toFixed(0)%>%<span class="review-details-count">(<%=stars[1]%>)</span></span></div>
+                <div class="review-details-row"><span class="review-details-stars"><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></span><div class="outer-review-div"><div class="inner-review-div" style="width:<%=(isNaN(stars[0]/product.review.length)?0:(stars[0]/product.review.length)*100)%>%"></div></div><span class="review-details-percent"><%=(isNaN(stars[0]/product.review.length)?0:(stars[0]/product.review.length)*100).toFixed(0)%>%<span class="review-details-count">(<%=stars[0]%>)</span></span></div>
+            </div>
+        </div>
+
+
         <%if(locals.user && user.adminAccess){%>
         <div class="edit-product">
             <button class="edit-button"><a href="/products/edit-product-page?id=<%=product.id%>">Edit Product</a></button>
@@ -84,7 +131,7 @@
     </div>
     
 </main>
-<br><br><br><br><br><br>
+<br><br><br><br>
 
 <section class="review-section">
     <%function reformatDate(dateStr){%>
@@ -112,13 +159,17 @@
                     <i class="fa-solid fa-star" data-value="5"></i>
                 </div>
 
-                    <div class="customer-name"><%= i.username %> | <span><%=reformatDate(JSON.stringify(new Date(i.createdAt)).slice(1,11))%></span></div>
+                    <div class="customer-name"><%= i.username %> <span> | <%=reformatDate(JSON.stringify(new Date(i.createdAt)).slice(1,11))%></span></div>
                 <div class="real-review"><%= i.content %></div>
                 </li>
         <%}%>
     </ul>
 </div>
-    <div class="review-right">
+    <%if(locals.user){%>
+        <div class="review-right review-user">
+            <%}else{%>
+            <div class="review-right">
+    <%}%>
         <form class="war" id="review-form" action="/reviews/add-review" method="post">
             <h2 id="post-review-heading">Post a review</h2>
             <div class="star-rating">
@@ -132,8 +183,8 @@
                 <input type="text" class="product-input-id" name="username" value="<%=user.name%>" required>
                 <input type="email" class="product-input-id" name="email" value="<%=user.email%>" required>
                 <%}else{%>
-                    <input type="text" class="user-details" name="username" placeholder="Name" required>
-                    <input type="email" class="user-details" name="email" placeholder="Email" required>
+                    <input type="text" class="user-details" name="username" placeholder="Name *" required>
+                    <input type="email" class="user-details" name="email" placeholder="Email *" required>
                 <%}%>
                 <input type="text" class="product-input-id" name="product" value="<%=product._id%>" required>
                 <input type="number" class="stars-input" name="stars" required>
@@ -148,6 +199,8 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <script>
+
+
 {
     let createReview=function(){
         let reviewForm=$('#review-form');
@@ -213,7 +266,7 @@
         var input = el.previousElementSibling;
         var value = parseInt(input.value, 10);
         value = isNaN(value) ? 0 : value;
-        maxValue = parseInt(<%=product.inventory %>) < 5 ? parseInt(<%=product.inventory %>) : 5;
+        maxValue = parseInt(<%=product.inventory %>);
         if (value < maxValue) {
             value++;
         }

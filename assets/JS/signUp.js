@@ -10,13 +10,16 @@ eyeButton[0].onclick=()=>{
     }
 }
 
-eyeButton[1].onclick=()=>{
-    if (confirmPassword.type === "password") {
-      confirmPassword.type = "text";
-    } else {
-      confirmPassword.type = "password";
-    }
+if(eyeButton.length>1){
+  eyeButton[1].onclick=()=>{
+      if (confirmPassword.type === "password") {
+        confirmPassword.type = "text";
+      } else {
+        confirmPassword.type = "password";
+      }
+  }
 }
+
 
 
 

@@ -45,4 +45,15 @@ router.get('/auth/google' , passport.authenticate('google' , {scope: ['profile' 
 
 router.get('/auth/google/callback' , passport.authenticate('google' , {failureRedirect: '/users/sign-in'}) , usersController.createSession);
 
+router.post('/add-to-wishlist',usersController.addToWishlist);
+
+router.get('/remove-from-wishlist' , usersController.removeFromWishlist);
+
+router.get('/add-to-cart' , usersController.addToCart);
+
+router.get('/remove-from-cart',usersController.removeFromCart);
+
+
+
+
 module.exports = router;

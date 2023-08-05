@@ -133,7 +133,7 @@ module.exports.createUser = function (req, res) {
 }
 
 module.exports.createSession = function (req, res) {
-  req.flash('information' , 'Logged in.');
+  // req.flash('information' , 'Logged in.');
   return res.redirect('/');
 }
 
@@ -144,7 +144,7 @@ module.exports.destroySession = function (req, res) {
       console.log('Error in destroying the session', err);
       return;
     }
-    req.flash('information' , 'Logged out.');
+    // req.flash('information' , 'Logged out.');
     return res.redirect('/');
   });
 }
@@ -247,5 +247,45 @@ module.exports.addProduct = function (req, res) {
     });
 }
 
+module.exports.addToWishlist = async function (req, res) {
+  if (!req.body.user_id) {
+    req.flash('information', 'Please sign in to proceed.');
+    return res.redirect('/users/sign-in');
+  }
+  try {
+    const userFound = await User.findOne({ _id: req.body.user_id });
+    if (!userFound) {
+      req.flash('error', 'User not found.');
+      return res.redirect('back');
+    }
+    const productInWishlist = userFound.wishlist.includes(req.body.product_id);
+    if (productInWishlist) {
+      userFound.wishlist = userFound.wishlist.filter(
+        (productId) => productId.toString() !== req.body.product_id.toString()
+      );
+      // req.flash('information', 'Removed from wishlist');
+    } else {
+      userFound.wishlist.push(req.body.product_id);
+      // req.flash('information', 'Added to wishlist');
+    }
+    await userFound.save();
+    res.redirect('back');
+  } catch (err) {
+    console.log(err);
+    req.flash('error', 'Error in adding to wishlist.');
+    res.redirect('back');
+  }
+};
 
 
+module.exports.removeFromWishlist=function(req,res){
+
+}
+
+module.exports.addToCart=function(req,res){
+  
+}
+
+module.exports.removeFromCart=function(req,res){
+  
+}

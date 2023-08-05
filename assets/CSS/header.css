@@ -1,24 +1,25 @@
 header {
     font-size: 1.2vw;
     padding: 1%;
+    width: 100vw;
     height: 10vh;
-    width: 100%;
     background: linear-gradient(-60deg, #bdb2ff, #fffffc);
     background: #fffffc;
-    background: -webkit-linear-gradient(60deg,#a0c4ff30,#9bf6ff30);
+    background: -webkit-linear-gradient(60deg,#e2fdff 30%,#e2fdff 70%);
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-family: poppins;
     text-transform: capitalize;
-    /* top: 0;
-    left: 0;
-    position: sticky; */
+    position: sticky;
+    top: 0vh;
+    z-index: 2;
 }
 
 .company-logo{
     height: 10vh;
-    width: 25vw;
+    width: 20vw;
+    /* background-color: red; */
     /* margin-left: 3%; */
     display: flex;
     align-items: center;
@@ -31,11 +32,11 @@ header {
 }
 
 .company-logo a{
-    width: 20vw;
+    width: 17vw;
     height: 10vh;
     font-family: poppins;
-    font-size:3vw;
-    font-weight: 600;
+    font-size:2.6vw;
+    font-weight: 200;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -58,13 +59,13 @@ header {
     border-radius: 3vh;
     overflow: hidden;
     background: linear-gradient(-60deg, #2f4f4f20, #d3d3d320);
-    background: -webkit-linear-gradient(-60deg,#a0c4ff70,#9bf6ff70);
+    background: -webkit-linear-gradient(-60deg,#a0c4ffc0,#9bf6ffc0);
     transition: all ease-in-out 0.3s;
 }
 
 .search-bar:hover{
     /* opacity: 0.8; */
-    background: -webkit-linear-gradient(-60deg,#a0c4ffc0,#9bf6ffc0);
+    background: -webkit-linear-gradient(-60deg,#a0c4ff,#9bf6ff);
 } 
 
 /* the search logo  */
@@ -85,10 +86,10 @@ header {
 .search-input {
     width: 100%;
     height: 100%;
-    color: #222;
+    color: #333;
     font-family: poppins;
     font-size: 1.2vw;
-    font-weight: 500;
+    font-weight: 400;
     padding: 0% 1%;
     background: none;
     /* background-color: pink; */
@@ -102,28 +103,54 @@ header {
 
 /* container that contains user info, wishlist and cart  */
 .user-options{
+    /* background-color: rebeccapurple; */
     margin-right: 2vw;
     padding: 0.5%;
     width: 25%;
     color: #222;    
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 }
 
 /* wishlist,cart, user info tabs  */
 .user-options>div{
-    padding: 1.6% 4%;
-    transition: ease-in-out;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    /* background-color: rosybrown; */
+    border-radius:3vh ;
+    padding: 0% 4%;
 }
 
-/* images  */
-.user-options>div>i{
-    padding:  0 10% 0 0;
+.wishlist{
+    width: 8.4vw;
+    height: 5.6vh;
+}
+
+.cart{
+    height: 5.6vh;
+    width: 6.4vw;
+}
+.user{
+    height: 5.6vh;
+    max-width: 10vw;
+    overflow: hidden;
+}
+
+#cart-anchor{
+    display: inline-block;
+    /* background-color: red; */
+    width: 100%;
+    color: #333;
+}
+
+#wishlist-anchor{
+    display: inline-block;
+    width: 100%;
+    /* background-color: red; */
+    color: #333;
 }
 
 .user-options>div:hover{
@@ -132,19 +159,23 @@ header {
     border-radius: 3vh;
 }
 
-.user{
-    max-width: 10vw;
-    border-radius: 3vh;
-    overflow: hidden;
+
+.user i{
+    padding-right: 7%;
 }
 
 .nav-bar {
-    width: 100%;
+    height: 8vh;
+    width: 100vw;
     padding: 0.5% 7%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    /* background-color: red; */
+    top: 10vh;
+    z-index: 2;
+    position: sticky;
+    background-color: white;
+    background: linear-gradient(white 95%,#ccc 105%);
 }
 
 .nav-bar>div {
@@ -165,12 +196,6 @@ header {
     color: #333;
 }
 
-hr {
-    width: 82%;
-    margin-left: 9%;
-    margin-bottom: 1%;
-}
-
 .pendant-hover {
     border-radius: 0.7vw;
     background: white;
@@ -179,12 +204,14 @@ hr {
     width: 14vw;
     box-shadow: 0px 0px 5px #555;
     position: absolute;
-    z-index: 2;
+    z-index: 4;
     display: none;
     padding-bottom: 1px;
+    top: 6.8vh;
 }
 
 .pendant-categories {
+    z-index: 4;
     text-align: center;
     width: 100%;
     font-size: 1.6vw;
@@ -214,14 +241,15 @@ hr {
 }
 
 .user-hover{
-    position: absolute;
+    position: fixed;
     font-family: poppins;
     background: white;
     border-radius: 0.7vw;
     box-shadow: 0 0 5px #555;
     width: 10vw;
     height: auto;
-    z-index: 2;
+    z-index: 4;
+    top: 7.8vh;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -264,15 +292,16 @@ hr {
     list-style: none;
     margin: 0;
     z-index: 2;
-    position: absolute;
-    background: #f5f5f580;
+    position: fixed;
     background: #f5f5f5;
-    box-shadow: 0 0 4px #555;
+    background: #e2fdff;
+    /* background: linear-gradient(80deg, #9bf6ff, #e2fdff 50%); */
+    /* background: #333; */
     /* background: linear-gradient(60deg, #a0c4ff, #9bf6ff); */
     width: 32%;
     left: 34%;
     top: 8%;
-    padding: 0 0.5%;
+    padding: 0 1%;
     border-bottom-left-radius: 0.5vw;
     border-bottom-right-radius: 0.5vw;
     display: block;
@@ -285,16 +314,18 @@ hr {
         width: 5px;
     }
     &::-webkit-scrollbar-track {
-        background: #ccc; 
+        background: #9bf6ff; 
+        background: #ddd; 
         border-radius: 2.5px;
     }
     
     &::-webkit-scrollbar-thumb {
+        background: #1eacff;
+        background: #bbb;
+        /* background: #9bf6ff; */
         border-radius: 2.5px;
-      background: #888;
       cursor: pointer;
     }
-
 
 
 }
@@ -302,7 +333,7 @@ hr {
 .search-result-section{
     /* box-shadow: 0 0 2px #333; */
     z-index: 5;
-    border: 1px solid #33333350;
+    border: 1px solid #33333380;
     width: 100%;
     min-height: 15vh;
     border-radius: 0.5vw;
@@ -336,8 +367,16 @@ hr {
     display: inline-block;
     width: auto;    
 }
-.search-result-price{
-    /* font-size: 1.2vw; */
 
+
+#pendant{
+    width: 11%;
+    padding-right: 0;
+}
+#pendant i{
+    font-size: 1vw;
 }
 
+#mains{
+    position: sticky;
+}

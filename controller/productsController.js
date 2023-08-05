@@ -1,4 +1,6 @@
 const Product=require('../models/product')
+const Review=require('../models/review')
+const User=require('../models/user')
 
 
 module.exports.singleProduct=function(req,res){
@@ -11,14 +13,22 @@ module.exports.singleProduct=function(req,res){
     })
     .then((productFound)=>{
         if(productFound){
-            res.render("singleProduct", {
-                title: `${productFound.name}`,
-                product: productFound
-            });
-        }
-        else{
-            console.log("No product of the id found to be displayed");
-            return res.redirect('back');
+            if(res.locals.user && res.locals.user.wishlist.includes(productFound._id)){
+                res.render("singleProduct", {
+                    title: `${productFound.name}`,
+                    product: productFound,
+                    toggledWish:true,
+                    toggledCart:false,
+                });
+            }
+            else{
+                res.render("singleProduct", {
+                    title: `${productFound.name}`,
+                    product: productFound,
+                    toggledWish:false,
+                    toggledCart:false,
+                });
+            }
         }
     })
     .catch((err) => {
@@ -47,11 +57,20 @@ module.exports.searchProduct=function(req,res){
 }
 
 module.exports.crystalCollection = function (req, res) {
+    let sortBy=req.query.sort_by;
+    let order=req.query.order;
+    let sortObject = {};
+    sortObject[sortBy] = order;
     Product.find({ category: 'crystal' })
-        .then((collection) => {
+    .sort(sortObject)
+    .populate('review')   
+    .then((collection) => {
             res.render("productsCollection", {
                 title: 'Crystal Collection',
-                collection: collection
+                collection: collection,
+                category:(req.url.split('/')[1]).split('?')[0].replace(/-/g, ' '),
+                sorted:sortBy,
+                order:order
             });
         })
         .catch((err) => {
@@ -61,11 +80,19 @@ module.exports.crystalCollection = function (req, res) {
 }
 
 module.exports.pendants = function (req, res) {
-    Product.find({ category: 'pendant' })
+    let sortBy=req.query.sort_by;
+    let order=req.query.order;
+    let sortObject = {};
+    sortObject[sortBy] = order;
+    Product.find({ category: 'pendant' }).sort(sortObject)
+    .populate('review')
         .then((collection) => {
             res.render("productsCollection", {
                 title: 'Pendants',
-                collection: collection
+                collection: collection,
+                category:(req.url.split('/')[1]).split('?')[0],
+                sorted:sortBy,
+                order:order
             });
         })
         .catch((err) => {
@@ -75,11 +102,20 @@ module.exports.pendants = function (req, res) {
 }
 
 module.exports.lockets = function (req, res) {
+    let sortBy=req.query.sort_by;
+    let order=req.query.order;
+    let sortObject = {};
+    sortObject[sortBy] = order;
     Product.find({ category: 'locket' })
-        .then((collection) => {
+    .sort(sortObject)
+    .populate('review')   
+    .then((collection) => {
             res.render("productsCollection", {
                 title: 'Lockets',
-                collection: collection
+                collection: collection,
+                category:(req.url.split('/')[1]).split('?')[0],
+                sorted:sortBy,
+                order:order
             });
         })
         .catch((err) => {
@@ -89,11 +125,20 @@ module.exports.lockets = function (req, res) {
 }
 
 module.exports.earrings = function (req, res) {
+    let sortBy=req.query.sort_by;
+    let order=req.query.order;
+    let sortObject = {};
+    sortObject[sortBy] = order;
     Product.find({ category: 'earring' })
-        .then((collection) => {
+    .sort(sortObject)
+    .populate('review')   
+    .then((collection) => {
             res.render("productsCollection", {
                 title: 'Earrings',
-                collection: collection
+                collection: collection,
+                category:(req.url.split('/')[1]).split('?')[0],
+                sorted:sortBy,
+                order:order
             });
         })
         .catch((err) => {
@@ -103,11 +148,20 @@ module.exports.earrings = function (req, res) {
 }
 
 module.exports.bracelets = function (req, res) {
+    let sortBy=req.query.sort_by;
+    let order=req.query.order;
+    let sortObject = {};
+    sortObject[sortBy] = order;
     Product.find({ category: 'bracelet' })
-        .then((collection) => {
+    .sort(sortObject)
+    .populate('review')   
+    .then((collection) => {
             res.render("productsCollection", {
                 title: 'Bracelets',
-                collection: collection
+                collection: collection,
+                category:(req.url.split('/')[1]).split('?')[0],
+                sorted:sortBy,
+                order:order
             });
         })
         .catch((err) => {
@@ -117,11 +171,20 @@ module.exports.bracelets = function (req, res) {
 }
 
 module.exports.rings = function (req, res) {
+    let sortBy=req.query.sort_by;
+    let order=req.query.order;
+    let sortObject = {};
+    sortObject[sortBy] = order;
     Product.find({ category: 'ring' })
-        .then((collection) => {
+    .sort(sortObject)
+    .populate('review')   
+    .then((collection) => {
             res.render("productsCollection", {
                 title: 'Rings',
-                collection: collection
+                collection: collection,
+                category:(req.url.split('/')[1]).split('?')[0],
+                sorted:sortBy,
+                order:order
             });
         })
         .catch((err) => {
@@ -131,11 +194,20 @@ module.exports.rings = function (req, res) {
 }
 
 module.exports.completeSets = function (req, res) {
+    let sortBy=req.query.sort_by;
+    let order=req.query.order;
+    let sortObject = {};
+    sortObject[sortBy] = order;
     Product.find({ category: 'complete' })
-        .then((collection) => {
+    .sort(sortObject)
+    .populate('review')   
+    .then((collection) => {
             res.render("productsCollection", {
                 title: 'Complete Sets',
-                collection: collection
+                collection: collection,
+                category:(req.url.split('/')[1]).split('?')[0].replace(/-/g, ' '),
+                sorted:sortBy,
+                order:order
             });
         })
         .catch((err) => {
@@ -145,11 +217,20 @@ module.exports.completeSets = function (req, res) {
 }
 
 module.exports.evilEyeCollection = function (req, res) {
+    let sortBy=req.query.sort_by;
+    let order=req.query.order;
+    let sortObject = {};
+    sortObject[sortBy] = order;
     Product.find({ category: 'evil_eye' })
-        .then((collection) => {
+    .sort(sortObject)
+    .populate('review')   
+    .then((collection) => {
             res.render("productsCollection", {
                 title: 'Evil Eye Collection',
-                collection: collection
+                collection: collection,
+                category:(req.url.split('/')[1]).split('?')[0].replace(/-/g, ' '),
+                sorted:sortBy,
+                order:order
             });
         })
         .catch((err) => {
@@ -159,11 +240,20 @@ module.exports.evilEyeCollection = function (req, res) {
 }
 
 module.exports.offers = function (req, res) {
+    let sortBy=req.query.sort_by;
+    let order=req.query.order;
+    let sortObject = {};
+    sortObject[sortBy] = order;
     Product.find({ category: 'offer' })
-        .then((collection) => {
+    .sort(sortObject)
+    .populate('review')   
+    .then((collection) => {
             res.render("productsCollection", {
                 title: 'Offers',
-                collection: collection
+                collection: collection,
+                category:(req.url.split('/')[1]).split('?')[0],
+                sorted:sortBy,
+                order:order
             });
         })
         .catch((err) => {
@@ -171,6 +261,41 @@ module.exports.offers = function (req, res) {
             return res.redirect('back');
         })
 }
+
+module.exports.wishlist = function (req, res) {
+    if(!res.locals.user){
+        req.flash('information',"Please sign in to proceed");
+        res.redirect('back')
+    }
+
+    User.findOne({_id:res.locals.user._id})
+    .then((user)=>{
+        let sortBy=req.query.sort_by;
+        let order=req.query.order;
+        let sortObject = {};
+        sortObject[sortBy] = order;
+        Product.find({ _id: { $in: user.wishlist }})
+        .sort(sortObject)
+        .populate('review')   
+        .then((product)=>{
+            res.render("productsCollection", {
+                title: 'Wishlist',
+                collection: product,
+                category:(req.url.split('/')[1]).split('?')[0],
+                sorted:sortBy,
+                order:order
+            });
+        })
+
+
+    })
+    .catch((err)=>{
+        console.log("Error in finding user for wishlist, ",err);
+        return res.redirect('back');
+    })
+}
+
+
 
 module.exports.editProductPage = function(req,res){
     Product.findOne({_id:req.query.id})

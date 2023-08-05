@@ -31,8 +31,8 @@ html{
     scroll-behavior: smooth;
 }
 
-/* body::-webkit-scrollbar {
-    width: 4px;
+body::-webkit-scrollbar {
+    width: 5px;
   }
   
   body::-webkit-scrollbar-track {
@@ -42,13 +42,19 @@ html{
   
   body::-webkit-scrollbar-thumb {
       border-radius: 2.5px;
+    background: #e2fdff;
+    /* background: linear-gradient(-120deg, #023e8a, #03045e); */
     background: #888;
     cursor: pointer;
   }
-   */
-body{
-    overflow-x: hidden;
+  
+
+a{
+    text-decoration: none;
+}
+
+/* body{
     &::-webkit-scrollbar{
         display: none;
     }
-}
+} */

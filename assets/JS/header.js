@@ -8,8 +8,8 @@ const userHoverLoader = document.getElementById('user-hover-loader');
 
 let buttonPosition = navBar[1].getBoundingClientRect();
 let userHoverPosition = userButton.getBoundingClientRect();
-pendantHover.style.top = `${buttonPosition.bottom}px`;
-userHover.style.top = `${userHoverPosition.bottom}px`;
+// pendantHover.style.top = `${buttonPosition.bottom}px`;
+// userHover.style.top = `${userHoverPosition.bottom}px`;
 
 navBar[1].onmouseenter = () => {
     const hoverLoader = document.getElementById('hover-loader');
@@ -19,8 +19,8 @@ navBar[1].onmouseenter = () => {
     pendantHover.style.left = `${(buttonPosition.right-buttonPosition.width/2-pendantHover.getBoundingClientRect().width/2)}px`;
     
     hoverLoader.animate({
-        width: '40%',
-        marginLeft: '30%'
+        width: '52%',
+        marginLeft: '24%'
     }, { duration: 250, fill: 'forwards', easing: 'ease-in' })
 }
 
@@ -53,7 +53,7 @@ userButton.onmouseenter = () => {
     const userHover= document.getElementsByClassName('user-hover')[0];
     const userHoverLoader = document.getElementById('user-hover-loader');
     userHover.style.display = 'flex';
-    userHover.style.left = `${(userHoverPosition.right-userHoverPosition.width/2-userHover.getBoundingClientRect().width/2)}px`;
+    userHover.style.left = `${(userHoverPosition.right-userHoverPosition.width/2-userHover.getBoundingClientRect().width/2)-4.5}px`;
     console.log(userHover.getBoundingClientRect());
     userHoverLoader.animate({
         width: '40%',

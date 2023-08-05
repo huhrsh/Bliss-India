@@ -26,5 +26,7 @@ router.get('/offers',productsController.offers);
 
 router.get('/edit-product-page' , productsController.editProductPage);
 
+router.get('/wishlist',productsController.wishlist);
+
 
 module.exports=router;

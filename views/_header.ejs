@@ -12,40 +12,44 @@
     </div>
     <div class="user-options">
         <div class="wishlist">
-            <i class="fa-solid fa-heart"></i> wishlist
+            <%if(locals.user){%>
+                <a href="/products/wishlist?sort_by=name&order=1&user_id=<%=locals.user._id%>" id="wishlist-anchor"><i class="fa-solid fa-heart"></i>wishlist</a>
+            <%}else{%>
+                <a href="/products/wishlist?sort_by=name&order=1" id="wishlist-anchor"><i class="fa-solid fa-heart"></i>wishlist</a>
+            <%}%>
         </div>
         <div class="cart">
-            <i class="fa-solid fa-cart-shopping"></i> Cart
+            <a href="" id="cart-anchor"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
         </div>
         <%if(locals.user){%>
             <div class="user"><i class="fa-solid fa-user"></i>
                 <%=user.name.split(' ')[0]%>
             </div>
         <%}else{%>
-            <div class="user"><i class="fa-solid fa-user"></i>User</div>
+            <div class="user"><i class="fa-solid fa-user"></i> User</div>
         <%}%>
     </div>
 </header>
 
 <section class="nav-bar">
-    <div class="category"><a href="/products/crystal-collection">Crystal Collection</a></div>
-    <div class="category" id="pendant"><div class="pendant-hover">
-        <div id="hover-loader"></div>
-        <div class="pendant-categories"><a href="">Premium Pendants</a></div>
-        <div class="pendant-categories"><a href="">Minimal Pendants</a></div>
-        <div class="pendant-categories"><a href="">Silver Pendants</a></div>
-        <div class="pendant-categories"><a href="">Charm Pendants</a></div>
-    </div>
-    <a href="/products/pendants">Pendants</a></div>
-    <div class="category"><a href="/products/lockets">Lockets</a></div>
-    <div class="category"><a href="/products/earrings">Earrings</a></div>
-    <div class="category"><a href="/products/bracelets">Bracelets</a></div>
-    <div class="category"><a href="/products/rings">Rings</a></div>
-    <div class="category"><a href="/products/complete-sets">Complete Sets</a></div>
-    <div class="category"><a href="/products/evil-eye-collection">Evil Eye Collection</a></div>
-    <div class="category"><a href="/products/offers">Offers</a></div>
+    <div class="category"><a href="/products/crystal-collection?sort_by=name&order=1">Crystal Collection</a></div>
+    <div class="category" id="pendant">
+        <div class="pendant-hover">
+            <div id="hover-loader"></div>
+            <div class="pendant-categories"><a href="">Premium Pendants</a></div>
+            <div class="pendant-categories"><a href="">Minimal Pendants</a></div>
+            <div class="pendant-categories"><a href="">Silver Pendants</a></div>
+            <div class="pendant-categories"><a href="">Charm Pendants</a></div>
+        </div>
+    <a href="/products/pendants?sort_by=name&order=1" id="pendant">Pendants<i class="fa-solid fa-chevron-down"></i></a></div>
+    <div class="category"><a href="/products/lockets?sort_by=name&order=1">Lockets</a></div>
+    <div class="category"><a href="/products/earrings?sort_by=name&order=1">Earrings</a></div>
+    <div class="category"><a href="/products/bracelets?sort_by=name&order=1">Bracelets</a></div>
+    <div class="category"><a href="/products/rings?sort_by=name&order=1">Rings</a></div>
+    <div class="category"><a href="/products/complete-sets?sort_by=name&order=1">Complete Sets</a></div>
+    <div class="category"><a href="/products/evil-eye-collection?sort_by=name&order=1">Evil Eye Collection</a></div>
+    <div class="category"><a href="/products/offers?sort_by=name&order=1">Offers</a></div>
 </section>
-<hr>
 
 
 <!-- <div class="pendant-hover">

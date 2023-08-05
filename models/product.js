@@ -38,8 +38,14 @@ const productSchema=new mongoose.Schema({
     review:[{
         type:mongoose.Schema.Types.ObjectId,
         ref: 'Review'
-    }]
+    }],
+    review_rating:{
+        type:Number,
+        default:0
+    }
 });
+
+
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
