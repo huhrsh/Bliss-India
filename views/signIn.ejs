@@ -4,7 +4,8 @@
     <h2 class="sign-in-heading">
         Sign In
     </h2>
-    <form action="/users/create-session" class="sign-in-form">
+
+        <form action="/users/create-session" method="get" class="sign-in-form">
         <input type="email" name="email" placeholder="Email" required>
         <div class="password"><input type="password" name="password" id="input-password" placeholder="Password" required><i class="fa-solid fa-eye"></i></div>
         <input type="submit" id="sign-in" value="Sign In">

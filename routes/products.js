@@ -1,6 +1,8 @@
 const express=require('express');
 const router= express.Router();
 const productsController=require('../controller/productsController')
+const passport=require('passport')
+
 
 router.get('/',productsController.singleProduct);
 
@@ -24,9 +26,12 @@ router.get('/evil-eye-collection',productsController.evilEyeCollection);
 
 router.get('/offers',productsController.offers);
 
-router.get('/edit-product-page' , productsController.editProductPage);
+router.get('/edit-product-page' , passport.checkAuthentication,productsController.editProductPage);
 
 router.get('/wishlist',productsController.wishlist);
 
+router.get('/cart',productsController.cart);
+
+router.get('/checkout',passport.checkAuthentication,productsController.checkout);
 
 module.exports=router;

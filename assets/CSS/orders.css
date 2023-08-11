@@ -1,0 +1,140 @@
+.order-heading{
+    color: #333;
+    font-size: 2vw;
+    font-weight: 400;
+    padding: 1%;
+    padding-left: 3%;
+}
+
+main{
+    font-family: poppins;
+    width:80%;
+    margin: auto;
+    /* margin-top: 3%; */
+    display: flex;
+    flex-direction: column;
+    /* gap: 2vw; */
+    /* background: #888; */
+    color: #555;
+}
+
+.individual-order{
+    background: #bbb;
+    background: -webkit-linear-gradient(-60deg,#a0c4ffc0,#9bf6ffc0);
+    background: #9bf6ffc0;
+    background:#90e0ef;
+    padding:1%;
+    padding-left: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 4px;
+}
+.individual-order2{
+    background: #f5f5f5;
+    background: -webkit-linear-gradient(60deg,#e2fdff 30%,#e2fdff 70%);
+    background: #e7fbff;
+    padding:1% 0;
+    margin: 0.7% 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+}
+
+main h4{
+    color: #333;
+    font-size: 1.4vw;
+    font-weight: 400;
+}
+
+.serial-number{
+    padding: 0 !important;
+    background:white;
+    background:none;
+    /* background-color: red; */
+    width: 4vw;
+    text-align: center;
+}
+
+.order-number{
+    color: #03045e;
+    background:white;
+    background:none;
+    /* background-color: blue; */
+    width: 14vw;
+    font-size: 0.9vw;
+    text-align: center;
+}
+.order-number a{
+    color: #03045e;
+    background-color: blue;
+    background:white;
+    background:none;
+    width: 14vw;
+    font-size: 0.9vw;
+    text-align: center;
+    text-decoration: underline;
+    &:hover{
+        color: #03045e;
+    }
+}
+
+.detail{
+    background-color: pink;
+    background:white;
+    background:none;
+    width: 37vw;
+    margin-left: 3%;
+}
+
+.product-details{
+    width: 100%;
+    display: flex;
+    /* margin: 3.5% 0; */
+    justify-content: space-between;
+}
+
+.product-name{
+    background-color: grey;
+    background: white;
+    background:none;
+    width: 75%;
+    /* background-color: green; */
+    /* text-align: center; */
+}
+
+.product-name a{
+    /* font-size: 85%; */
+    padding: 1% 0;
+    text-transform: capitalize;
+    color: #555;
+}
+
+.product-name a:hover{
+    color: black;
+    cursor: pointer;
+}
+
+.quantity{
+    /* background-color: aquamarine; */
+    width: 25%;
+    text-align: center;
+}
+
+.ordered-at{
+    background-color: aliceblue;
+    background:white;
+    background:none;
+    width: 12vw;
+    text-align: center;
+}
+
+.amount-paid{
+    text-align: center;
+    width: 10vw;
+    background-color: yellowgreen;
+    background:white;
+    background:none;
+}

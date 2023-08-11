@@ -1,11 +1,20 @@
 const inputTags = document.querySelectorAll('.change-form input');
 const submitButton = document.querySelectorAll('.change-form input[type="submit"]');
 
+const oldPassword=document.getElementById('old-password');
 const password=document.getElementById('input-password');
 const confirmPassword=document.getElementById('confirm-password');
 const eyeButton=document.querySelectorAll('.password>i');
 
 eyeButton[0].onclick=()=>{
+    if (oldPassword.type === "password") {
+      oldPassword.type = "text";
+    } else {
+      oldPassword.type = "password";
+    }
+}
+
+eyeButton[1].onclick=()=>{
     if (password.type === "password") {
       password.type = "text";
     } else {
@@ -13,7 +22,7 @@ eyeButton[0].onclick=()=>{
     }
 }
 
-eyeButton[1].onclick=()=>{
+eyeButton[2].onclick=()=>{
     if (confirmPassword.type === "password") {
       confirmPassword.type = "text";
     } else {

@@ -1,0 +1,150 @@
+.tq{
+    display: inline-block;
+    font-size: 1.4vw;
+    font-weight: 300;
+    color: #333;
+    margin-bottom: 1%;
+}
+
+main{
+    margin: auto;
+    margin-top: 3vw;
+    width: 80%;
+    margin-bottom: 5%;
+}
+
+#main{
+    background-color: #e6faff;
+    padding: 1% 2%;
+    color: #333;
+}
+
+.logo-section{
+    font-family: 'Amsterdam4';
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vw;
+    gap: 2%;
+    /* background-color: red; */
+    margin: 1% 0 3% 0
+}
+
+.logo-section img{
+    border-radius: 50%;
+    width: 10vw;
+    aspect-ratio: 1;
+}
+
+.header-section{
+    /* background-color: red; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-section button{
+    height: 3.2vw;
+    /* padding: 1% 0; */
+    width: 15vw;
+    font-family: poppins;
+    border-radius: 1.6vw;
+    border: none;
+    font-size: 1.4vw;
+    font-weight: 300;
+    cursor: pointer;
+    background: linear-gradient(-60deg, #a0c4ffc0, #9bf6ffc0);
+}
+.header-section button:hover{
+    background: linear-gradient(-60deg, #a0c4ff, #9bf6ff);
+}
+
+.receipt-heading{
+    display: inline-block;
+    width: 50%;
+    font-size: 3vw;
+    font-weight: 200;
+}
+
+.order-details{
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    height: 55vw;
+    justify-content: space-between;
+    padding: 1%;
+    padding-left: 2%;
+}
+
+.order-details strong{
+    font-size: 1.3vw;
+    font-weight: 400 ;
+    color: #333;
+    margin-right: 1%;
+}
+
+.order-details>p{
+    font-size: 1.4vw;
+    font-weight: 300;
+    color: #555;
+}
+
+.product-heading{
+    font-size: 2vw;
+    font-weight: 300;
+    border-top: 1px solid #999;
+}
+
+.product-list{
+    /* background-color: red; */
+    margin-left: 2%;
+}
+
+.product-list-heading{
+    border-radius: 4px;
+    background-color: #48cae4;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4vw;
+    font-weight: 300;
+    color: #333;
+    padding: 1%;
+    font-size: 1.5vw;
+}
+
+.product-list-row{
+    padding: 1%;
+    color: #555;
+    font-size: 1.2vw;
+    padding-left: 2%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bd-top{
+    border-top: 1px solid #999;
+}
+
+.p-l-name{
+    width: 50%;
+}
+
+.p-l-quantity,.p-l-unit,.p-l-total{
+    width: 15%;
+    text-align: center;
+}
+
+.t-c{
+    margin-left: 2%;
+    color: #555;
+    font-size: 1vw;
+}
+
+.t-c a{
+    color: darkblue;
+    &:hover{
+        color: darkblue;
+    }
+}

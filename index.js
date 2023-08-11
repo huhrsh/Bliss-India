@@ -6,6 +6,7 @@ const db=require('./config/mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const jsPDF  = require("jspdf");
 //const passportGoogle = require('./config/passport-google-ouath2-strategy');
 const MongoStore = require('connect-mongo');
 const dbUrl = 'mongodb://0.0.0.0/BlissIndia';
@@ -35,7 +36,7 @@ app.use(session({
     saveUninitialized: false, //yaha change karna padd sakta hai
     resave: false,
     cookie: {
-        maxAge: (1000*60*60)
+        maxAge: (1000*60*60*1000)
     },
     store: new MongoStore(
         {

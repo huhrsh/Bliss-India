@@ -23,13 +23,26 @@ const userSchema=mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'Product'
     }],
-    cart:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Product'
+    cart: [{
+        product: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Product'
+        },
+        quantity: {
+            type: Number,
+            default: 1
+        }
     }],
     review:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Review'
+    }],
+    phone:{
+        type:String
+    },
+    order:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Order'
     }]
 },{
     timestamps:true

@@ -2,7 +2,7 @@
 
 <header>
     <div class="company-logo">
-        <a href="/"><img src="/Images/Bliss India Logo.jpg">Bliss India</a>
+        <a href="/"><img src="/Images/Bliss India Logo2.jpeg">Bliss India</a>
     </div>
     <div class="search-bar">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -19,7 +19,7 @@
             <%}%>
         </div>
         <div class="cart">
-            <a href="" id="cart-anchor"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
+            <a href="/products/cart" id="cart-anchor"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
         </div>
         <%if(locals.user){%>
             <div class="user"><i class="fa-solid fa-user"></i>
@@ -66,6 +66,9 @@
             <div class="user-categories"><a href="/users/profile?id=<%=locals.user._id%>">My Profile</a></div>
             <%if(user.adminAccess){%>
                 <div class="user-categories"><a href="/users/add-product-page" >Add Product</a></div>
+                <div class="user-categories"><a href="/users/my-orders" >Total Orders</a></div>
+            <%}else{%>
+                <div class="user-categories"><a href="/users/my-orders" >My Orders</a></div>    
             <%}%>
         <div class="user-categories"><a href="/users/sign-out">Sign Out</a></div>
     <%}else{%>
@@ -77,6 +80,8 @@
 <ul id="search-result-container">
     
 </ul>
+
+<!-- <div class="notif">Free Delivery on orders above ₹500</div> -->
 
 <script type="text/javascript" src="/js/header.js"></script>
 <!-- <script src="https://kit.fontawesome.com/501910dff8.js" crossorigin="anonymous"></script> -->
@@ -109,7 +114,7 @@
             resultList.empty();
             const searchResultItems = searchResults.map((searchResult) => {
                 resultList.append($(`<li>
-                    <a class="search-result-section" href="/products?id=${searchResult._id}"> 
+                    <a class="search-result-section" target="_blank" href="/products?id=${searchResult._id}"> 
                     <img class="search-result-image" src="${searchResult.photos[0]}" alt="product-image">
                     <div class="search-result-details">
                         <p class="search-result-name">${searchResult.name}</p>
@@ -133,6 +138,5 @@
             }
         })
     }
-
 
 </script>

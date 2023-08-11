@@ -37,16 +37,12 @@
                     </a></p>
                 <div class="product-pricing">
                     <div>
-                        <p class="selling-price"><i class="fa-solid fa-indian-rupee-sign"></i>
-                            <%=i.selling_price%>
-                        </p>
-                        <p class="mrp" id="mrp"><i class="fa-solid fa-indian-rupee-sign"></i>
-                            <%=i.mrp%>
-                        </p>
+                        <p class="selling-price">₹<%=i.selling_price%></p>
+                        <p class="mrp" id="mrp">₹<%=i.mrp%></p>
                     </div>
-                        <p id="stars">
-                            <i  id="stars-star" class="fa-solid fa-star"></i> <%=i.review_rating.toFixed(2)%><span>(<%=i.review.length%>)</span>
-                        </p>
+                    <p id="stars">
+                        <i  id="stars-star" class="fa-solid fa-star"></i> <%=i.review_rating.toFixed(2)%><span>(<%=i.review.length%>)</span>
+                    </p>
                 </div>
                 <!-- <div class="explore-div">
                     <a  target="_blank" href="/products?id=<%=i._id%>"  id="explore-tag">Know More</a>

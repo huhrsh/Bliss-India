@@ -12,13 +12,13 @@ const usersController = require('../controller/usersController')
 router.get('/profile', passport.checkAuthentication, usersController.home);
 
 router.get('/sign-up', usersController.signUp);
+
 router.get('/sign-in', usersController.signIn);
 
 router.post('/create-user', usersController.createUser);
 
 router.get('/create-session', passport.authenticate(
-    'local',
-    { failureRedirect: '/users/sign-in' },
+    'local',{failureRedirect: '/users/sign-in' },
 ), usersController.createSession);
 
 router.get('/sign-out', usersController.destroySession);
@@ -39,7 +39,7 @@ router.post('/forgot-password' ,usersController.enterOTPPage )
 
 router.post('/enter-OTP',usersController.checkOTP)
 
-router.post('/create-new-password',usersController.createNewPassword);
+router.post('/create-new-password',passport.checkAuthentication,usersController.createNewPassword);
 
 router.get('/auth/google' , passport.authenticate('google' , {scope: ['profile' , 'email']}));
 
@@ -47,13 +47,10 @@ router.get('/auth/google/callback' , passport.authenticate('google' , {failureRe
 
 router.post('/add-to-wishlist',usersController.addToWishlist);
 
-router.get('/remove-from-wishlist' , usersController.removeFromWishlist);
+router.post('/add-to-cart' , usersController.addToCart);
 
-router.get('/add-to-cart' , usersController.addToCart);
+router.get('/remove-from-cart' , usersController.removeFromCart);
 
-router.get('/remove-from-cart',usersController.removeFromCart);
-
-
-
+router.get('/my-orders',passport.checkAuthentication,usersController.myOrders);
 
 module.exports = router;

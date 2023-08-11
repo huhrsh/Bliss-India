@@ -1,5 +1,5 @@
 footer {
-    margin-top: 1%;
+    margin-top: 2%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -19,24 +19,28 @@ footer {
     width: 90%;
     display: flex;
     justify-content: space-between;
+    /* background-color: red; */
 }
 
 .title {
     font-size: 2vw;
-    font-weight: 600;
+    font-weight: 500;
+    margin-bottom: 10%;
+
 }
 
 .footer_section {
+    /* background-color: red; */
     min-width: 17vw;
-    height: 40vh;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-evenly;    
+    justify-content: flex-start;    
 }
 
 .content-list {
-    line-height: 5vw;
+    line-height: 4.5vw;
     font-size: 1.3vw;
     display: flex;
     flex-direction: column;
@@ -45,17 +49,22 @@ footer {
     
 }
 
-a {
-    width: 16vw;
+.content-list a{
     text-decoration: none;
     color: white;
+    &:hover{
+        transform: scale(1.05);
+        /* text-shadow: 0 0 3px lightblue; */
+        /* text-decoration: underline; */
+    }
 }
 
-a:hover{
-    color: #9bf6ff
-    
+.content-list a>i {
+    padding: 0 2%;
+    font-size: 1.4vw;
 }
 
-a>i {
-    padding: 0 5%;
+
+.contact>a{
+    width: 11vw;
 }

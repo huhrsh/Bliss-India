@@ -1,9 +1,10 @@
 const User = require('../models/user');
 const Product = require('../models/product');
-const forgotPasswordMailer=require('../mailers/forget_password_mailers')
+const forgotPasswordMailer=require('../mailers/password/forget_password_mailers');
 const fs = require('fs');
 const path = require('path');
-const { title } = require('process');
+const process = require('process');
+const Order = require('../models/order');
 
 module.exports.home = function (req, res) {
   User.findOne({ _id: req.query.id })
@@ -69,7 +70,7 @@ module.exports.createNewPassword=function(req,res){
   if(req.body.password==req.body.confirm_password){
     User.findOneAndUpdate({email:req.query.email},{password:req.body.password})
     .then((user)=>{
-      req.flash('information' , 'Password changed.');
+      //req.flash('information' , 'Password changed.');
       return res.redirect('/users/sign-in');
     })
     .catch((err)=>{
@@ -79,23 +80,18 @@ module.exports.createNewPassword=function(req,res){
   }
   else{
     req.flash('error' , 'Passwords do not match');
-    console.log("Passwords do not match");
+    // console.log("Passwords do not match");
     return res.redirect('/users/forgot-password-page');
 
   }
 }
-
-
-// module.exports.forgotPassword=function(req,res){
-  
-// }
 
 module.exports.signUp = function (req, res) {
   if (req.isAuthenticated()) {
     return res.redirect('/users/profile');
   }
   res.render('SignUp', {
-    title: 'Sign Up'
+    title: 'Sign Up',
   })
 }
 
@@ -123,7 +119,7 @@ module.exports.createUser = function (req, res) {
       User.create(req.body)
         .then((newUser) => {
           req.flash('information' , 'Account created.');
-          return res.redirect('/users/sign-in');
+            return res.redirect('/users/sign-in');
         });
     })
     .catch((err) => {
@@ -133,8 +129,9 @@ module.exports.createUser = function (req, res) {
 }
 
 module.exports.createSession = function (req, res) {
+  // console.log("When creating session: ",req.session);
   // req.flash('information' , 'Logged in.');
-  return res.redirect('/');
+    return res.redirect('/');
 }
 
 
@@ -152,12 +149,13 @@ module.exports.destroySession = function (req, res) {
 module.exports.updateUser = function (req, res) {
   User.findByIdAndUpdate(req.query.id, {
     name: req.body.name,
-    address: req.body.address1 + '\n' + req.body.address2 + '\n' + req.body.address3
+    address: req.body.address1 + '\n' + req.body.address2 + '\n' + req.body.address3,
+    phone:req.body.phone
   })
     .then(() => {
       User.findOne({ _id: req.query.id })
       .then((userFound) => {
-          req.flash('information' , 'Profile updated.');
+         // req.flash('information' , 'Profile updated.');
           res.render('ProfilePage', {
             title: `${userFound.name.split(' ')[0]}`,
             user: userFound,
@@ -186,26 +184,23 @@ module.exports.changePassword = function (req, res) {
   User.findOne({ _id: req.query.id, password: req.body.old_password })
     .then((newUser) => {
       if(newUser){
-        if (req.body.new_password.length < 8 || req.body.confirm_password.length) {
-          console.log("Password length less than 8");
-          req.flash('error' , 'Password should be of atleast 8 characters.');
-          return res.redirect('back');
-      }
-      else if (req.body.confirm_password_password != req.body.new_password) {
-          console.log("Passwords do not match");
-          req.flash('error' , 'Passwords do not match');
-          return res.redirect('back');
-      }
-        newUser.password = req.body.new_password;
-        newUser.save();
-        console.log(newUser);
-        req.flash('information' , 'Password changed.');
-        return res.redirect('/users/sign-in');
-      }
-      else{
-        req.flash('error' , 'Password incorrect.');
-        console.log("Password does not match");
-        return res.redirect('back');
+        if (req.body.confirm_password != req.body.new_password) {
+            console.log("Passwords do not match");
+            req.flash('error' , 'Passwords do not match');
+            return res.redirect('/users/change-password-page');
+        }
+        else{
+          req.logout(function (err) {
+            if (err) {
+              console.log('Error in destroying the session', err);
+              return;
+            }
+            newUser.password = req.body.new_password;
+            newUser.save();
+            req.flash('information' , 'Password changed.');
+            return res.redirect('/users/sign-in');
+          });
+        }
       }
     })
     .catch((err) => {
@@ -250,7 +245,7 @@ module.exports.addProduct = function (req, res) {
 module.exports.addToWishlist = async function (req, res) {
   if (!req.body.user_id) {
     req.flash('information', 'Please sign in to proceed.');
-    return res.redirect('/users/sign-in');
+    return res.redirect(`/users/sign-in?id=${req.body.product_id}`);
   }
   try {
     const userFound = await User.findOne({ _id: req.body.user_id });
@@ -278,14 +273,75 @@ module.exports.addToWishlist = async function (req, res) {
 };
 
 
-module.exports.removeFromWishlist=function(req,res){
+module.exports.addToCart= async function(req,res){
+  if (!req.body.user_id) {
+    // req.session.productToAdd = req.body.product_id;
+    // req.session.save();
+    // console.log(req.session);
+    req.flash('information', 'Please sign in to proceed.');
+    return res.redirect(`/users/sign-in?id=${req.body.product_id}`);
+  }
+    try {
+      const userFound = await User.findOne({ _id: req.body.user_id });
+      if (!userFound) {
+        req.flash('error', 'User not found.');
+        return res.redirect('back');
+      }
+      const cartItem = userFound.cart.find(item => item.product.toString() == req.body.product_id);
+      if(cartItem){
+        return res.redirect('/products/cart')
+      }
+      else {
+        userFound.cart.push({quantity : parseInt(req.body.product_quantity),product: req.body.product_id});
+        // req.flash('information', 'Added to Cart');
+        userFound.save();
+        return res.redirect('back');
+      }
+    } catch (err) {
+      console.log("Error in adding to cart",err);
+      req.flash('error', 'Error in adding to Cart.');
+      return res.redirect('back');
+    } 
+  }
 
-}
-
-module.exports.addToCart=function(req,res){
-  
-}
 
 module.exports.removeFromCart=function(req,res){
-  
+    User.findOneAndUpdate({_id:res.locals.user._id},{ $pull: { cart: { _id: req.query.id } }})
+    .then((user)=>{
+      res.redirect('back');
+    })
+    .catch((err)=>{
+      console.log("Error in finding user");
+      res.redirect('back');
+    })
 }
+
+module.exports.myOrders=function(req,res){
+  if(res.locals.user.adminAccess){
+    Order.find({}).populate('user').populate('products.product').exec()
+    .then((orders)=>{
+      res.render('orders',{
+        title:'Orders',
+        collection:orders
+      })
+    })
+    .catch((err)=>{
+      console.log("Error in finding orders");
+      res.redirect('back')
+    })
+  }
+  else{
+    Order.find({_id:{$in:res.locals.user.order}}).populate('products.product').exec()
+    .then((orders)=>{
+      res.render('orders',{
+        title:'Orders',
+        collection:orders
+      })
+    })
+    .catch((err)=>{
+      console.log("Error in finding orders");
+      res.redirect('back')
+    })
+  }
+}
+

@@ -53,7 +53,7 @@ userButton.onmouseenter = () => {
     const userHover= document.getElementsByClassName('user-hover')[0];
     const userHoverLoader = document.getElementById('user-hover-loader');
     userHover.style.display = 'flex';
-    userHover.style.left = `${(userHoverPosition.right-userHoverPosition.width/2-userHover.getBoundingClientRect().width/2)-4.5}px`;
+    userHover.style.left = `${(userHoverPosition.right-userHoverPosition.width/2-userHover.getBoundingClientRect().width/2)}px`;
     console.log(userHover.getBoundingClientRect());
     userHoverLoader.animate({
         width: '40%',

@@ -32,11 +32,13 @@ header {
 }
 
 .company-logo a{
-    width: 17vw;
+    /* background-color: red; */
+    width: 13vw;
     height: 10vh;
-    font-family: poppins;
-    font-size:2.6vw;
-    font-weight: 200;
+    font-family: 'dancing script';
+    font-family: Amsterdam4;
+    font-weight: 300;
+    font-size:1.5vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,6 +46,7 @@ header {
 }
 
 .company-logo img{
+    /* display: none; */
     border-radius: 50%;
     width: 4vw;
 }
@@ -71,7 +74,7 @@ header {
 /* the search logo  */
 .search-bar>i {
     /* background-color: red; */
-    font-size: 1.3vw;
+    font-size: 1.2vw;
 }
 
 .search-bar>form{
@@ -107,7 +110,7 @@ header {
     margin-right: 2vw;
     padding: 0.5%;
     width: 25%;
-    color: #222;    
+    color: #333;    
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -151,6 +154,10 @@ header {
     width: 100%;
     /* background-color: red; */
     color: #333;
+}
+
+.cart i,.wishlist i{
+    padding:  0 5%;
 }
 
 .user-options>div:hover{
@@ -293,17 +300,21 @@ header {
     margin: 0;
     z-index: 2;
     position: fixed;
-    background: #f5f5f5;
-    background: #e2fdff;
+    background: #f1f1f1;
+    background: white;
+    box-shadow: 0 0 2px #333;
+    /* background: #e2fdff; */
+    /* border: 1px solid #888; */
+    /* background: #e5e5e5; */
     /* background: linear-gradient(80deg, #9bf6ff, #e2fdff 50%); */
     /* background: #333; */
     /* background: linear-gradient(60deg, #a0c4ff, #9bf6ff); */
-    width: 32%;
-    left: 34%;
+    width: 31.5%;
+    left: 31.7%;
     top: 8%;
     padding: 0 1%;
-    border-bottom-left-radius: 0.5vw;
-    border-bottom-right-radius: 0.5vw;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
     display: block;
     max-height: 80vh;
     overflow-y: scroll;
@@ -336,7 +347,7 @@ header {
     border: 1px solid #33333380;
     width: 100%;
     min-height: 15vh;
-    border-radius: 0.5vw;
+    border-radius: 3px;
     overflow: hidden;
     /* background-color: red; */
     display: flex;
@@ -355,6 +366,7 @@ header {
     width: 100%;
     height: auto;
     background: white;
+    background: #f2fdff;
     /* background-color: rebeccapurple; */
     font-size: 1vw;
     font-family: poppins;
@@ -374,9 +386,23 @@ header {
     padding-right: 0;
 }
 #pendant i{
+    padding: 0 5%;
     font-size: 1vw;
 }
 
 #mains{
     position: sticky;
+}
+
+.notif{
+    width: 100%;
+    height: 3vw;
+    position: fixed;
+    background-color: red;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4vw;
+    font-weight: 300;
 }

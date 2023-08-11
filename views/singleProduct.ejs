@@ -46,14 +46,15 @@
         <div class="inventory-status">
             <div class='counter'>
                 <div class='minus' onclick='decreaseCount(event, this)'><i class="fa-solid fa-minus"></i></div>
-                <input type="text" value="1" disabled>
+                <input type="text" name="product_quantity" value="1" id="product-quantity">
                 <div class='plus' onclick='increaseCount(event, this)'><i class="fa-solid fa-plus"></i></div>
             </div>
             <%if(product.inventory==0){%>
                 <span>Sorry, we are out of stock!</span>
-            <%}%>
-            <%if(product.inventory< 10){%>
-                <span>Only <%=product.inventory%> left in stock!</span>
+            <%}else{%>
+                <%if(product.inventory< 10){%>
+                    <span>Only <%=product.inventory%> left in stock!</span>
+                <%}%>
             <%}%>
         </div>
 
@@ -62,7 +63,7 @@
                 <%if(locals.user){%>
                     <input  style="display: none;" type="text" name="user_id" value="<%=locals.user._id%>" >
                 <%}%>
-                <input style="display: none;"  type="text" name="product_id" value="<%=product._id%>" >
+                    <input style="display: none;"  type="text" name="product_id" value="<%=product._id%>" >
                 <%if(locals.toggledWish){%>
                     <div class="wish" id="wish">
                         <button id="b2"><i class="fa-solid fa-heart"></i></button>
@@ -73,23 +74,20 @@
                     </div>  
                 <%}%>
             </form>
-
+            <%if(product.inventory!=0){%>
             <form action="/users/add-to-cart" method="post" class="cart-form">
-            <%if(toggledCart==false){%>
                 <%if(locals.user){%>
-                    <div class="cart" id="cart"><button id="b1"><a href="/users/add-to-cart?user_id=<%=locals.user._id%>&product_id=<%=product._id%>">Add To Cart <i class="fa-solid fa-cart-shopping"></i></a></button></div>
+                    <input  style="display: none;" type="text" name="user_id" value="<%=locals.user._id%>" >
+                <%}%>
+                <input style="display: none;"  type="text" name="product_id" value="<%=product._id%>" >
+                <input style="display: none;"  type="number" name="product_quantity" id="product-quantity-real">
+                <%if(locals.toggledCart){%>
+                    <div class="cart" id="cart"><button id="b1">Go to Cart <i class="fa-solid fa-cart-shopping"></i></button></div>
                 <%}else{%>
-                    <div class="cart" id="cart"><button id="b1"><a href="/users/add-to-cart?product_id=<%=product._id%>">Add To Cart <i class="fa-solid fa-cart-shopping"></i></a></button></div>
+                        <div class="cart" id="cart"><button id="b1">Add to Cart <i class="fa-solid fa-cart-shopping"></i></button></div>
                 <%}%>
+            </form>            
             <%}%>
-            <%if(toggledCart==true){%>
-                <%if(locals.user){%>
-                    <div class="cart" id="cart"><button id="b1"><a href="/users/remove-from-cart?user_id=<%=locals.user._id%>&product_id=<%=product._id%>">Remove From Cart <i class="fa-solid fa-cart-shopping"></i></a></button></div>
-                    <%}else{%>
-                        <div class="cart" id="cart"><button id="b1"><a href="/users/remove-from-cart?product_id=<%=product._id%>">Remove From Cart <i class="fa-solid fa-cart-shopping"></i></a></button></div>
-                <%}%>
-            <%}%>
-        </form>
 
         </div>
         <div class="description">
@@ -151,7 +149,7 @@
         <ul id="review-list">
         <%for(let i of product.review){%>
             <li class="customer-review" >
-                <div class="customer-rating" style="width: <%=(parseInt(i.stars)/5)*9.2%>vw">
+                <div class="customer-rating" style="width: <%=(parseInt(i.stars)/5)*6.7%>vw">
                     <i class="fa-solid fa-star" data-value="1"></i>
                     <i class="fa-solid fa-star" data-value="2"></i>
                     <i class="fa-solid fa-star" data-value="3"></i>
@@ -199,6 +197,31 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <script>
+let productQuantity=document.getElementById('product-quantity');
+let productQuantityReal=document.getElementById('product-quantity-real');
+let cartForm=document.getElementsByClassName('cart-form')[0];
+let cartButton=document.getElementById('cart');
+if(cartButton){
+    cartButton.onclick=function(e){
+        e.preventDefault();
+        productQuantityReal.setAttribute('value',parseInt(productQuantity.value));
+        cartForm.submit();
+    }
+}
+
+
+// function increaseCount(e, el) {
+//     var input = el.previousElementSibling;
+//     var value = parseInt(input.value, 10);
+//     value = isNaN(value) ? 0 : value;
+//     maxValue = parseInt(<%=product.inventory %>);
+//     if (value < maxValue) {
+//         value++;
+//     }
+//     // Notification
+//     input.value = value;
+// }
+
 
 
 {
@@ -271,7 +294,7 @@
             value++;
         }
         // Notification
-        input.value = value;
+        input.setAttribute('value',value)
     }
     function decreaseCount(e, el) {
         var input = el.nextElementSibling;
@@ -279,13 +302,14 @@
         if (value > 1) {
             value = isNaN(value) ? 0 : value;
             value--;
-            input.value = value;
+            input.setAttribute('value',value)
         }
     }
 
 
 
     var swiper = new Swiper(".image-container", {
+        effect:'fade',
         spaceBetween: 10,
         centeredSlides: true,
         grapCursor: true,

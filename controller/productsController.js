@@ -13,13 +13,40 @@ module.exports.singleProduct=function(req,res){
     })
     .then((productFound)=>{
         if(productFound){
-            if(res.locals.user && res.locals.user.wishlist.includes(productFound._id)){
-                res.render("singleProduct", {
-                    title: `${productFound.name}`,
-                    product: productFound,
-                    toggledWish:true,
-                    toggledCart:false,
-                });
+            if(res.locals.user){
+                const cartItem = res.locals.user.cart.find(item => item.product.toString() == productFound._id);
+                if(res.locals.user.wishlist.includes(productFound._id) && (cartItem)){
+                    res.render("singleProduct", {
+                        title: `${productFound.name}`,
+                        product: productFound,
+                        toggledWish:true,
+                        toggledCart:true,
+                    });
+                }
+                else if(res.locals.user.wishlist.includes(productFound._id) &&!(cartItem)){
+                    res.render("singleProduct", {
+                        title: `${productFound.name}`,
+                        product: productFound,
+                        toggledWish:true,
+                        toggledCart:false,
+                    });
+                }
+                else if(!res.locals.user.wishlist.includes(productFound._id) &&(cartItem)){
+                    res.render("singleProduct", {
+                        title: `${productFound.name}`,
+                        product: productFound,
+                        toggledWish:false,
+                        toggledCart:true,
+                    });
+                }
+                else{
+                    res.render("singleProduct", {
+                        title: `${productFound.name}`,
+                        product: productFound,
+                        toggledWish:false,
+                        toggledCart:false,
+                    });
+                }
             }
             else{
                 res.render("singleProduct", {
@@ -265,7 +292,7 @@ module.exports.offers = function (req, res) {
 module.exports.wishlist = function (req, res) {
     if(!res.locals.user){
         req.flash('information',"Please sign in to proceed");
-        res.redirect('back')
+        return res.redirect('/users/sign-in')
     }
 
     User.findOne({_id:res.locals.user._id})
@@ -286,8 +313,6 @@ module.exports.wishlist = function (req, res) {
                 order:order
             });
         })
-
-
     })
     .catch((err)=>{
         console.log("Error in finding user for wishlist, ",err);
@@ -309,3 +334,64 @@ module.exports.editProductPage = function(req,res){
         return res.redirect("Error in opening edit product page");
     })
 }
+
+
+module.exports.cart=function(req,res){
+    if(!res.locals.user){
+        req.flash('information','Please sign in to proceed');
+        return res.redirect('/users/sign-in')
+    }
+    User.findOne(res.locals.user._id)
+    .populate('cart.product')
+    .then((user)=>{
+        for(let i of user.cart){
+            // console.log(i.product.inventory)
+            if(i.product.inventory==0){
+                req.flash("information","Cart has been updated");
+                User.findOneAndUpdate({_id:res.locals.user._id},{ $pull: { cart: { _id: i.id } }})
+                .then((user)=>{
+                })
+                removedCart=true;
+            }
+            else if(i.product.inventory< i.quantity){
+                console.log("Hi 2")
+                req.flash("information","Cart has been updated");
+                i.quantity=i.product.inventory;
+                updatedCart=true;
+            }
+        }
+        user.save()
+        res.render('addToCart',{
+            title:"Cart",
+            collection:user.cart
+        })
+    })
+    .catch((err)=>{
+        console.log(err);
+        res.redirect('back')
+    })
+}
+
+module.exports.checkout=function(req,res){
+    if(!res.locals.user.address){
+        req.flash('information','Please update profile to proceed');
+        res.redirect(`/users/profile?id=${res.locals.user._id}`);
+    }
+    User.findOne({_id:res.locals.user._id}).populate('cart.product')
+    .then((user)=>{
+        res.render('checkout',{
+            title:"checkout",
+            collection:user.cart,
+        })
+    })
+    .catch((err)=>{
+        console.log("Error in finding user for checkout");
+        res.redirect('back');
+    })
+}
+
+
+// Product.updateMany({},{$set:{inventory:5}})
+// .then(()=>{
+//     console.log("Done updating inventory");
+// })

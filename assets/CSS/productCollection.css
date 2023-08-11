@@ -74,7 +74,9 @@ main{
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     &:hover{
+        filter: brightness(1.05);
         transform: scale(1.05);
+        padding-bottom: 2%;
     }
 
 }
@@ -108,19 +110,23 @@ main{
     color: #333;
 }
 .product-name a:hover{    
-    color: #023e8a;
+    color: #000;
 }
 
 .product-pricing{
-    padding: 3% 2%;
+    /* background-color: red; */
+    padding: 4% 2% 1% 2%;
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
 }
 
 .product-pricing>div{
     width: 65%;
     display: flex;
+    gap: 2%;
+    align-items: center;
     /* background-color: red; */
 }
 
@@ -130,11 +136,9 @@ main{
     /* background-color: rebeccapurple; */
     font-size: 1.2vw;
 }
-.product-pricing p i{
-    font-size: 1vw;
-}
 
 #mrp{
+    font-size: 1vw;
     font-weight: 300;
     color: #777;
     text-decoration: line-through;
@@ -159,33 +163,3 @@ main{
     color: gold;
     font-size: 1.4vw;
 }
-
-.explore-div{
-    align-self: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 6vh;
-    margin-left: 10%;
-    width: 80%;
-    color: #333;
-    font-size: 1vw;
-    border-radius: 0.5vw; 
-    background: -webkit-linear-gradient(-60deg,#a0c4ff,#9bf6ff);
-    border: 1px solid #33333320;
-    /* box-shadow: 0 0 2px #33333380; */
-    transition: all ease-in-out 0.2s;
-}
-
-.explore-div a{
-    font-family: poppins;
-    font-size: 1.4vw;
-    font-weight: 400;
-    color: #333;
-}
-
-.explore-div a:hover{
-    color: #333;
-}
-
