@@ -4,40 +4,59 @@ const User=require('../models/user')
 
 
 module.exports.singleProduct=function(req,res){
-    Product.findOne({_id:req.query.id})
+    let sortBy=req.query.sort_by;
+    let order=parseInt(req.query.order);
+    let sortObject = {};
+    sortObject[sortBy] = order;
+    console.log(sortObject);
+    Product.findOne({_id:req.query.id}).populate( 'review')
     .then((productFound)=>{
-        return Product.populate(productFound, { path: 'review' ,  options: { sort: { createdAt: -1 } }});
-    })
-    .then((productFound)=>{
-        return Product.populate(productFound, { path: 'user' });
-    })
-    .then((productFound)=>{
-        if(productFound){
-            if(res.locals.user){
-                const cartItem = res.locals.user.cart.find(item => item.product.toString() == productFound._id);
-                if(res.locals.user.wishlist.includes(productFound._id) && (cartItem)){
-                    res.render("singleProduct", {
-                        title: `${productFound.name}`,
-                        product: productFound,
-                        toggledWish:true,
-                        toggledCart:true,
-                    });
+            productFound.review.sort((a, b) => {
+                const aValue = a[sortBy];
+                const bValue = b[sortBy];
+                if (order ==1) {
+                    return aValue > bValue ? 1 : -1;
+                } else {
+                    return bValue > aValue ? 1 : -1;
                 }
-                else if(res.locals.user.wishlist.includes(productFound._id) &&!(cartItem)){
-                    res.render("singleProduct", {
-                        title: `${productFound.name}`,
-                        product: productFound,
-                        toggledWish:true,
-                        toggledCart:false,
-                    });
-                }
-                else if(!res.locals.user.wishlist.includes(productFound._id) &&(cartItem)){
-                    res.render("singleProduct", {
-                        title: `${productFound.name}`,
-                        product: productFound,
-                        toggledWish:false,
-                        toggledCart:true,
-                    });
+            });
+            console.log(productFound)
+                res.locals.sorted=sortBy;
+                res.locals.order=order;
+                if(res.locals.user){
+                    const cartItem = res.locals.user.cart.find(item => item.product.toString() == productFound._id);
+                    if(res.locals.user.wishlist.includes(productFound._id) && (cartItem)){
+                        res.render("singleProduct", {
+                            title: `${productFound.name}`,
+                            product: productFound,
+                            toggledWish:true,
+                            toggledCart:true,
+                        });
+                    }
+                    else if(res.locals.user.wishlist.includes(productFound._id) &&!(cartItem)){
+                        res.render("singleProduct", {
+                            title: `${productFound.name}`,
+                            product: productFound,
+                            toggledWish:true,
+                            toggledCart:false,
+                        });
+                    }
+                    else if(!res.locals.user.wishlist.includes(productFound._id) &&(cartItem)){
+                        res.render("singleProduct", {
+                            title: `${productFound.name}`,
+                            product: productFound,
+                            toggledWish:false,
+                            toggledCart:true,
+                        });
+                    }
+                    else{
+                        res.render("singleProduct", {
+                            title: `${productFound.name}`,
+                            product: productFound,
+                            toggledWish:false,
+                            toggledCart:false,
+                        });
+                    }
                 }
                 else{
                     res.render("singleProduct", {
@@ -47,25 +66,17 @@ module.exports.singleProduct=function(req,res){
                         toggledCart:false,
                     });
                 }
-            }
-            else{
-                res.render("singleProduct", {
-                    title: `${productFound.name}`,
-                    product: productFound,
-                    toggledWish:false,
-                    toggledCart:false,
-                });
-            }
         }
-    })
+        
+    )
     .catch((err) => {
-        console.log("Error in finding the product to be displayed");
+        console.log("Error in finding the product to be displayed",err);
         return res.redirect('back');
     })
 }
 
 module.exports.searchProduct=function(req,res){
-    Product.find({"name" : {$regex : `${req.body.name}`}})
+    Product.find({"name" : {$regex : `${req.body.name}`}}) 
         .then((products)=>{
             if(req.xhr){
                 return res.status(200).json({
@@ -391,7 +402,7 @@ module.exports.checkout=function(req,res){
 }
 
 
-// Product.updateMany({},{$set:{inventory:5}})
+// Product.updateMany({},{$set:{inventory:10}})
 // .then(()=>{
 //     console.log("Done updating inventory");
 // })

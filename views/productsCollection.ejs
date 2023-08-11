@@ -28,7 +28,7 @@
 <main class="product-area">
     <%for(let i of collection){%>
         <section class="individual-product">
-            <a id="image-link" target="_blank" href="/products?id=<%=i._id%>">
+            <a id="image-link" target="_blank" href="/products?id=<%=i._id%>&sort_by=username&order=1">
                 <img src="<%=i.photos[0]%>">
             </a>
             <div class="product-details">

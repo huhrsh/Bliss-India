@@ -142,7 +142,42 @@
         <div class="review-left" style="min-height: 78vh;">
     <%}%>
         
+
+
+    <div class="heading-area">
         <h2 id="review-left-heading">Ratings & Reviews</h2>
+        <form class="sorter" method="get">
+            <label>Sort By:</label>
+            <div>
+                <select name="sort_by" id="n-p-r">
+                    <option value="username" class="npr" selected>Name</option>
+                    <option value="createdAt" class="npr">Time</option>
+                    <option value="stars" class="npr">Stars</option>
+                </select>
+            </div>
+            <div>
+                <select name="order" id="a-d">
+                    <%if(locals.order==1){%>
+                        <option value=1 class="ad" selected>Ascending</option>
+                        <option value=-1 class="ad">Descending</option>
+                    <%}else{%>
+                        <option value=1 class="ad">Ascending</option>
+                        <option value=-1 class="ad" selected>Descending</option>
+                    <%}%>
+                </select>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+
+        <!-- <h2 id="review-left-heading">Ratings & Reviews</h2> -->
         <%if(product.review.length==0){%>
             No reviews yet! <br>Be the first one to review this product.
         <%}%>
@@ -197,6 +232,21 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <script>
+    document.querySelector('option[value="<%=sorted%>"]').selected = true
+    const npr=document.getElementById('n-p-r');
+    const ad=document.getElementById('a-d');
+    const sorter=document.getElementsByClassName('sorter')[0];
+    npr.addEventListener('change',function(){
+        sorter.action=`/products?id=<%=product._id%>&sort_by=${npr.value}&order=${ad.value}`
+        sorter.submit()
+    })
+    ad.addEventListener('change',function(){
+        sorter.action=`/products?id=<%=product._id%>&sort_by=${npr.value}&order=${ad.value}`
+        sorter.submit()
+    })
+
+
+
 let productQuantity=document.getElementById('product-quantity');
 let productQuantityReal=document.getElementById('product-quantity-real');
 let cartForm=document.getElementsByClassName('cart-form')[0];

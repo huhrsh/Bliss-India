@@ -72,6 +72,14 @@
     let footer=document.getElementsByTagName('footer')[0];
     let navbar=document.getElementsByClassName('nav-bar')[0];
 
+    // console.log(window.location.href)
+
+    // window.history.pushState(null, null, window.location.href);
+    // window.onpopstate = function () {
+    //     console.log("Arre");
+    //     window.history.go(1);
+    // };
+
     printButton.onclick = () => {
   const content = document.getElementById("main");
   const pdf = new jsPDF("p", "pt", "a4");

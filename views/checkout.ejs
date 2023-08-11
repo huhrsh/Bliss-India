@@ -42,6 +42,7 @@
             <div class="total-price"><h3>Total amount: </h3> <strong> ₹<%=selling_sum%></strong></div>
         <%}%>
         <div class="total-price"><h3>You save: </h3> ₹<%=mrp_sum-selling_sum%></div>
+        <div class="total-price"><h3>Mode of payment: </h3>Cash on delivery</div>
         <form action="/orders/create-order" method="post" class="place-order">
             <%if(selling_sum<500){%>
                 <input style="display: none;" type="number" name="totalAmount" value="<%=selling_sum+50%>">
@@ -63,3 +64,7 @@
         </div>
     </div>
 </main>
+
+<script>
+    
+</script>

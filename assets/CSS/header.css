@@ -394,15 +394,40 @@ header {
     position: sticky;
 }
 
+@keyframes notification {
+    from{
+        transform: translateX(-80vw);
+    }
+    to{
+        transform: translateX(90vw);
+    }
+    /* to{
+        transform: translateX(-10vw);
+    } */
+}
+
 .notif{
-    width: 100%;
+    width: 30%;
     height: 3vw;
+    right: -13.5vw;
+    top: 26vw;
+    border-radius: 4px;
+    transform: rotateZ(-90deg);
     position: fixed;
-    background-color: red;
+    background:linear-gradient(to right,white 25%, #9bf6ff ,white 75%);
+    background: #9bf6ff;
     z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.4vw;
     font-weight: 300;
+    /* animation: notification 30s infinite backwards; */
+}
+
+.notif i{
+    cursor: pointer;
+    position: relative;
+    left: 8.7%;
+    bottom: 47%;
 }

@@ -45,10 +45,12 @@
     margin-top:1vw;
     font-size: 1vw;
     color: #023e8a;
+    cursor: pointer;
 }
 
 .signUp-signIn:hover{
     color: #03045e;
+    cursor: pointer;
 }
 
 .password{
