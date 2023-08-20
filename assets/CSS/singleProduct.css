@@ -211,7 +211,10 @@ img {
 }
 
 .edit-product{
-    width: 45%;
+    /* background-color: #0096c7; */
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .edit-button{
@@ -219,7 +222,7 @@ img {
     height: 7vh;
     border-radius: 3.5vh;
     padding: 0 4%;
-    width: 100%;
+    width: 42%;
     border: none;
     outline: none;
     font-family: poppins;
@@ -300,6 +303,7 @@ img {
     padding-bottom: 3%;
 }
 
+
 .inventory-status{
     width: 100%;
     /* background-color: red; */
@@ -310,7 +314,7 @@ img {
     
     /* justify-content: space-between; */
 }
-.inventory-status>span{
+.inventory-status>span{ 
     font-size: 1.1vw;
     font-weight: 400;
 }
@@ -551,7 +555,7 @@ textarea:focus {
 
 .review-right{
     position: sticky;
-    top: 21vh;
+    top: 20.4vh;
     border-left: 2px solid #777;
     padding-left: 7%;
     padding-bottom: 2%;
@@ -634,40 +638,4 @@ textarea:focus {
     color:#333;
     background: linear-gradient(120deg, #a0c4ff30, #9bf6ff30);
     margin-top: 2%;
-}
-
-.heading-area{
-    width: 100%;
-    padding: 1% 3%;
-    color: #333;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.heading-area>h2{
-    text-transform: capitalize;
-    font-weight: 300;
-    font-size: 1.8vw;
-}
-
-.sorter{
-    height: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    gap: 0.5vw;
-}
-
-.sorter select{
-    margin-right: 1vw;
-    outline: none;
-    padding: 2% 4%;
-    font-family: poppins;
-    font-size: 1.2vw;
-    border-radius: 5vw !important;
-}
-
-.sorter select>option{
-    font-family: poppins;
-    font-size: 1.2vw;
 }

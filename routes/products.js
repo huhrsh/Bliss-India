@@ -28,6 +28,10 @@ router.get('/offers',productsController.offers);
 
 router.get('/edit-product-page' , passport.checkAuthentication,productsController.editProductPage);
 
+router.post('/edit-product',passport.checkAuthentication,productsController.editProduct )
+
+router.get('/delete-product',passport.checkAuthentication,productsController.deleteProduct )
+
 router.get('/wishlist',productsController.wishlist);
 
 router.get('/cart',productsController.cart);

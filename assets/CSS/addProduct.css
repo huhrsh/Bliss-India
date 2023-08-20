@@ -34,6 +34,25 @@
     background: -webkit-linear-gradient(120deg, #a0c4ff50, #9bf6ff50);
 }
 
+.product-label textarea{
+    border: none;
+    resize: none;
+    width: 25vw;
+    padding: 2%;
+    border-radius: 1.5vh;
+    outline: none;
+    font-family: poppins;
+    font-weight: 400;
+    font-size: 1.2vw;
+    color:#333;
+    overflow-y: scroll;
+    min-height: 60vh;
+    background: -webkit-linear-gradient(120deg, #a0c4ff50, #9bf6ff50);
+    &::-webkit-scrollbar{
+        display: none;
+    }
+}
+
 .product-label{
     width: 100%;
     font-family: dosis;

@@ -124,6 +124,7 @@
         <%if(locals.user && user.adminAccess){%>
         <div class="edit-product">
             <button class="edit-button"><a href="/products/edit-product-page?id=<%=product.id%>">Edit Product</a></button>
+            <button class="edit-button"><a href="/products/delete-product?id=<%=product.id%>">Delete Product</a></button>
         </div>
         <%}%>
     </div>
@@ -144,7 +145,7 @@
         
 
 
-    <div class="heading-area">
+    <!-- <div class="heading-area">
         <h2 id="review-left-heading">Ratings & Reviews</h2>
         <form class="sorter" method="get">
             <label>Sort By:</label>
@@ -154,7 +155,7 @@
                     <option value="createdAt" class="npr">Time</option>
                     <option value="stars" class="npr">Stars</option>
                 </select>
-            </div>
+            </div><br>
             <div>
                 <select name="order" id="a-d">
                     <%if(locals.order==1){%>
@@ -167,20 +168,10 @@
                 </select>
             </div>
         </form>
-    </div>
+    </div> -->
 
+        <h2 id="review-left-heading">Ratings & Reviews</h2>
 
-
-
-
-
-
-
-
-        <!-- <h2 id="review-left-heading">Ratings & Reviews</h2> -->
-        <%if(product.review.length==0){%>
-            No reviews yet! <br>Be the first one to review this product.
-        <%}%>
         <ul id="review-list">
         <%for(let i of product.review){%>
             <li class="customer-review" >
@@ -232,20 +223,6 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <script>
-    document.querySelector('option[value="<%=sorted%>"]').selected = true
-    const npr=document.getElementById('n-p-r');
-    const ad=document.getElementById('a-d');
-    const sorter=document.getElementsByClassName('sorter')[0];
-    npr.addEventListener('change',function(){
-        sorter.action=`/products?id=<%=product._id%>&sort_by=${npr.value}&order=${ad.value}`
-        sorter.submit()
-    })
-    ad.addEventListener('change',function(){
-        sorter.action=`/products?id=<%=product._id%>&sort_by=${npr.value}&order=${ad.value}`
-        sorter.submit()
-    })
-
-
 
 let productQuantity=document.getElementById('product-quantity');
 let productQuantityReal=document.getElementById('product-quantity-real');

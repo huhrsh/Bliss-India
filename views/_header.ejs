@@ -23,7 +23,9 @@
         </div>
         <%if(locals.user){%>
             <div class="user"><i class="fa-solid fa-user"></i>
-                <%=user.name.split(' ')[0]%>
+                <%let name=user.name.split(' ')[0]%>
+                <%let len=name.length%>
+                <%=name.substring(0, Math.min(len, 8));%>
             </div>
         <%}else{%>
             <div class="user"><i class="fa-solid fa-user"></i> User</div>
@@ -33,15 +35,15 @@
 
 <section class="nav-bar">
     <div class="category"><a href="/products/crystal-collection?sort_by=name&order=1">Crystal Collection</a></div>
-    <div class="category" id="pendant">
-        <div class="pendant-hover">
+    <div class="category">
+        <!-- <div class="pendant-hover">
             <div id="hover-loader"></div>
             <div class="pendant-categories"><a href="">Premium Pendants</a></div>
             <div class="pendant-categories"><a href="">Minimal Pendants</a></div>
             <div class="pendant-categories"><a href="">Silver Pendants</a></div>
             <div class="pendant-categories"><a href="">Charm Pendants</a></div>
-        </div>
-    <a href="/products/pendants?sort_by=name&order=1" id="pendant">Pendants<i class="fa-solid fa-chevron-down"></i></a></div>
+        </div> -->
+    <a href="/products/pendants?sort_by=name&order=1" id="pendant">Pendants</a></div>
     <div class="category"><a href="/products/lockets?sort_by=name&order=1">Lockets</a></div>
     <div class="category"><a href="/products/earrings?sort_by=name&order=1">Earrings</a></div>
     <div class="category"><a href="/products/bracelets?sort_by=name&order=1">Bracelets</a></div>
