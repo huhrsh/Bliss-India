@@ -1,5 +1,5 @@
 .sign-in-heading{
-    font-size: 4vw;
+    font-size: 2.4vw;
     margin: 0 0 1% 0;
     font-family: poppins;
     font-weight: 300;
@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 6vw;
+    margin-top: 8vw;
     margin-bottom: 8vw;
     
 }
@@ -77,4 +77,29 @@
 
 #sign-in:hover{
     background: -webkit-linear-gradient(60deg, #a0c4ff, #9bf6ff);
+}
+
+.google-icon{
+    background-color: #ff0000;
+    width: 18.5vw;
+    height: 2.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #444;
+    color: #023e8a;
+    padding: 1.4%;
+    border-radius: 1.5vw;
+    background: #9bf6ff77;
+    &:hover{
+        color: #03045e;
+    }
+}
+
+.google-icon i{
+    /* filter: drop-shadow(2px 2px 2px black); */
+    /* box-shadow: 2px 2px 2px black; */
+    border-radius: 50%;
+    padding: 2%;
+    background-color: #ffffffaa;
 }

@@ -2,12 +2,12 @@
 // const navBar = document.getElementsByClassName('category');
 // const pendantHover = document.getElementsByClassName('pendant-hover')[0];
 const userButton = document.getElementsByClassName('user')[0];
-const userHover= document.getElementsByClassName('user-hover')[0];
-const userHoverLoader = document.getElementById('user-hover-loader');
+// const userHover= document.getElementsByClassName('user-hover')[0];
+// const userHoverLoader = document.getElementById('user-hover-loader');
 
 
 // let buttonPosition = navBar[1].getBoundingClientRect();
-let userHoverPosition = userButton.getBoundingClientRect();
+// let userHoverPosition = userButton.getBoundingClientRect();
 // pendantHover.style.top = `${buttonPosition.bottom}px`;
 // userHover.style.top = `${userHoverPosition.bottom}px`;
 
@@ -48,22 +48,25 @@ let userHoverPosition = userButton.getBoundingClientRect();
 
 
 
-
+let userHoverPosition = userButton.getBoundingClientRect();
+const userHover= document.getElementsByClassName('user-hover')[0];
 userButton.onmouseenter = () => {
-    const userHover= document.getElementsByClassName('user-hover')[0];
     const userHoverLoader = document.getElementById('user-hover-loader');
     userHover.style.display = 'flex';
     userHover.style.left = `${(userHoverPosition.right-userHoverPosition.width/2-userHover.getBoundingClientRect().width/2)}px`;
-    // console.log(userHover.getBoundingClientRect());
+    console.log(userHover.getBoundingClientRect());
     userHoverLoader.animate({
         width: '40%',
     }, { duration: 250, fill: 'forwards', easing: 'ease-in' })
 }
 
-userButton.onmouseleave = (e) => {
-    let hoverPosition = userHover.getBoundingClientRect();
-    if ((e.clientX <= hoverPosition.right & e.clientX >= hoverPosition.left) & (e.clientY <= hoverPosition.bottom & e.clientY >= hoverPosition.top)) {
+// userButton.style.background='red';
 
+userButton.onmouseleave = (e) => {
+    const userHoverLoader = document.getElementById('user-hover-loader');
+    let hoverPosition = userHover.getBoundingClientRect();
+    if ((e.clientX <= hoverPosition.right & e.clientX >= hoverPosition.left) & (e.clientY <= hoverPosition.bottom & e.clientY >= hoverPosition.top-10)) {
+        userHover.style.display = 'flex';
     }
     else {
         userHover.style.display = 'none';
@@ -74,7 +77,8 @@ userButton.onmouseleave = (e) => {
 }
 
 userHover.onmouseleave = () => {
-        userHover.style.display = 'none';
+    const userHoverLoader = document.getElementById('user-hover-loader');
+    userHover.style.display = 'none';
     userHoverLoader.animate({
         width: '0%',
     }, { duration: 250, fill: 'forwards', easing: 'ease-out' })

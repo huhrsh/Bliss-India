@@ -43,11 +43,15 @@ const userSchema=mongoose.Schema({
     order:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Order'
-    }]
+    }],
+    googleAuth:{
+        type:Boolean
+    }
 },{
     timestamps:true
 })
 
+userSchema.path('googleAuth').default(false);
 userSchema.path('adminAccess').default(false);
 
 const User = new mongoose.model("User",userSchema);

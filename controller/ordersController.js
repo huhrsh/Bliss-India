@@ -2,6 +2,7 @@ const Order=require('../models/order')
 const User=require('../models/user')
 const Product=require('../models/product');
 const orderEmailer =  require('../mailers/orders/order-mailer.js');
+const orderReceiver =  require('../mailers/orders/order-receiver.js');
 
 module.exports.home=function(req,res){
     // console.log(req.query.id);
@@ -21,7 +22,7 @@ module.exports.home=function(req,res){
 
 
 
-module.exports.createOrder=function(req,res){
+module.exports.createOrder=async function(req,res){
     Order.create({user:res.locals.user._id,  products:res.locals.user.cart, totalAmount:req.body.totalAmount})
     .then((order)=>{
         for(let i of res.locals.user.cart){
@@ -35,9 +36,15 @@ module.exports.createOrder=function(req,res){
             { $push: { order: order._id }, $set: { cart: [] } },
             { new: true }               
         )
+        
         .then((user) => {
-            orderEmailer.orderEmail(user,order);
-            return res.redirect(`/orders/receipt?id=${order._id}`);
+
+            order.populate('products.product')
+            .then((order)=>{
+                orderEmailer.orderEmail(user,order);
+                orderReceiver.orderEmail(user,order);
+                return res.redirect(`/orders/receipt?id=${order._id}`);
+            })
         })
         .catch((err)=>{
             console.log("Error in finding user",err);

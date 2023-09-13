@@ -15,4 +15,6 @@ router.get('/terms-and-conditions',homeController.termsAndConditions);
 router.get('/privacy-policy',homeController.privacyPolicy);
 router.get('/career',homeController.career);
 
+router.get('/error',homeController.error);
+
 module.exports=router;

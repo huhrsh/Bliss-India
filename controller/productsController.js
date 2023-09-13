@@ -3,119 +3,62 @@ const Review=require('../models/review')
 const User=require('../models/user')
 
 
-// module.exports.singleProduct=function(req,res){
-//     let sortBy=req.query.sort_by;
-//     let order=parseInt(req.query.order);
-//     let sortObject = {};
-//     sortObject[sortBy] = order;
-//     console.log(sortObject);
-//     Product.findOne({_id:req.query.id}).populate( 'review')
-//     .then((productFound)=>{
-//             productFound.review.sort((a, b) => {
-//                 const aValue = a[sortBy];
-//                 const bValue = b[sortBy];
-//                 if (order ==1) {
-//                     return aValue > bValue ? 1 : -1;
-//                 } else {
-//                     return bValue > aValue ? 1 : -1;
-//                 }
-//             });
-//             console.log(productFound)
-//                 res.locals.sorted=sortBy;
-//                 res.locals.order=order;
-//                 if(res.locals.user){
-//                     const cartItem = res.locals.user.cart.find(item => item.product.toString() == productFound._id);
-//                     if(res.locals.user.wishlist.includes(productFound._id) && (cartItem)){
-//                         res.render("singleProduct", {
-//                             title: `${productFound.name}`,
-//                             product: productFound,
-//                             toggledWish:true,
-//                             toggledCart:true,
-//                         });
-//                     }
-//                     else if(res.locals.user.wishlist.includes(productFound._id) &&!(cartItem)){
-//                         res.render("singleProduct", {
-//                             title: `${productFound.name}`,
-//                             product: productFound,
-//                             toggledWish:true,
-//                             toggledCart:false,
-//                         });
-//                     }
-//                     else if(!res.locals.user.wishlist.includes(productFound._id) &&(cartItem)){
-//                         res.render("singleProduct", {
-//                             title: `${productFound.name}`,
-//                             product: productFound,
-//                             toggledWish:false,
-//                             toggledCart:true,
-//                         });
-//                     }
-//                     else{
-//                         res.render("singleProduct", {
-//                             title: `${productFound.name}`,
-//                             product: productFound,
-//                             toggledWish:false,
-//                             toggledCart:false,
-//                         });
-//                     }
-//                 }
-//                 else{
-//                     res.render("singleProduct", {
-//                         title: `${productFound.name}`,
-//                         product: productFound,
-//                         toggledWish:false,
-//                         toggledCart:false,
-//                     });
-//                 }
-//         }
-        
-//     )
-//     .catch((err) => {
-//         console.log("Error in finding the product to be displayed",err);
-//         return res.redirect('back');
-//     })
-// }
-
-
 module.exports.singleProduct=function(req,res){
     let sortBy=req.query.sort_by;
     let order=parseInt(req.query.order);
-    // console.log(req.query.id);
-    // let sortObject = {};
-    // sortObject[sortBy] = order;
-    // let sortObjectJSON=JSON.stringify(sortObject);
-    // console.log(JSON.stringify(sortObject));
-    Product.findOne({_id:req.query.id}).populate('review' ).exec()
+    let sortObject = {};
+    sortObject[sortBy] = order;
+    // console.log(sortObject);
+    Product.findOne({_id:req.query.id}).populate( 'review')
     .then((productFound)=>{
-        // console.log(productFound.review)
-        res.locals.sorted=sortBy;
-        res.locals.order=order;
-        if(res.locals.user){
-            const cartItem = res.locals.user.cart.find(item => item.product.toString() == productFound._id);
-            if(res.locals.user.wishlist.includes(productFound._id) && (cartItem)){
-                res.toggledWish=true;
-                res.toggledCart=true;
-            }
-            else if(res.locals.user.wishlist.includes(productFound._id) &&!(cartItem)){
-                res.toggledWish=false;
-                res.toggledCart=true;
-            }
-            else if(!res.locals.user.wishlist.includes(productFound._id) &&(cartItem)){
-                    res.toggledWish=false;
-                    res.toggledCart=true;
-            }
-            else{
-                    res.toggledWish=false;
-                    res.toggledCart=false;
+                res.locals.sorted=sortBy;
+                res.locals.order=order;
+                if(res.locals.user){
+                    const cartItem = res.locals.user.cart.find(item => item.product.toString() == productFound._id);
+                    if(res.locals.user.wishlist.includes(productFound._id) && (cartItem)){
+                        res.render("singleProduct", {
+                            title: `${productFound.name}`,
+                            product: productFound,
+                            toggledWish:true,
+                            toggledCart:true,
+                        });
+                    }
+                    else if(res.locals.user.wishlist.includes(productFound._id) &&!(cartItem)){
+                        res.render("singleProduct", {
+                            title: `${productFound.name}`,
+                            product: productFound,
+                            toggledWish:true,
+                            toggledCart:false,
+                        });
+                    }
+                    else if(!res.locals.user.wishlist.includes(productFound._id) &&(cartItem)){
+                        res.render("singleProduct", {
+                            title: `${productFound.name}`,
+                            product: productFound,
+                            toggledWish:false,
+                            toggledCart:true,
+                        });
+                    }
+                    else{
+                        res.render("singleProduct", {
+                            title: `${productFound.name}`,
+                            product: productFound,
+                            toggledWish:false,
+                            toggledCart:false,
+                        });
+                    }
                 }
-            }else{
-                res.toggledWish=false;
-                res.toggledCart=false;
-            }
-            res.render("singleProduct", {
-                title: `${productFound.name}`,
-                product: productFound,
-            })
-        })
+                else{
+                    res.render("singleProduct", {
+                        title: `${productFound.name}`,
+                        product: productFound,
+                        toggledWish:false,
+                        toggledCart:false,
+                    });
+                }
+        }
+        
+    )
     .catch((err) => {
         console.log("Error in finding the product to be displayed",err);
         return res.redirect('back');
@@ -123,9 +66,56 @@ module.exports.singleProduct=function(req,res){
 }
 
 
+// module.exports.singleProduct=function(req,res){
+//     let sortBy=req.query.sort_by;
+//     let order=parseInt(req.query.order);
+//     // console.log(req.query.id);
+//     // let sortObject = {};
+//     // sortObject[sortBy] = order;
+//     // let sortObjectJSON=JSON.stringify(sortObject);
+//     // console.log(JSON.stringify(sortObject));
+//     Product.findOne({_id:req.query.id}).populate('review' ).exec()
+//     .then((productFound)=>{
+//         // console.log(productFound.review)
+//         res.locals.sorted=sortBy;
+//         res.locals.order=order;
+//         if(res.locals.user){
+//             const cartItem = res.locals.user.cart.find(item => item.product.toString() == productFound._id);
+//             if(res.locals.user.wishlist.includes(productFound._id) && (cartItem)){
+//                 res.locals.toggledWish=true;
+//                 res.locals.toggledCart=true;
+//             }
+//             else if(res.locals.user.wishlist.includes(productFound._id) &&!(cartItem)){
+//                 res.locals.toggledWish=false;
+//                 res.locals.toggledCart=true;
+//             }
+//             else if(!res.locals.user.wishlist.includes(productFound._id) &&(cartItem)){
+//                     res.locals.toggledWish=false;
+//                     res.locals.toggledCart=true;
+//             }
+//             else{
+//                     res.locals.toggledWish=false;
+//                     res.locals.toggledCart=false;
+//                 }
+//             }else{
+//                 res.locals.toggledWish=false;
+//                 res.locals.toggledCart=false;
+//             }
+//             res.render("singleProduct", {
+//                 title: `${productFound.name}`,
+//                 product: productFound,
+//             })
+//         })
+//     .catch((err) => {
+//         console.log("Error in finding the product to be displayed",err);
+//         return res.redirect('back');
+//     })
+// }
+
+
 
 module.exports.searchProduct=function(req,res){
-    Product.find({"name" : {$regex : `${req.body.name}`}}) 
+    Product.find({ "name": { $regex: new RegExp(req.body.name, 'i') } })
         .then((products)=>{
             if(req.xhr){
                 return res.status(200).json({
@@ -422,19 +412,37 @@ module.exports.deleteProduct=function(req,res){
             console.log("All reviews related deleted");
             Product.deleteOne({_id:productId})
             .then(()=>{
-                console.log("Product Deleted");
-                if(category=='crystal'){
-                    res.redirect(`/products/crystal-collection?sort_by=name&order=1`);
-                }
-                else if(category=='complete'){
-                    res.redirect(`/products/complete-sets?sort_by=name&order=1`);
-                }
-                else if(category=='evil_eye'){
-                    res.redirect(`/products/evil-eye-colleciton?sort_by=name&order=1`);
-                }
-                else{
-                    res.redirect(`/products/${category}s?sort_by=name&order=1`);
-                }
+                User.find({})
+                .then((users)=>{
+                    for(let user of users){
+                        // console.log(user.name);
+                        if(user.cart.length>0){
+                            // console.log(user.cart);
+                            user.cart = user.cart.filter(item => item.product.toString() != productId);
+                        }
+                        if(user.wishlist.length>0){
+                            // console.log(user.wishlist);
+                            user.wishlist = user.wishlist.filter(item => item.toString() != productId);
+                        }
+                        // console.log("***",user)
+                        user.save();
+                        console.log("User updated");
+                    }                
+                    console.log("Product Deleted");
+                    if(category=='crystal'){
+                        res.redirect(`/products/crystal-collection?sort_by=name&order=1`);
+                    }
+                    else if(category=='complete'){
+                        res.redirect(`/products/complete-sets?sort_by=name&order=1`);
+                    }
+                    else if(category=='evil_eye'){
+                        res.redirect(`/products/evil-eye-colleciton?sort_by=name&order=1`);
+                    }
+                    else{
+                        res.redirect(`/products/${category}s?sort_by=name&order=1`);
+                    }
+                })
+
             })
             .catch((err)=>{
                 console.log("Error in deleteing product");
@@ -488,6 +496,8 @@ module.exports.cart=function(req,res){
         res.redirect('back')
     })
 }
+
+
 
 module.exports.checkout=function(req,res){
     if(!res.locals.user.address){

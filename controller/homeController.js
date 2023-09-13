@@ -53,3 +53,8 @@ module.exports.career=function(req,res){
     })
 }
 
+module.exports.error=(req,res)=>{
+    res.render('error',{
+        title:"Error"
+    })
+}

@@ -32,7 +32,7 @@ module.exports.enterOTPPage=function(req,res){
   let OTP=Math.floor(100000 + Math.random() * 900000);
   User.findOne({email:req.body.email})
   .then((user)=>{
-    if(user){
+    if(user && !user.googleAuth){
       forgotPasswordMailer.forgotPassword(user,OTP);
       res.render('enterOTPPage',{
         title:'Enter OTP',
@@ -40,6 +40,13 @@ module.exports.enterOTPPage=function(req,res){
         userEmail:user.email
       })
     }
+
+    else if(user && user.googleAuth){
+      console.log("Can't change Google-authenticated users' passwords.");
+      req.flash('information',"Can't change Google-authenticated users' passwords.")
+      return res.redirect('back');
+    }
+
     else{
       // enter noty 
       console.log("No user found when forgot password");

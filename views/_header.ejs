@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="<%=assetPath('header.css')%>">
 
 <header>
     <div class="company-logo">
@@ -13,6 +13,7 @@
     <div class="user-options">
         <div class="wishlist">
             <%if(locals.user){%>
+                <!-- <div class="wish-count"></div> -->
                 <a href="/products/wishlist?sort_by=name&order=1&user_id=<%=locals.user._id%>" id="wishlist-anchor"><i class="fa-solid fa-heart"></i>wishlist</a>
             <%}else{%>
                 <a href="/products/wishlist?sort_by=name&order=1" id="wishlist-anchor"><i class="fa-solid fa-heart"></i>wishlist</a>
@@ -20,6 +21,9 @@
         </div>
         <div class="cart">
             <a href="/products/cart" id="cart-anchor"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
+            <!-- <%if(locals.user && locals.user.cart.length>0){%>
+                <div class="cart-count"></div>
+            <%}%> -->
         </div>
         <%if(locals.user){%>
             <div class="user"><i class="fa-solid fa-user"></i>

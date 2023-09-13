@@ -34,6 +34,10 @@ main{
     gap: 0.5vw;
 }
 
+.sorter>label{
+    font-size: 1.4vw;
+}
+
 .sorter select{
     margin-right: 1vw;
     outline: none;

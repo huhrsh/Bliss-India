@@ -1,6 +1,6 @@
 var swiper = new Swiper(".banner", {
-  effect:'fade',
-    spaceBetween: 30,
+  effect:'slide',
+    spaceBetween: 0,
       centeredSlides: true,
       grapCursor: true,
       autoplay: {

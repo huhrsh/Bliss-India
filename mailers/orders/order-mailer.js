@@ -13,7 +13,7 @@ exports.orderEmail=(user,order)=>{
             console.log('Error in sending the email',err);
             return;
         }
-        console.log("Mail sent: ");
+        // console.log("Mail sent: ");
         return;
     })
 }
