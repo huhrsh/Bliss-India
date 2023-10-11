@@ -47,8 +47,8 @@ const userButton = document.getElementsByClassName('user')[0];
 // }
 
 
-
-let userHoverPosition = userButton.getBoundingClientRect();
+setTimeout(()=>{
+    let userHoverPosition = userButton.getBoundingClientRect();
 const userHover= document.getElementsByClassName('user-hover')[0];
 userButton.onmouseenter = () => {
     const userHoverLoader = document.getElementById('user-hover-loader');
@@ -83,3 +83,5 @@ userHover.onmouseleave = () => {
         width: '0%',
     }, { duration: 250, fill: 'forwards', easing: 'ease-out' })
 }
+
+},100);

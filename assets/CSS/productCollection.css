@@ -64,6 +64,8 @@ main{
     height: 29.7vw;
     background:#eef8ff ;
     background:#90e1ef43 ;
+    background: #90e1ef30;
+    /* background: #0096c720; */
     /* background:#e3f2fd ; */
     overflow: hidden;
 }
