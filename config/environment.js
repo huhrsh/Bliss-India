@@ -12,7 +12,7 @@ const accessLogStream=rfs.createStream('access.log',{
 
 const development={
     name: 'development',
-    asset_path:'./assets',
+    asset_path:'/assets',
     session_cookie_key: '29DD93AED29EAA4413D48585AA25B',
     db:'BlissIndia',
     smtp:{
