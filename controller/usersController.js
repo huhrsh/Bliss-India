@@ -10,7 +10,7 @@ module.exports.home = function (req, res) {
   User.findOne({ _id: req.query.id })
     .then((userFound) => {
       // console.log("User Found for profile",userFound);
-      res.render('ProfilePage', {
+      res.render('profilePage', {
         title: `${userFound.name.split(' ')[0]}`,
         user: userFound,
       })
@@ -163,7 +163,7 @@ module.exports.updateUser = function (req, res) {
       User.findOne({ _id: req.query.id })
       .then((userFound) => {
          // req.flash('information' , 'Profile updated.');
-          res.render('ProfilePage', {
+          res.render('profilePage', {
             title: `${userFound.name.split(' ')[0]}`,
             user: userFound,
           })
