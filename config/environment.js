@@ -27,7 +27,7 @@ const development={
     },
     google_client_id: "66736520931-dcd643omimgjuof7kf7tc9j1iq8nro4s.apps.googleusercontent.com",
     google_client_secret: "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",
-    google_call_back_url: "http://localhost:8000/users/auth/google/callback",
+    google_call_back_url: "https://blissindia.onrender.com/users/auth/google/callback",
     morgan:{
         mode:'dev',
         options:{stream:accessLogStream}
