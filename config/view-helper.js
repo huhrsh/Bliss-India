@@ -12,7 +12,7 @@ module.exports=(app)=>[
             // return filePath;
         }
         // console.log('/'+filePath);
-        return '/css/'+filePath;
+        return '/CSS/'+filePath;
         return '../public/assets/'+JSON.parse(fs.readFileSync(path.join(__dirname,'../public/assets/rev-manifest.json')))[filePath];
     }
 ]
