@@ -4,7 +4,7 @@
   "description": "Official Webiste for Bliss India ",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon index.js --port=8000",
     "prod_start": "environment=production nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
