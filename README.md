@@ -3,7 +3,7 @@
 
 An e-commerce website for a jewlry brand
 
-[Link](https://blissindia.onrender.com)
+Deployed Link: [https://blissindia.onrender.com](https://blissindia.onrender.com)
 
 ![App Screenshot](https://res.cloudinary.com/dddnk0dcn/image/upload/v1706948444/Screenshot_336_p3ecpd.png?text=Home+Page)
 
