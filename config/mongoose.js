@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 const env=require('./environment')
 
-mongoose.connect(`mongodb://0.0.0.0/${env.db}`)
+mongoose.connect("mongodb+srv://harshj2010:qgGBufv9MmCjJ2Bz@cluster0.uikmu5z.mongodb.net/?retryWrites=true&w=majority")
 // mongoose.connect(`mongodb://localhost:27017/${env.db}`)
 
 const db=mongoose.connection;
