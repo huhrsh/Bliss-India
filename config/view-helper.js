@@ -7,7 +7,7 @@ module.exports=(app)=>[
     app.locals.assetPath=function(filePath){
         // console.log(JSON.parse(fs.readFileSync(path.join(__dirname,'../assets/Bundled/rev-manifest.json')))[filePath])
         if(env.name=='development'){
-            return '/css/'+filePath;
+            return '/CSS/'+filePath;
             return '/Bundled/'+JSON.parse(fs.readFileSync(path.join(__dirname,'../assets/Bundled/rev-manifest.json')))[filePath];
             // return filePath;
         }
