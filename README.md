@@ -4,10 +4,10 @@
 An e-commerce website for a jewlry brand
 
 Deployed Link: [https://blissindia.onrender.com](https://blissindia.onrender.com)
-<font size="1">
+<sub>
 - Every user who signs in is granted admin access, allowing them to explore the platform.
 - The hosting platform does not provide persistent disk, and so the images fail to load everytime the server restarts
-</font>
+</sub>
 
 
 ![App Screenshot](https://res.cloudinary.com/dddnk0dcn/image/upload/v1706948444/Screenshot_336_p3ecpd.png?text=Home+Page)
