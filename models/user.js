@@ -15,6 +15,7 @@ const userSchema=mongoose.Schema({
     },
     adminAccess:{
         type:Boolean,
+        default:true
     },
     address:{
         type: String,
