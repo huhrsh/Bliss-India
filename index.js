@@ -26,7 +26,7 @@ require('./config/view-helper')(app)
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
-app.use('/uploads' , express.static(path.join(__dirname,'/uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '/uploads'), { fallthrough: false }));
 
 
 // function customLogFormat(tokens, req, res) {
