@@ -13,8 +13,9 @@ async function (email, password, done) {
             console.log('Invalid username or password');
             return done(null, false, { message: 'Invalid username or password' });
         }
-
+        console.log(password);
         const isMatch = await bcrypt.compare(password, user.password);
+        console.log('Password Match:', isMatch);  
         if (!isMatch) {
             console.log('Invalid username or password');
             return done(null, false, { message: 'Invalid username or password' });

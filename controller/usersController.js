@@ -4,6 +4,7 @@ const forgotPasswordMailer=require('../mailers/password/forget_password_mailers'
 const fs = require('fs');
 const path = require('path');
 const process = require('process');
+const bcrypt=require('bcrypt')
 const Order = require('../models/order');
 const cloudinary=require('../config/cloudinary')
 
@@ -113,30 +114,25 @@ module.exports.signIn = function (req, res) {
 }
 
 module.exports.createUser = async function (req, res) {
-  console.log(req.body);
-
-  // Check if passwords match
   if (req.body.password != req.body.confirm_password) {
     req.flash('error', 'Passwords do not match');
     return res.redirect('back');
   }
 
   try {
-    // Check if email is already in use
     const existingUser = await User.findOne({ email: req.body.email });
     if (existingUser) {
       req.flash('error', 'Email already in use');
       return res.redirect('back');
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-    // Create the new user with hashed password
     const newUser = await User.create({
+      name:req.body.name,
       email: req.body.email,
       password: hashedPassword,
-      // Add other fields as necessary
+
     });
 
     req.flash('information', 'Account created.');
