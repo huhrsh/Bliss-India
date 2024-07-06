@@ -1,0 +1,119 @@
+<link rel="stylesheet" href="<%=assetPath('receipt.css')%>">
+<% function formatDate(dateString) { %>
+    <% const date = new Date(dateString); %>
+    <% const day = String(date.getDate()).padStart(2, '0'); %>
+    <% const month = String(date.getMonth() + 1).padStart(2, '0'); %>
+    <% const year = date.getFullYear(); %>
+    <%= `${day}-${month}-${year}` %>
+<% } %>
+<% function formatTime(dateString) { %>
+    <% const date = new Date(dateString); %>
+    <%const formattedTime = date.toLocaleString("en-US", {hour: "numeric",minute: "2-digit",hour12: true});%>
+    <%= formattedTime %>
+<% } %>
+
+<%let address=order.user.address.split('\n')%>
+
+<main>
+    <span class="tq">Thank you for shopping with Bliss India! </span>
+        <section id="main">
+            <div class="logo-section">
+                <img src="/Images/Bliss India Logo2.jpeg" alt="Bliss India Logo">
+                <!-- Bliss India -->
+            </div>
+
+            <div class="header-section">
+                <h1 class="receipt-heading">Receipt</h1>
+                <button id="print-receipt">Download Receipt</button>
+            </div>
+        <hr>
+        <section class="order-details">
+        <p><strong>Order Number:</strong> <%= order._id %></p>
+        <p><strong>Purchase Date:</strong><%=formatDate(order.createdAt)%>, <%= formatTime(order.createdAt) %></p>
+        <p><strong>Customer:</strong> <%= order.user.name %></p>
+        <p><strong>Email:</strong> <%= order.user.email %></p>
+        <p><strong>Phone:</strong> <%= order.user.phone %></p>
+        <!-- <hr> -->
+        <h2 class="product-heading">Products:</h2>
+        <div class="product-list">
+            <div class="product-list-heading">
+                <span class="p-l-name">Product Name</span>
+                <span class="p-l-quantity">Quantity</span>
+                <span class="p-l-unit">Unit Price</span>
+                <span class="p-l-total">Total Price</span>
+                </div>
+            <% for (const product of order.products) { %>
+            <div class="product-list-row">
+                <span class="p-l-name"><%= product.product.name %></span>
+                <span class="p-l-quantity"><%= product.quantity %></span>
+                <span class="p-l-unit">₹<%= parseFloat(product.product.selling_price).toFixed(2) %></span>
+                <span class="p-l-total">₹<%= parseFloat(product.product.selling_price*product.quantity).toFixed(2) %></span>
+                </div>
+            <% } %>
+            </div>
+        <p class="bd-top"><strong>Mode of Payment:</strong>Cash on Delivery</p>
+        <p><strong>Total Amount:</strong> ₹<%= order.totalAmount %></p>
+        <p><strong>Shipping Address:</strong> 
+                <%for(let i of address){%>
+                    <p class="address"><%=i%></p>
+                <%}%>
+            <hr>
+            <ul class="t-c">
+                <li>Order dispatches in 3-7 days</li>
+                <li>No return after order has been placed</li>
+                <li><a href="">Click here to review terms and conditions</a></li>
+            </ul>
+        </section>
+    </section>
+</main>
+<script>
+    let printButton=document.getElementById('print-receipt')
+    let header=document.getElementsByTagName('header')[0];
+    let footer=document.getElementsByTagName('footer')[0];
+    let navbar=document.getElementsByClassName('nav-bar')[0];
+    printButton.onclick = () => {
+  const content = document.getElementById("main");
+  const pdf = new jsPDF("p", "pt", "a4");
+
+  const a4Width = 595.28; // A4 width in points (72 points per inch)
+  const a4Height = 841.89; // A4 height in points
+
+  html2canvas(content).then(function (canvas) {
+    const scaleX = 550 / content.getBoundingClientRect().width;
+    // const scaleY = a4Height / content.getBoundingClientRect().height;
+
+    const scaledWidth = content.getBoundingClientRect().width * scaleX;
+    const scaledHeight = content.getBoundingClientRect().height * scaleX;
+
+    pdf.addImage(
+      canvas.toDataURL("image/png",2.0),
+      "JPEG",
+      (a4Width - 550) / 2,
+      (a4Width - 550) / 2,
+      scaledWidth,
+      scaledHeight
+    );
+
+    pdf.save("Receipt-<%=order._id%>.pdf");
+  });
+};
+
+
+
+
+
+    // printButton.onclick=()=>{
+        
+    //     const content = document.getElementById("main"); 
+    //     let w=content.getBoundingClientRect().width;
+    //     let h=content.getBoundingClientRect().height;   
+    //     const pdf = new jsPDF('p','pt','a4');
+
+    //     html2canvas(content,{scale:2}).
+    //     then(function(canvas) {
+    //       const imgData = canvas.toDataURL("image/jpeg");
+    //       pdf.addImage(imgData, "JPEG", (594-w/2)/2, (594-w/2)/2,w/2,h/2);
+    //     pdf.save("Receipt-<%=order._id%>.pdf");
+    //     });
+    // }
+</script>

@@ -1,0 +1,83 @@
+<link rel="stylesheet" href="<%=assetPath('productCollection.css')%>">
+<link rel="stylesheet" href="<%=assetPath('home.css')%>">
+
+    <!-- <p class="tagline">Open with a smile</p>
+    <p class="tagline">Cuz we know you are gonna SLAY</p> -->
+
+<section class="banners">
+    <div class="swiper banner">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide image"><img src="/Images/Swiper/2.jpg" alt="Poster"></div>
+            <div class="swiper-slide image"><video autoplay muted loop><source src="/Images/Swiper/5.mp4" type="video/mp4"></video></div>
+            <!-- <div class="swiper-slide image"><img src="/Images/Swiper/1.jpg" alt=""></div> -->
+            <div class="swiper-slide image"><img src="/Images/Swiper/4.jpg" alt="Poster"></div>
+            <div class="swiper-slide image"><img src="/Images/Swiper/3.jpg" alt="Poster"></div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+    <main id="home-main">
+        <%for(let j of collection){%>
+            <h2>
+                <%if(j._id=='crystal'){%>
+                    <%=j._id%>s Collection
+                <%}else if(j._id=='complete'){%>
+                    <%=j._id%> Sets
+                <%}else if(j._id=='evil_eye'){%>
+                    Evil Eyes Collection
+                <%}else {%>
+                    <%=j._id%>s
+                <%}%>
+            </h2>
+            <div class="product-area">
+                <%for(let i of j.products.splice(0,7)){%>
+                    <section class="individual-product">
+                        <a id="image-link" target="_blank" href="/products?id=<%=i._id%>">
+                            <img src="<%=i.photos[0]%>">
+                        </a>
+                        <div class="product-details">
+                            <p class="product-name"><a target="_blank" href="/products?id=<%=i._id%>">
+                                    <%=i.name%>
+                                </a></p>
+                            <div class="product-pricing">
+                                <div>
+                                    <p class="selling-price"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                        <%=i.selling_price%>
+                                    </p>
+                                    <p class="mrp" id="mrp"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                        <%=i.mrp%>
+                                    </p>
+                                </div>
+                                    <p id="stars">
+                                        <i  id="stars-star" class="fa-solid fa-star"></i> <%=parseFloat(i.review_rating).toFixed(2)%><span>(<%=i.review.length%>)</span>
+                                    </p>
+                            </div>
+                        </div>
+                    </section>
+                    <%}%>
+                    <section class="individual-product explore">
+
+                        <%if(j._id=='crystal'){%>
+                            <a href="/products/crystal-collection?sort_by=name&order=1" class="explore-anchor">
+                        <%}else if(j._id=='complete'){%>
+                            <a href="/products/complete-sets?sort_by=name&order=1" class="explore-anchor">
+                        <%}else if(j._id=='evil_eye'){%>
+                            <a href="/products/evil-eye-collection?sort_by=name&order=1" class="explore-anchor">
+                        <%}else {%>
+                            <a href="/products/<%=j._id%>s?sort_by=name&order=1" class="explore-anchor">
+                        <%}%>
+
+
+                            <div class="circle"><i class="fa-solid fa-arrow-right"></i></div>
+                            <p class="explore-text">Explore All</p>
+                        </a>
+                    </section>
+                </div>
+        <%}%>
+    </main>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script type="text/javascript" src="/JS/home.js"></script>

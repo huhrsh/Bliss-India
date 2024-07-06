@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="<%=assetPath('addProduct.css')%>">
+
+<section class="product-container">
+    <form action="/products/edit-product" method="post">
+
+        <div class="product-label">
+            <label>Category:</label>
+            <select name="category" class="select-category">
+                <option value="crystal">Crystal Collection</option>
+                <option value="pendant">Pendants</option>
+                <option value="locket">Lockets</option>
+                <option value="earring">Earrings</option>
+                <option value="bracelet">Bracelets</option>
+                <option value="ring">Rings</option>
+                <option value="complete">Complete Sets</option>
+                <option value="evil_eye">Evil Eye Collection </option>
+                <option value="offer">Offers </option>
+            </select>
+        </div>
+        <input style="display: none;" value="<%=product._id%>" name="id">
+        <!-- <div class="product-label">
+            <label>Sub Category:</label>
+            <input type="text" name="sub_category" placeholder="Product Sub Category" value="<%=product.sub_category%>"> 
+        </div> -->
+        <div class="product-label">
+            <label>Name:</label><input type="text" name="name" placeholder="Product Name" required value="<%=product.name%>">
+        </div>
+        <div class="product-label">
+            <label>MRP:</label><input type="number" placeholder="MRP" name="mrp" required value="<%=product.mrp%>">
+        </div>
+        <div class="product-label">
+            <label>Selling Price:</label><input type="number" name="selling_price" placeholder="Selling Price" required value="<%=product.selling_price%>">
+        </div>
+        <div class="product-label">
+            <label>Description:</label><textarea name="description"><%=product.description%></textarea>
+            <!-- <input type="text" placeholder="Description of the product" name="description" value="<%=product.description%>"> -->
+        </div>
+        <div class="product-label">
+            <label>Inventory:</label><input type="number" placeholder="Stock of the product" required name="inventory" value="<%=product.inventory%>">
+        </div>
+        <!-- <div class="product-label">
+            <label>Add Image:  </label><input type="file" name="photos" multiple='multiple' value="<%=product.photos%>">
+        </div> -->
+        <div class="product-label">
+            <button type="submit" id="add-button">Edit Product</button>
+        </div>
+        <!-- <div class="product-label">
+            <button type="submit" id="add-button">Delete Product</button>
+        </div> -->
+    </form> 
+
+</section>

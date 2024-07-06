@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="<%=assetPath('checkout.css')%>">
+
+<main>
+    <div class="left-main">
+    <%let selling_sum=0;%>
+    <%let mrp_sum=0;%>
+    <% for (const item of collection) { %>
+    <div class="pro-desc">
+            <div class="pic"><img src="<%= item.product.photos[0] %>" alt="Product Image"></div>
+            <div class="p-info">
+                <div class="name"><h2><%= item.product.name %></h2></div>
+                <div class="cat"><%= item.product.category %></div>
+                <div class="if">
+                    <div class="spmrp">
+                        <div class="sp">₹<%= item.product.selling_price %></div>
+                        <%selling_sum+=parseInt(item.product.selling_price*item.quantity)%>
+                        <div class="mrp">₹<%= item.product.mrp %></div>
+                        <%mrp_sum+=parseInt(item.product.mrp*item.quantity)%>
+                    </div>
+                    <div class="qty">Quantity: <%= item.quantity %></div>
+                </div>
+            </div>    
+        </div> 
+        <% } %>
+    </div> 
+
+    <div class="right-main">
+        <div class="shopping-address">
+            <h3>shipping address : </h3>
+            <%let arr=locals.user.address.split('\n')%>
+            <%for(let i of arr){%>
+                <p><%=i%></p>
+            <%}%>
+        </div>
+        <div class="contact-number">
+            <h3>Contact number: </h3>
+            <%= locals.user.phone %>
+        </div>
+        <%if(parseInt(selling_sum)< 500){%>
+            <div class="total-price"><h3>Total amount:</h3> ₹<%=selling_sum%> + <span class="delivery">₹50 Delivery</span> =<strong> ₹<%=selling_sum+50%></strong></div>
+        <%}else{%>
+            <div class="total-price"><h3>Total amount: </h3> <strong> ₹<%=selling_sum%></strong></div>
+        <%}%>
+        <div class="total-price"><h3>You save: </h3> ₹<%=mrp_sum-selling_sum%></div>
+        <div class="total-price"><h3>Mode of payment: </h3>Cash on delivery</div>
+        <form action="/orders/create-order" method="post" class="place-order">
+            <%if(selling_sum<500){%>
+                <input style="display: none;" type="number" name="totalAmount" value="<%=selling_sum+50%>">
+                <%}else{%>
+                    <input style="display: none;" type="number" name="totalAmount" value="<%=selling_sum%>">
+            <%}%>
+            <button type="submit">Place Order</button></form>
+        <div class="t-c">
+            <h3>Terms & Conditions*</h3>
+            <ul>
+                <li>
+                    Once an order has been placed and confirmed, it cannot be cancelled or modified.
+                </li>
+                <li>
+                    You are responsible for maintaining the confidentiality of your account credentials.
+                </li>
+                <li><a href="/terms-and-conditions">Click here to review terms and conditions.</a></li>
+            </ul>
+        </div>
+    </div>
+</main>
+
+<script>
+    
+</script>

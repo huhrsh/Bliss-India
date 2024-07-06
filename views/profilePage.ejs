@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="<%=assetPath('signUp.css')%>">
+<link rel="stylesheet" href="<%=assetPath('profile.css')%>">
+
+<div>
+    <form action="/users/update-user?id=<%=user.id%>" method="post" class="sign-up-form">
+        <div class="form-container">
+            <label>Name:</label>
+            <input type="text" name="name" value="<%=user.name%>" required>
+        </div>
+        <div class="form-container">
+            <label>Phone:</label>
+            <%if(user.phone){%>
+                <input type="text" name="phone" value='<%=user.phone%>' required>
+            <%}else{%>
+                <input type="text" name="phone" placeholder="Phone" required>
+            <%}%>
+        </div>
+        
+        <!-- <div class="form-container">
+            <label>Password:</label><input type="password" name="password" id="input-password">
+        </div> -->
+
+        <%if(user.address){%>
+            <div class="form-container">
+                <label>Address Line 1:</label><input type="text" name="address1" value="<%=user.address.split('\n')[0]%>">
+            </div>
+            
+            <div class="form-container">
+            <label>Address Line 2:</label><input type="text" name="address2" value="<%=user.address.split('\n')[1]%>">
+        </div>
+        
+        <div class="form-container">
+            <label>Address Line 3:</label><input type="text" name="address3" value="<%=user.address.split('\n')[2]%>">
+        </div>
+        <%}else{%>
+            <div class="form-container">
+                <label>Address Line 1:</label><input type="text" name="address1" placeholder="(House No)" required>
+            </div>
+            
+            <div class="form-container">
+            <label>Address Line 2:</label><input type="text" name="address2" placeholder="(Area and Street)" required>
+        </div>
+        
+        <div class="form-container">
+            <label>Address Line 3:</label><input type="text" name="address3" placeholder="(State and PinCode)" required>
+        </div>
+        <%}%>
+        <div class="form-container">
+            <input type="submit" id="sign-up" value="Save Changes">
+        </div>
+        
+        <%if(user.googleAuth==false){%>
+            <a href="/users/change-password-page" class="signUp-signIn">Click here to change password</a>
+        <%}%>
+
+        <%if(user.adminAccess==true){%>
+            <a href="/users/add-product-page" class="signUp-signIn">Add product</a>
+            <%}%>
+        </form>
+        
+</div>
+
+<form method="post" action="/users/update-user">
+
+</form>

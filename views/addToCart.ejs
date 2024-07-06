@@ -1,0 +1,48 @@
+<!-- <%=collection%> -->
+<link rel="stylesheet" href="<%=assetPath('addToCart.css')%>">
+<h1 class="heading">Cart</h1>
+<%if(collection.length==0){%>
+    <p class="cart-para">Your cart is empty!</p>
+<%}%>
+<div class="main-container">
+    <% collection.forEach(cart => {%>
+    <div class="single-product">
+        <div class="photo">
+            <img src="<%= cart.product.photos[0] %>">
+        </div>
+        <div class="r-div">
+            <div class="product-name"><h2><%= cart.product.name %></h2></div>
+            <div class="reviews">
+                <span class="review-stars" style="width: <%=(cart.product.review_rating.toFixed(2)*1.35)%>vw;">
+                    <%if(cart.product.review){%>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    <%}%>
+                </span>
+            <span class="review-data">
+                    (<%=cart.product.review_rating.toFixed(2)%> stars | <%=cart.product.review.length%> reviews)
+            </span>
+        </div>
+            <div class="prices">
+                <div class="net-prices">
+                    <div class="selling-price">₹<%= cart.product.selling_price %></div>
+                    <div class="MRP">₹<%= cart.product.mrp %></div>
+                    <div class="save">Flat <%= (((cart.product.mrp - cart.product.selling_price)/cart.product.mrp)*100).toFixed(0) %>% off </div>
+                </div>
+                <div class="quantity">Quantity: <%=cart.quantity%></div>
+            </div>
+            <div class="remove-button">
+                <button><a href="/users/remove-from-cart?id=<%= cart._id %>">Remove from cart</a></button>
+            </div>    
+        </div>
+    </div>
+    <% }) %>
+    <% if (collection.length > 0) { %>
+        <div class="checkout">
+            <div><button id="cb"><a href="/products/checkout">Proceed to checkout</a></button></div>
+        </div>
+    <% } %>
+</div>    

@@ -1,0 +1,153 @@
+<link rel="stylesheet" href="<%=assetPath('header.css')%>">
+
+<header>
+    <div class="company-logo">
+        <a href="/"><img src="/Images/Bliss India Logo2.jpeg">Bliss India</a>
+    </div>
+    <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <form action="/products/search-product" method="post" id="search-form">
+            <input type="text" required class="search-input" name="name" autocomplete="off">
+        </form>
+    </div>
+    <div class="user-options">
+        <div class="wishlist">
+            <%if(locals.user){%>
+                <!-- <div class="wish-count"></div> -->
+                <a href="/products/wishlist?sort_by=name&order=1&user_id=<%=locals.user._id%>" id="wishlist-anchor"><i class="fa-solid fa-heart"></i>wishlist</a>
+            <%}else{%>
+                <a href="/products/wishlist?sort_by=name&order=1" id="wishlist-anchor"><i class="fa-solid fa-heart"></i>wishlist</a>
+            <%}%>
+        </div>
+        <div class="cart">
+            <a href="/products/cart" id="cart-anchor"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
+            <!-- <%if(locals.user && locals.user.cart.length>0){%>
+                <div class="cart-count"></div>
+            <%}%> -->
+        </div>
+        <%if(locals.user){%>
+            <div class="user"><i class="fa-solid fa-user"></i>
+                <%let name=user.name.split(' ')[0]%>
+                <%let len=name.length%>
+                <%=name.substring(0, Math.min(len, 8));%>
+            </div>
+        <%}else{%>
+            <div class="user"><i class="fa-solid fa-user"></i> User</div>
+        <%}%>
+    </div>
+</header>
+
+<section class="nav-bar">
+    <div class="category"><a href="/products/crystal-collection?sort_by=name&order=1">Crystal Collection</a></div>
+    <div class="category">
+        <!-- <div class="pendant-hover">
+            <div id="hover-loader"></div>
+            <div class="pendant-categories"><a href="">Premium Pendants</a></div>
+            <div class="pendant-categories"><a href="">Minimal Pendants</a></div>
+            <div class="pendant-categories"><a href="">Silver Pendants</a></div>
+            <div class="pendant-categories"><a href="">Charm Pendants</a></div>
+        </div> -->
+    <a href="/products/pendants?sort_by=name&order=1" id="pendant">Pendants</a></div>
+    <div class="category"><a href="/products/lockets?sort_by=name&order=1">Lockets</a></div>
+    <div class="category"><a href="/products/earrings?sort_by=name&order=1">Earrings</a></div>
+    <div class="category"><a href="/products/bracelets?sort_by=name&order=1">Bracelets</a></div>
+    <div class="category"><a href="/products/rings?sort_by=name&order=1">Rings</a></div>
+    <div class="category"><a href="/products/complete-sets?sort_by=name&order=1">Complete Sets</a></div>
+    <div class="category"><a href="/products/evil-eye-collection?sort_by=name&order=1">Evil Eye Collection</a></div>
+    <div class="category"><a href="/products/offers?sort_by=name&order=1">Offers</a></div>
+</section>
+
+
+<!-- <div class="pendant-hover">
+    <div id="hover-loader"></div>
+    <div class="pendant-categories"><a href="">Premium Pendants</a></div>
+    <div class="pendant-categories"><a href="">Minimal Pendants</a></div>
+    <div class="pendant-categories"><a href="">Silver Pendants</a></div>
+    <div class="pendant-categories"><a href="">Charm Pendants</a></div>
+</div> -->
+
+<div class="user-hover">
+    <div id="user-hover-loader"></div>
+    <%if(locals.user){%>
+            <div class="user-categories"><a href="/users/profile?id=<%=locals.user._id%>">My Profile</a></div>
+            <%if(user.adminAccess){%>
+                <div class="user-categories"><a href="/users/add-product-page" >Add Product</a></div>
+                <div class="user-categories"><a href="/users/my-orders" >Total Orders</a></div>
+            <%}else{%>
+                <div class="user-categories"><a href="/users/my-orders" >My Orders</a></div>    
+            <%}%>
+        <div class="user-categories"><a href="/users/sign-out">Sign Out</a></div>
+    <%}else{%>
+        <div class="user-categories"><a style="color:#333;" href="/users/sign-in">Sign In</a></div>
+        <div class="user-categories"><a style="color:#333;" href="/users/sign-up">Sign Up</a></div>
+    <%}%>
+</div>
+
+<ul id="search-result-container">
+    
+</ul>
+
+<!-- <div class="notif"><p>Free Delivery on orders above ₹500</p><i id="notif-cross" class="fa-solid fa-circle-xmark"></i></div> -->
+
+<script src="https://kit.fontawesome.com/501910dff8.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/JS/header.js"></script>
+
+
+
+<script>
+    // let notifCross=document.getElementById('notif-cross');
+    // notifCross.onclick=()=>{
+    //     document.getElementsByClassName('notif')[0].style.display='none';
+    // }
+
+    {
+        const searchBar = document.getElementsByClassName('search-input')[0]; 
+        let searchProduct = function () {
+            let searchForm = $('#search-form');
+            let resultList = $('#search-result-container');
+            console.log(resultList);
+            $.ajax({
+                type: 'post',
+                url: '/products/search-product',
+                data: searchForm.serialize(),
+                success: function (data) {
+                    console.log(data.data.products.length);
+                    let sr=searchResultDom(data.data.products,resultList);
+                    // resultList.append(sr)
+                },
+                error: function (err) { 
+                    console.log(err.responseText);
+                }
+            });
+        }
+
+        let searchResultDom=function(searchResults,resultList){   
+            resultList.empty();
+            const searchResultItems = searchResults.map((searchResult) => {
+                resultList.append($(`<li>
+                    <a class="search-result-section" target="_blank" href="/products?id=${searchResult._id}"> 
+                    <img class="search-result-image" src="${searchResult.photos[0]}" alt="product-image">
+                    <div class="search-result-details">
+                        <p class="search-result-name">${searchResult.name}</p>
+                        <p class="search-result-category">${searchResult.category}</p>
+                        <p class="search-result-price"><i class="fa-solid fa-indian-rupee-sign"></i> ${searchResult.selling_price}</p>
+                    </div>
+                    </a>
+                </li>`)
+                )
+            });
+            return $(searchResultItems);
+        }
+        searchBar.addEventListener('keyup', () => {
+            document.getElementById('search-result-container').style.display='block';
+            if($('#search-form input')[0].value!=''){
+                searchProduct();
+            }
+            else{
+                $('#search-result-container').empty();
+                document.getElementById('search-result-container').style.display='none';
+            }
+        })
+    }
+
+</script>

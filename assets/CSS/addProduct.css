@@ -1,0 +1,102 @@
+.product-container form{
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:1.4vw;
+    margin-left: -13%;
+}
+
+.select-category{
+    border: none;
+    padding: 2%;
+    border-radius: 1.5vh;
+    width: 25vw;
+    height: 7vh;
+    outline: none;
+    font-family: poppins;
+    font-weight: 500;
+    color:#333;
+    background: -webkit-linear-gradient(120deg, #a0c4ff50, #9bf6ff50);
+}
+
+.product-label input{
+    border: none;
+    padding: 2%;
+    border-radius: 1.5vh;
+    width: 25vw;
+    height: 7vh;
+    outline: none;
+    font-family: poppins;
+    font-weight: 400;
+    font-size: 1.2vw;
+    color:#333;
+    background: -webkit-linear-gradient(120deg, #a0c4ff50, #9bf6ff50);
+}
+
+.product-label textarea{
+    border: none;
+    resize: none;
+    width: 25vw;
+    padding: 2%;
+    border-radius: 1.5vh;
+    outline: none;
+    font-family: poppins;
+    font-weight: 400;
+    font-size: 1.2vw;
+    color:#333;
+    overflow-y: scroll;
+    min-height: 60vh;
+    background: -webkit-linear-gradient(120deg, #a0c4ff50, #9bf6ff50);
+    &::-webkit-scrollbar{
+        display: none;
+    }
+}
+
+.product-label{
+    width: 100%;
+    font-family: dosis;
+    font-size: 1.2vw;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 1vw;
+}
+
+
+
+.product-container{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6vw;
+    margin-bottom: 6vw;
+}
+
+#add-button{
+    margin-right: 19%;
+    margin-top: 2%;
+    box-shadow: none;
+    background: -webkit-linear-gradient(60deg, #a0c4ffc0, #9bf6ffc0);
+    /* background: white; */
+    border-radius: 3.5vh;
+    width: 15vw;
+    height: 7vh;
+    color: #333;
+    font-size: 1.4vw;
+    cursor: pointer;
+    font-weight: 400;
+    border: none;
+    font-family: dosis;
+}
+
+#add-button:hover{
+    background: -webkit-linear-gradient(60deg, #a0c4ff, #9bf6ff);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="/CSS/signIn.css">
+<link rel="stylesheet" href="<%=assetPath('enterOTPPage.css')%>">
+
+<section class="sign-in-container" style="margin-top: 10%;">
+    <h3 class="sign-in-heading">
+        Please enter the code sent to your email account
+    </h3>
+    <form action="/users/enter-OTP?otp=<%=OTP%>&email=<%=userEmail%>" method="post" class="sign-in-form">
+        <input type="text" name="otp" placeholder="OTP" required>
+        <input type="submit" id="sign-in" value="Enter OTP" style="width:10vw;">
+    </form>
+    <a class="signUp-signIn" style="cursor: pointer;">Resend OTP</a>
+</section>
+
+
+<script type="text/javascript" src="/JS/enterOTPPage.js"></script>

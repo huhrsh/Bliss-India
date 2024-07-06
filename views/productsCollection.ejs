@@ -1,0 +1,69 @@
+<link rel="stylesheet" href="<%=assetPath('productCollection.css')%>">
+
+<div class="heading-area">
+    <h3><%= category %></h3>
+    <form class="sorter" method="get">
+        <label>Sort By:</label>
+        <div>
+            <select name="sort_by" id="n-p-r">
+                <option value="name" class="npr" selected>Name</option>
+                <option value="selling_price" class="npr">Price</option>
+                <option value="review_rating" class="npr">Rating</option>
+            </select>
+        </div>
+        <div>
+            <select name="order" id="a-d">
+                <%if(locals.order==1){%>
+                    <option value=1 class="ad" selected>Ascending</option>
+                    <option value=-1 class="ad">Descending</option>
+                <%}else{%>
+                    <option value=1 class="ad">Ascending</option>
+                    <option value=-1 class="ad" selected>Descending</option>
+                <%}%>
+            </select>
+        </div>
+    </form>
+</div>
+
+<main class="product-area">
+    <%for(let i of collection){%>
+        <section class="individual-product">
+            <a id="image-link" target="_blank" href="/products?id=<%=i._id%>&sort_by=username&order=1">
+                <img src="<%=i.photos[0]%>">
+            </a>
+            <div class="product-details">
+                <p class="product-name"><a target="_blank" href="/products?id=<%=i._id%>">
+                        <%=i.name%>
+                    </a></p>
+                <div class="product-pricing">
+                    <div>
+                        <p class="selling-price">₹<%=i.selling_price%></p>
+                        <p class="mrp" id="mrp">₹<%=i.mrp%></p>
+                    </div>
+                    <p id="stars">
+                        <i  id="stars-star" class="fa-solid fa-star"></i> <%=i.review_rating.toFixed(2)%><span>(<%=i.review.length%>)</span>
+                    </p>
+                </div>
+                <!-- <div class="explore-div">
+                    <a  target="_blank" href="/products?id=<%=i._id%>"  id="explore-tag">Know More</a>
+                </div> -->
+            </div>
+        </section>
+        <%}%>
+</main>
+
+
+<script>
+    document.querySelector('option[value="<%=sorted%>"]').selected = true
+    const npr=document.getElementById('n-p-r');
+    const ad=document.getElementById('a-d');
+    const sorter=document.getElementsByClassName('sorter')[0];
+    npr.addEventListener('change',function(){
+        sorter.action=`/products/<%=category.replace(' ','-')%>?sort_by=${npr.value}&order=${ad.value}`
+        sorter.submit()
+    })
+    ad.addEventListener('change',function(){
+        sorter.action=`/products/<%=category.replace(' ','-')%>?sort_by=${npr.value}&order=${ad.value}`
+        sorter.submit()
+    })
+</script>

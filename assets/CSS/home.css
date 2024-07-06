@@ -1,0 +1,113 @@
+.tagline{
+    font-size: 5vw;
+    text-align: center;
+    margin: auto;
+    color: #333;
+    font-family: 'BabySakura';
+    background: linear-gradient(-60deg,#a0c4ff,#9bf6ff);
+    background: linear-gradient(-60deg,#023e8a,#0096c7);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    line-height: 7vw;
+}
+
+
+.banners{
+    margin: 2%;
+}
+
+.banners img {
+    width: 100%;
+    height: 38.5vw;
+    object-fit: cover;
+}
+.banners video {
+    width: 100%;
+    height: 38.5vw;
+    object-fit: cover;
+}
+
+.swiper-button-next,
+.swiper-button-prev{
+    /* display: block; */
+    /* box-sizing: border-box; */
+    /* background-color: #e5e5e566; */
+    width: 2.5vw !important;
+    color: #333333aa !important;
+    height: 2.5vw !important;
+    border-radius: 50%;
+    /* padding: 2%; */
+
+    overflow: hidden;
+    /* visibility: hidden; */
+}
+
+.swiper-slide {
+    transition: transform 1s ease; 
+}
+
+#home-main{
+    width: 92%;
+    margin-left: 4%;
+    display: flex;
+    flex-direction: column;
+}
+
+#home-main>h2{
+    font-weight: 300;
+    font-size: 2.4vw;
+    text-transform: capitalize;
+
+}
+
+.product-area{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    justify-content: left;
+    gap:1.17vw;
+    margin: 0.5% 0 2% 0;
+}
+
+.explore:hover .circle{
+    transform: scale(1.1);
+}
+
+.explore-anchor{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    /* background-color: #90e1ef43; */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.circle{
+    transition: all ease-in-out 0.2s;
+    width: 9vw;
+    height: 9vw;
+    border-radius: 50%;
+    /* background-color: #90e1ef; */
+    background-color: #90e1ef83;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle i{
+    color: white;
+    opacity: 0.7;
+    font-size: 4vw;
+}
+
+.explore-text{
+    margin-top: 4%;
+    color: #333;
+    font-size: 1.5vw;
+    font-weight: 300;
+}

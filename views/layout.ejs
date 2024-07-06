@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Official website of Bliss India">
+    <meta name="keywords" content="Jewellery, Artificial, Modern,Trendy,Designer">
+    <meta name="author" content="Bro Code">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bliss India | <%=title%></title>
+    <link rel="icon" type="image/x-icon" href="/Images/Bliss.png">
+    <link rel="stylesheet" type="text/css" href="<%=assetPath('layout.css')%>">
+    <%-style%>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js" ></script>
+    <script src="https://kit.fontawesome.com/501910dff8.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css" integrity="sha512-0p3K0H3S6Q4bEWZ/WmC94Tgit2ular2/n0ESdfEX8l172YyQj8re1Wu9s/HT9T/T2osUw5Gx/6pAZNk3UKbESw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js" integrity="sha512-lOrm9FgT1LKOJRUXF3tp6QaMorJftUjowOWiDcG5GFZ/q7ukof19V0HKx/GWzXCdt9zYju3/KhBNdCLzK8b90Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+
+</head>
+<body>
+    <%- include('_header'); %>
+    
+    
+    <%- body %>
+    
+    
+    <%- include('_footer'); %>
+    <%-script%>
+    <script>
+        <% if(flash.success && flash.success.length>0) { %>
+            new Noty({
+                theme: 'relax',
+                text: '<%= flash.success %>',
+                type: 'success',
+                layout: 'topRight',
+                timeout: 1500
+            }).show();
+        <% } %>  
+        
+        <% if(flash.error && flash.error.length>0) { %>
+            new Noty({
+                theme: 'relax',
+                text: '<%= flash.error %>',
+                type: 'error',
+                layout: 'topRight',
+                timeout: 1500
+            }).show();
+        <% } %>  
+
+        <% if(flash.alert && flash.alert.length>0) { %>
+            new Noty({
+                theme: 'relax',
+                text: '<%= flash.alert%>',
+                type: 'alert',
+                layout: 'topRight',
+                timeout: 1500,
+            }).show();
+        <% } %>
+
+        <% if(flash.information && flash.information.length>0) { %>
+            new Noty({
+                theme: 'relax',
+                text: '<%= flash.information%>',
+                type: 'information',
+                layout: 'topRight',
+                timeout: 1500,
+            }).show();
+        <% } %>  
+
+    </script>
+</body>
+</html>

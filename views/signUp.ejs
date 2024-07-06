@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="<%=assetPath('signUp.css')%>">
+
+<section class="sign-up-container">
+    <h2 class="sign-up-heading">
+        Sign Up
+    </h2>
+
+
+        <form action="/users/create-user" method="post" class="sign-up-form">
+        <input type="text" name="name" placeholder="Name" required class="username">
+        <input type="email" name="email" placeholder="Email" required>
+        <div class="password"><input type="password" name="password" id="input-password" placeholder="Password" required maxlength="20" minlength="8"><i class="fa-solid fa-eye"></i></div>
+        <div class="password"><input type="password" name="confirm_password" id="confirm-password" placeholder="Confirm Password" required maxlength="20" minlength="8"><i class="fa-solid fa-eye"></i></div>
+        <input type="submit" id="sign-up" value="Sign Up">
+    </form>
+    <a href="/users/sign-in" class="signUp-signIn">Already a User? Sign In</a><br>
+    <a class="google-icon" href="/users/auth/google"><i class="fa-brands fa-google"></i> &nbsp; Sign in using Google</a>
+
+</section>
+
+<script type="text/javascript" src="/JS/signUp.js"></script>

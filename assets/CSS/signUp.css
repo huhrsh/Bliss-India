@@ -1,0 +1,109 @@
+.sign-up-heading{
+    font-size: 2.4vw;
+    margin: 0 0 1% 0;
+    font-family: poppins;
+    font-weight: 300;
+}
+
+.sign-up-container{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3vw;
+    margin-bottom:4vw;
+    
+}
+
+.sign-up-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:1.4vw;
+}
+.sign-up-form input{
+    border: none;
+    padding: 2%;
+    border-radius: 1.5vh;
+    /* text-transform: capitalize; */
+    width: 25vw;
+    height: 7vh;
+    outline: none;
+    font-family: poppins;
+    font-weight: 400;
+    font-size: 1.2vw;
+    color:#333;
+    background: -webkit-linear-gradient(120deg, #a0c4ff50, #9bf6ff50);;
+}
+
+.username{
+    text-transform: capitalize;
+}
+
+.sign-up-form input:focus{
+    box-shadow: 0 0 2px #023e8a70;
+}
+
+.signUp-signIn {
+    text-align: center;
+    margin-top:1vw;
+    font-size: 1vw;
+    color: #023e8a;
+    cursor: pointer;
+}
+
+.signUp-signIn:hover{
+    color: #03045e;
+    cursor: pointer;
+}
+
+.password{
+    margin-left: 2.2%;
+}
+
+.password i{
+    margin-left: -7.5%;
+    font-size: 1.1vw;
+    cursor: pointer;
+    color: #03045e;
+}
+
+#sign-up{
+    box-shadow: none;
+    background: -webkit-linear-gradient(60deg, #a0c4ffc0, #9bf6ffc0);
+    /* background: white; */
+    border-radius: 3.5vh;
+    width: 12vw;
+    color: #333;
+    font-size: 1.5vw;
+    cursor: pointer;
+}
+
+#sign-up:hover{
+    background: -webkit-linear-gradient(60deg, #a0c4ff, #9bf6ff);
+}
+
+.google-icon{
+    background-color: #ff0000;
+    width: 18.5vw;
+    height: 2.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #444;
+    color: #023e8a;
+    padding: 1.4%;
+    border-radius: 1.5vw;
+    background: #9bf6ff77;
+    &:hover{
+        color: #03045e;
+    }
+}
+
+.google-icon i{
+    /* filter: drop-shadow(2px 2px 2px black); */
+    /* box-shadow: 2px 2px 2px black; */
+    border-radius: 50%;
+    padding: 2%;
+    background-color: #ffffffaa;
+}

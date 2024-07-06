@@ -1,0 +1,53 @@
+<% function formatDate(dateString) { %>
+    <% const date = new Date(dateString); %>
+    <% const day = String(date.getDate()).padStart(2, '0'); %>
+    <% const month = String(date.getMonth() + 1).padStart(2, '0'); %>
+    <% const year = date.getFullYear(); %>
+    <%= `${day}-${month}-${year}` %>
+<% } %>
+<% function formatTime(dateString) { %>
+    <% const date = new Date(dateString); %>
+    <%const formattedTime = date.toLocaleString("en-US", {hour: "numeric",minute: "2-digit",hour12: true});%>
+    <%= formattedTime %>
+<% } %>
+
+<%let address=user.address.split('\n')%>
+<main style="margin: auto; margin-top: 3vw; width: 80%; margin-bottom: 5%;">
+    <span class="tq" style="display: inline-block; font-size: 1.4vw; font-weight: 300; color: #333; margin-bottom: 1%;">New order received</span>
+    <section id="main" style="background-color: #e6faff; padding: 1% 2%; color: #333;">
+            <h1 class="receipt-heading" style="font-size: 2.4vw; font-weight: 200;">Receipt</h1>
+        <hr>
+            <div>
+                <p style="font-size: 1.4vw; font-weight: 200; color: #555;"><strong style=" font-size: 1.3vw; font-weight: 400 ; color: #333;margin-right: 1%;">Order Number:</strong> <%= order._id %></p>
+                <p style="font-size: 1.4vw; font-weight: 200; color: #555;"><strong style=" font-size: 1.3vw; font-weight: 400 ; color: #333;margin-right: 1%;">Purchase Date:</strong> <%= formatDate(order.createdAt) %>, <%= formatTime(order.createdAt) %></p>
+                <p style="font-size: 1.4vw; font-weight: 200; color: #555;"><strong style=" font-size: 1.3vw; font-weight: 400 ; color: #333;margin-right: 1%;">Customer:</strong> <%= user.name %></p>
+                <p style="font-size: 1.4vw; font-weight: 200; color: #555;"><strong style=" font-size: 1.3vw; font-weight: 400 ; color: #333;margin-right: 1%;">Email:</strong> <%= user.email %></p>
+                <p style="font-size: 1.4vw; font-weight: 200; color: #555;"><strong style=" font-size: 1.3vw; font-weight: 400 ; color: #333;margin-right: 1%;">Phone:</strong> <%= user.phone %></p>
+            </div>
+            <h2 class="product-heading" style="font-size: 2vw; font-weight: 300; border-top: 1px solid #999;color:#333;">Products:</h2>
+            <div class="product-list" style="margin-left: 2%;">
+                <div class="product-list-heading" style="border-radius: 4px; background-color: #48cae4; font-weight: 300; color: #333; padding: 1%; font-size: 1.5vw;">
+                    <span style="display: inline-block;width: 50%;" class="p-l-name">Product Name</span>
+                    <span style="display: inline-block;width: 15%;text-align: center;" class="p-l-quantity">Quantity</span>
+                    <span style="display: inline-block;width: 15%;text-align: center;" class="p-l-unit">Unit Price</span>
+                    <span style="display: inline-block;width: 15%;text-align: center;" class="p-l-total">Total Price</span>
+                </div>
+                <% for (let product of order.products) { %>
+                    <div class="product-list-row" style="padding: 1%; color: #555; font-size: 1.2vw; padding-left: 2%; display: flex; justify-content: space-between;">
+                        <span style="display: inline-block;width: 50%;" class="p-l-name"><%= product.product.name %></span>
+                        <span style="display: inline-block;width: 15%; text-align: center;" class="p-l-quantity"><%= product.quantity %></span>
+                        <span style="display: inline-block;width: 17%; text-align: center;" class="p-l-unit">₹<%= parseFloat(product.product.selling_price).toFixed(2) %></span>
+                        <span style="display: inline-block;width: 17%; text-align: center;" class="p-l-total">₹<%= parseFloat(product.product.selling_price*product.quantity).toFixed(2) %></span>
+                    </div>
+                <% } %>
+            </div>
+            <p class="bd-top" style="border-top: 1px solid #999; font-size: 1.4vw; font-weight: 300; color: #555;"><strong style="font-size: 1.3vw; font-weight: 400 ; color: #333;margin-right: 1%;">Mode of Payment:</strong>Cash on Delivery</p>
+            <p style="font-size: 1.4vw; font-weight: 200;"><strong style="font-size: 1.3vw; font-weight: 400 ; color: #333;margin-right: 1%;">Total Amount:</strong> ₹<%= order.totalAmount %></p>
+            <p style="font-size: 1.4vw; font-weight: 200;"><strong style="font-size: 1.3vw; font-weight: 400 ; color: #333;margin-right: 1%;">Shipping Address:</strong>
+                <% for (let i of address) { %>
+                    <p class="address" style="font-size: 1.4vw; font-weight: 300; color: #555;"><%= i %></p>
+                <% } %>
+            </p>
+            <hr>
+    </section>
+</main>

@@ -1,0 +1,388 @@
+<link rel="stylesheet" href="<%=assetPath('singleProduct.css')%>">
+<main class="main-container">
+    <div class="image-preview-container">
+        <%for(let i=0; i< product.photos.length;i++){%>
+            <div class="image-preview"><img src="<%=product.photos[i]%>" index="<%=i%>" alt="product Image"></div>
+            <%}%>
+    </div>
+
+    <div class="swiper image-container" id="swiperContainer">
+        <div class="swiper-wrapper">
+            <%for(let i of product.photos){%>
+                <div class="swiper-slide"><img src="<%=i%>" alt="product Image"></div>
+                <%}%>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <div class="content-container">
+        <div class="product-name">
+            <%=product.name%>
+        </div>
+        <div class="reviews">
+                <span class="review-stars" style="width: <%=(product.review_rating.toFixed(2)*1.71)%>vw;">
+                    <%if(product.review){%>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    <%}%>
+                </span>
+            <span class="review-data">
+                    (<%=product.review_rating.toFixed(2)%> stars | <%=product.review.length%> reviews)
+            </span>
+        </div>
+        <div class="price-div">
+            <div class="selling-price">₹<%=product.selling_price%>
+            </div>
+            <div class="MRP">₹<%=product.mrp%>
+            </div>
+            <!-- <div class="discount">Save &nbsp;<i class="fa-solid fa-indian-rupee-sign"></i><%=(product.mrp-product.selling_price)%></div> -->
+        </div>
+        <div class="discount">Flat <%=Math.ceil(((product.mrp-product.selling_price)*100) /product.mrp)%>% Off</div>
+        <div class="inventory-status">
+            <div class='counter'>
+                <div class='minus' onclick='decreaseCount(event, this)'><i class="fa-solid fa-minus"></i></div>
+                <input type="text" name="product_quantity" value="1" id="product-quantity">
+                <div class='plus' onclick='increaseCount(event, this)'><i class="fa-solid fa-plus"></i></div>
+            </div>
+            <%if(product.inventory==0){%>
+                <span>Sorry, we are out of stock!</span>
+            <%}else{%>
+                <%if(product.inventory< 10){%>
+                    <span>Only <%=product.inventory%> left in stock!</span>
+                <%}%>
+            <%}%>
+        </div>
+
+        <div class="wish-cart">
+            <form action="/users/add-to-wishlist" method="post" class="wish-form">
+                <%if(locals.user){%>
+                    <input  style="display: none;" type="text" name="user_id" value="<%=locals.user._id%>" >
+                <%}%>
+                    <input style="display: none;"  type="text" name="product_id" value="<%=product._id%>" >
+                <%if(locals.toggledWish){%>
+                    <div class="wish" id="wish">
+                        <button id="b2"><i class="fa-solid fa-heart"></i></button>
+                    </div>   
+                <%}else{%>
+                    <div class="wish" id="wish">
+                        <button id="b2"><i class="fa-regular fa-heart" id="heart"></i></i></button>
+                    </div>  
+                <%}%>
+            </form>
+            <%if(product.inventory!=0){%>
+            <form action="/users/add-to-cart" method="post" class="cart-form">
+                <%if(locals.user){%>
+                    <input  style="display: none;" type="text" name="user_id" value="<%=locals.user._id%>" >
+                <%}%>
+                <input style="display: none;"  type="text" name="product_id" value="<%=product._id%>" >
+                <input style="display: none;"  type="number" name="product_quantity" id="product-quantity-real">
+                <%if(locals.toggledCart){%>
+                    <div class="cart" id="cart"><button id="b1">Go to Cart <i class="fa-solid fa-cart-shopping"></i></button></div>
+                <%}else{%>
+                        <div class="cart" id="cart"><button id="b1">Add to Cart <i class="fa-solid fa-cart-shopping"></i></button></div>
+                <%}%>
+            </form>            
+            <%}%>
+
+        </div>
+        <div class="description">
+            <h2>Product Description</h2>
+            <%if(product.description.length>250){%>
+                <span class="description-content">
+                    <%=product.description.slice(0,250)%>
+                </span>
+                <span class="readmore">...show more</span>
+            <%}else{%>
+                <span class="description-content">
+                    <%=product.description%>
+                </span>
+            <%}%>
+        </div>
+        <%let stars=[0,0,0,0,0]%>
+        <%if(product.review){%>
+            <%for(let i of product.review){%>
+                <%stars[i.stars-1]++%>
+            <%}%>
+        <%}%>
+        <div class="review-details">
+            <h2 class="review-details-heading">Customer Reviews</h2>
+            <div class="review-details-container">
+                <div class="review-details-row"><span class="review-details-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span><div class="outer-review-div"><div class="inner-review-div" style="width:<%=(isNaN(stars[4]/product.review.length)?0:(stars[4]/product.review.length)*100)%>%"></div></div><span class="review-details-percent"><%=(isNaN(stars[4]/product.review.length)?0:(stars[4]/product.review.length)*100).toFixed(0)%>%<span class="review-details-count">(<%=stars[4]%>)</span></span></div>
+                <div class="review-details-row"><span class="review-details-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></span><div class="outer-review-div"><div class="inner-review-div" style="width:<%=(isNaN(stars[3]/product.review.length)?0:(stars[3]/product.review.length)*100)%>%"></div></div><span class="review-details-percent"><%=(isNaN(stars[3]/product.review.length)?0:(stars[3]/product.review.length)*100).toFixed(0)%>%<span class="review-details-count">(<%=stars[3]%>)</span></span></div>
+                <div class="review-details-row"><span class="review-details-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></span><div class="outer-review-div"><div class="inner-review-div" style="width:<%=(isNaN(stars[2]/product.review.length)?0:(stars[2]/product.review.length)*100)%>%"></div></div><span class="review-details-percent"><%=(isNaN(stars[2]/product.review.length)?0:(stars[2]/product.review.length)*100).toFixed(0)%>%<span class="review-details-count">(<%=stars[2]%>)</span></span></div>
+                <div class="review-details-row"><span class="review-details-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></span><div class="outer-review-div"><div class="inner-review-div" style="width:<%=(isNaN(stars[1]/product.review.length)?0:(stars[1]/product.review.length)*100)%>%"></div></div><span class="review-details-percent"><%=(isNaN(stars[1]/product.review.length)?0:(stars[1]/product.review.length)*100).toFixed(0)%>%<span class="review-details-count">(<%=stars[1]%>)</span></span></div>
+                <div class="review-details-row"><span class="review-details-stars"><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></span><div class="outer-review-div"><div class="inner-review-div" style="width:<%=(isNaN(stars[0]/product.review.length)?0:(stars[0]/product.review.length)*100)%>%"></div></div><span class="review-details-percent"><%=(isNaN(stars[0]/product.review.length)?0:(stars[0]/product.review.length)*100).toFixed(0)%>%<span class="review-details-count">(<%=stars[0]%>)</span></span></div>
+            </div>
+        </div>
+
+
+        <%if(locals.user && user.adminAccess){%>
+        <div class="edit-product">
+            <button class="edit-button"><a href="/products/edit-product-page?id=<%=product.id%>">Edit Product</a></button>
+            <button class="edit-button"><a href="/products/delete-product?id=<%=product.id%>">Delete Product</a></button>
+        </div>
+        <%}%>
+    </div>
+    
+</main>
+<br><br><br><br>
+
+<section class="review-section">
+    <%function reformatDate(dateStr){%>
+        <%var dArr = dateStr.split("-");%>
+        <%return dArr[2]+ "-" +dArr[1]+ "-" +dArr[0].substring(2)%>
+    <%}%>
+    <%if(locals.user){%>
+        <div class="review-left">
+    <%}else{%>
+        <div class="review-left" style="min-height: 78vh;">
+    <%}%>
+        
+
+
+    <!-- <div class="heading-area">
+        <h2 id="review-left-heading">Ratings & Reviews</h2>
+        <form class="sorter" method="get">
+            <label>Sort By:</label>
+            <div>
+                <select name="sort_by" id="n-p-r">
+                    <option value="username" class="npr" selected>Name</option>
+                    <option value="createdAt" class="npr">Time</option>
+                    <option value="stars" class="npr">Stars</option>
+                </select>
+            </div><br>
+            <div>
+                <select name="order" id="a-d">
+                    <%if(locals.order==1){%>
+                        <option value=1 class="ad" selected>Ascending</option>
+                        <option value=-1 class="ad">Descending</option>
+                    <%}else{%>
+                        <option value=1 class="ad">Ascending</option>
+                        <option value=-1 class="ad" selected>Descending</option>
+                    <%}%>
+                </select>
+            </div>
+        </form>
+    </div> -->
+
+        <h2 id="review-left-heading">Ratings & Reviews</h2>
+
+        <ul id="review-list">
+        <%for(let i of product.review){%>
+            <li class="customer-review" >
+                <div class="customer-rating" style="width: <%=(parseInt(i.stars)/5)*6.7%>vw">
+                    <i class="fa-solid fa-star" data-value="1"></i>
+                    <i class="fa-solid fa-star" data-value="2"></i>
+                    <i class="fa-solid fa-star" data-value="3"></i>
+                    <i class="fa-solid fa-star" data-value="4"></i>
+                    <i class="fa-solid fa-star" data-value="5"></i>
+                </div>
+
+                    <div class="customer-name"><%= i.username %> <span> | <%=reformatDate(JSON.stringify(new Date(i.createdAt)).slice(1,11))%></span></div>
+                <div class="real-review"><%= i.content %></div>
+                </li>
+        <%}%>
+    </ul>
+</div>
+    <%if(locals.user){%>
+        <div class="review-right review-user">
+            <%}else{%>
+            <div class="review-right">
+    <%}%>
+        <form class="war" id="review-form" action="/reviews/add-review" method="post">
+            <h2 id="post-review-heading">Post a review</h2>
+            <div class="star-rating">
+                <i class="fa-solid fa-star" data-value="1"></i>
+                <i class="fa-solid fa-star" data-value="2"></i>
+                <i class="fa-solid fa-star" data-value="3"></i>
+                <i class="fa-solid fa-star" data-value="4"></i>
+                <i class="fa-solid fa-star" data-value="5"></i>
+            </div>
+            <%if(locals.user){%>
+                <input type="text" class="product-input-id" name="username" value="<%=user.name%>" required>
+                <input type="email" class="product-input-id" name="email" value="<%=user.email%>" required>
+                <%}else{%>
+                    <input type="text" class="user-details" name="username" placeholder="Name *" required>
+                    <input type="email" class="user-details" name="email" placeholder="Email *" required>
+                <%}%>
+                <input type="text" class="product-input-id" name="product" value="<%=product._id%>" required>
+                <input type="number" class="stars-input" name="stars" required>
+            <div class="textarea">
+                <textarea name="content" rows="5" placeholder="Type your review here...."></textarea>
+            </div>
+            <button class="review-submit" type="submit">Post review</button>
+        </form>
+    </div>
+</section>
+<script type="text/javascript" src="/JS/singleProduct.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<script>
+
+let productQuantity=document.getElementById('product-quantity');
+let productQuantityReal=document.getElementById('product-quantity-real');
+let cartForm=document.getElementsByClassName('cart-form')[0];
+let cartButton=document.getElementById('cart');
+if(cartButton){
+    cartButton.onclick=function(e){
+        e.preventDefault();
+        productQuantityReal.setAttribute('value',parseInt(productQuantity.value));
+        cartForm.submit();
+    }
+}
+
+
+// function increaseCount(e, el) {
+//     var input = el.previousElementSibling;
+//     var value = parseInt(input.value, 10);
+//     value = isNaN(value) ? 0 : value;
+//     maxValue = parseInt(<%=product.inventory %>);
+//     if (value < maxValue) {
+//         value++;
+//     }
+//     // Notification
+//     input.value = value;
+// }
+
+
+
+{
+    let createReview=function(){
+        let reviewForm=$('#review-form');
+
+        reviewForm.submit(function(e){
+            e.preventDefault();
+            $.ajax({
+                type:'post',
+                url:'/reviews/add-review',
+                data:reviewForm.serialize(),
+                success:function(data){
+                    console.log("The data of review form is ",data.data.review);
+                    let newReview=newReviewDom(data.data.review);
+                    $('#review-list').prepend(newReview);
+                    location.reload();
+                },
+                error: function(err){
+                    console.log("The error is", err.responseText);
+                    location.reload();
+                }
+            });
+        });
+    }
+
+    function reformatDate(dateStr){
+      var dArr = dateStr.split("-");
+      return dArr[2]+ "-" +dArr[1]+ "-" +dArr[0].substring(2);
+    }
+
+    let newReviewDom=function(i){
+        console.log(`<li class="customer-review" >
+                <div class="customer-rating" style="width:${(parseInt(i.stars)/5)*9.3}vw">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+
+                <div class="customer-name">${ i.username } | <span>${reformatDate(JSON.stringify(new Date(i.createdAt)).slice(1,11))}</span></div>
+                <div class="real-review">${i.content }</div>
+            </li>`)
+        return $(`<li class="customer-review" >
+                <div class="customer-rating" style="width:${(parseInt(i.stars)/5)*9.3}vw">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+
+                <div class="customer-name">${ i.username } | <span>${reformatDate(JSON.stringify(new Date(i.createdAt)).slice(1,11))}</span></div>
+                <div class="real-review">${i.content }</div>
+            </li>`)
+    }
+
+    createReview();
+}
+
+
+
+    function increaseCount(e, el) {
+        var input = el.previousElementSibling;
+        var value = parseInt(input.value, 10);
+        value = isNaN(value) ? 0 : value;
+        maxValue = parseInt(<%=product.inventory %>);
+        if (value < maxValue) {
+            value++;
+        }
+        // Notification
+        input.setAttribute('value',value)
+    }
+    function decreaseCount(e, el) {
+        var input = el.nextElementSibling;
+        var value = parseInt(input.value, 10);
+        if (value > 1) {
+            value = isNaN(value) ? 0 : value;
+            value--;
+            input.setAttribute('value',value)
+        }
+    }
+
+
+
+    var swiper = new Swiper(".image-container", {
+        effect:'fade',
+        spaceBetween: 10,
+        centeredSlides: true,
+        grapCursor: true,
+        // loop: true,
+        slidesPerView: 1,
+        // autoplay: {
+        //     delay: 5000,
+        //     disableOnInteraction: false,
+        // },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+
+    let toggledText=false;
+    if (<%= product.description.length > 250 %>) {
+        const readmoreButton = document.getElementsByClassName('readmore')[0];
+        const description = document.getElementsByClassName('description-content')[0];
+        readmoreButton.onclick=()=>{
+            if (toggledText) {
+                toggledText = false;
+                description.innerHTML = `<%=product.description.slice(0,250)%>`;
+                readmoreButton.innerText = "...show more";
+            }
+            else {
+                toggledText = true;
+                description.innerHTML = `<%=product.description%>`;
+                readmoreButton.innerText = "...show less";
+            }
+        }
+    }
+
+    const previewImages = document.querySelectorAll('.image-preview img');
+    previewImages.forEach((img) => {
+        img.addEventListener('click', () => {
+            console.log("Inside Function");
+            const clickedImageSrc = img.getAttribute('src');
+            const clickedImageIndex =parseInt( img.getAttribute('index'));
+            // console.log(clickedImageIndex,clickedImageSrc);
+            swiper.slideTo(clickedImageIndex, 300, false);
+
+        });
+    });
+</script>

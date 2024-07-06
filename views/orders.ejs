@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="<%=assetPath('orders.css')%>">
+<h2 class="order-heading">Order History</h2>
+
+
+<main>
+    <% function formatDate(dateString) { %>
+        <% const date = new Date(dateString); %>
+        <% const day = String(date.getDate()).padStart(2, '0'); %>
+        <% const month = String(date.getMonth() + 1).padStart(2, '0'); %>
+        <% const year = date.getFullYear(); %>
+        <%= `${day}-${month}-${year}` %>
+    <% } %>
+    <%let index=1;%>
+    <div class="individual-order">
+        <div class="serial-number"><h4>S. No.</h4></div>
+        <div class="order-number"><h4>Order Id</h4></div>
+        <div class="detail">
+            <div class="product-details">
+                <div class="product-name"><h4>Product</h4></div>
+                <div class="quantity"><h4>Quantity</h4></div>
+            </div>
+        </div>
+        <div class="ordered-at"><h4>Purchase Date</h4></div>
+        <div class="amount-paid"><h4>Amount Paid</h4></div>
+    </div>
+    
+    <% for (let i of collection) { %>
+        <div class="individual-order2">
+            <div class="serial-number"><%=index++%></div>
+            <div class="order-number"><a target="_blank" href="/orders/receipt?id=<%=i._id%>"><%= i._id %></a></div>
+            <div class="detail">
+                <% for (let j of i.products) { %>
+                    <div class="product-details">
+                        <div class="product-name"><a target="blank" href="/products?id=<%=j.product._id%>"><%= j.product.name %></a></div>
+                        <div class="quantity"><%= j.quantity %></div>
+                    </div>
+                <% } %>
+            </div>
+            <div class="ordered-at"><%= formatDate(i.createdAt) %></div>
+            <div class="amount-paid">₹<%= i.totalAmount %></div>
+        </div>
+    <% } %>
+</main>
