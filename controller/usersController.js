@@ -30,7 +30,7 @@ module.exports.forgotPasswordPage=function(req,res){
 }
 
 module.exports.enterOTPPage=function(req,res){
-  console.log(req.body);
+  // console.log(req.body);
   let OTP=Math.floor(100000 + Math.random() * 900000);
   User.findOne({email:req.body.email})
   .then((user)=>{
@@ -44,7 +44,7 @@ module.exports.enterOTPPage=function(req,res){
     }
 
     else if(user && user.googleAuth){
-      console.log("Can't change Google-authenticated users' passwords.");
+      // console.log("Can't change Google-authenticated users' passwords.");
       req.flash('information',"Can't change Google-authenticated users' passwords.")
       return res.redirect('back');
     }
@@ -63,14 +63,14 @@ module.exports.enterOTPPage=function(req,res){
 
 module.exports.checkOTP=function(req,res){
   if(req.query.otp==req.body.otp){
-    console.log("OTP matched");
+    // console.log("OTP matched");
     return res.render('createNewPassword',{
       title:'Create New Password',
       userEmail:req.query.email})
   }
   else{
     req.flash('error' , 'OTP does not match');
-    console.log("The otp does not match");
+    // console.log("The otp does not match");
     return res.redirect('/users/forgot-password-page');
   }
 }
@@ -128,7 +128,7 @@ module.exports.createUser = async function (req, res) {
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-    const newUser = await User.create({
+     await User.create({
       name:req.body.name,
       email: req.body.email,
       password: hashedPassword,
@@ -203,7 +203,7 @@ module.exports.changePassword = function (req, res) {
     .then((newUser) => {
       if(newUser){
         if (req.body.confirm_password != req.body.new_password) {
-            console.log("Passwords do not match");
+            // console.log("Passwords do not match");
             req.flash('error' , 'Passwords do not match');
             return res.redirect('/users/change-password-page');
         }
@@ -282,7 +282,7 @@ module.exports.addProduct = async (req, res) => {
   try {
       const newProduct = await Product.create(req.body);
       req.flash('information', 'Product added.');
-      console.log("New object that is created", newProduct);
+      // console.log("New object that is created", newProduct);
 
       return res.redirect('back');
   } catch (err) {

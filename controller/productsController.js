@@ -387,7 +387,6 @@ module.exports.editProductPage = function(req,res){
 
 
 module.exports.editProduct=function(req,res){
-    console.log(req.body);
     Product.findOneAndUpdate({_id:req.body.id},req.body)
     .then((productFound)=>{
         req.flash('information',"Product has been updated");
@@ -403,13 +402,12 @@ module.exports.editProduct=function(req,res){
 
 module.exports.deleteProduct=function(req,res){
     let productId=req.query.id;
-    console.log(productId);
     Product.findOne({_id:productId})
     .then((product)=>{
         let category=product.category
         Review.deleteMany({ _id: { $in: product.review }})
         .then(()=>{
-            console.log("All reviews related deleted");
+            // console.log("All reviews related deleted");
             Product.deleteOne({_id:productId})
             .then(()=>{
                 User.find({})
@@ -426,9 +424,9 @@ module.exports.deleteProduct=function(req,res){
                         }
                         // console.log("***",user)
                         user.save();
-                        console.log("User updated");
+                        // console.log("User updated");
                     }                
-                    console.log("Product Deleted");
+                    // console.log("Product Deleted");
                     if(category=='crystal'){
                         res.redirect(`/products/crystal-collection?sort_by=name&order=1`);
                     }
@@ -479,7 +477,7 @@ module.exports.cart=function(req,res){
                 removedCart=true;
             }
             else if(i.product.inventory< i.quantity){
-                console.log("Hi 2")
+                // console.log("Hi 2")
                 req.flash("information","Cart has been updated");
                 i.quantity=i.product.inventory;
                 updatedCart=true;
