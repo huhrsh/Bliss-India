@@ -5,7 +5,7 @@ An e-commerce website for a jewlry brand
 
 Deployed Link: [https://blissindia.onrender.com](https://blissindia.onrender.com)
 
-- _Every user who signs in is granted admin access, allowing them to explore the platform._
+<!-- - _Every user who signs in is granted admin access, allowing them to explore the platform._ -->
 <!-- - _The hosting platform does not provide persistent disk, and so the images fail to load everytime the server restarts_ -->
 
 
