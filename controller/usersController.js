@@ -198,36 +198,77 @@ module.exports.changePasswordPage = function (req, res) {
   })
 }
 
-module.exports.changePassword = function (req, res) {
-  User.findOne({ _id: req.query.id, password: req.body.old_password })
-    .then((newUser) => {
-      if(newUser){
-        if (req.body.confirm_password != req.body.new_password) {
-            // console.log("Passwords do not match");
-            req.flash('error' , 'Passwords do not match');
-            return res.redirect('/users/change-password-page');
-        }
-        else{
-          req.logout(function (err) {
-            if (err) {
-              console.log('Error in destroying the session', err);
-              return;
-            }
-            newUser.password = req.body.new_password;
-            newUser.save();
-            req.flash('information' , 'Password changed.');
-            return res.redirect('/users/sign-in');
-          });
-        }
-      }
-    })
-    .catch((err) => {
-      req.flash('error' , 'Error in changing password');
-      console.log("Error in changing password", err);
-      return res.redirect('back');
-    })
+// module.exports.changePassword = function (req, res) {
+//   User.findOne({ _id: req.query.id, password: req.body.old_password })
+//     .then((newUser) => {
+//       if(newUser){
+//         if (req.body.confirm_password != req.body.new_password) {
+//             // console.log("Passwords do not match");
+//             req.flash('error' , 'Passwords do not match');
+//             return res.redirect('/users/change-password-page');
+//         }
+//         else{
+//           req.logout(function (err) {
+//             if (err) {
+//               console.log('Error in destroying the session', err);
+//               return;
+//             }
+//             newUser.password = req.body.new_password;
+//             newUser.save();
+//             req.flash('information' , 'Password changed.');
+//             return res.redirect('/users/sign-in');
+//           });
+//         }
+//       }
+//     })
+//     .catch((err) => {
+//       req.flash('error' , 'Error in changing password');
+//       console.log("Error in changing password", err);
+//       return res.redirect('back');
+//     })
+// }
 
-}
+module.exports.changePassword = async function (req, res) {
+  try {
+    const user = await User.findById(req.query.id);
+    
+    if (!user) {
+      req.flash('error', 'User not found');
+      return res.redirect('back');
+    }
+
+    const isMatch = await bcrypt.compare(req.body.old_password, user.password);
+    
+    if (!isMatch) {
+      req.flash('error', 'Incorrect old password');
+      return res.redirect('/users/change-password-page');
+    }
+
+    if (req.body.new_password !== req.body.confirm_password) {
+      req.flash('error', 'Passwords do not match');
+      return res.redirect('/users/change-password-page');
+    }
+
+    const hashedPassword = await bcrypt.hash(req.body.new_password, 10);
+    
+    user.password = hashedPassword;
+    await user.save();
+    
+    req.logout(function (err) {
+      if (err) {
+        console.log('Error in destroying the session', err);
+        return;
+      }
+      req.flash('information', 'Password changed.');
+      return res.redirect('/users/sign-in');
+    });
+
+  } catch (err) {
+    req.flash('error', 'Error in changing password');
+    console.log("Error in changing password", err);
+    return res.redirect('back');
+  }
+};
 
 module.exports.addProductPage = function (req, res) {
   res.render('addProductPage', {
